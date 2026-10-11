@@ -1,9 +1,32 @@
 # Optional early invitation records
 
-Scope: `tooling`. Status: **PREPARED_LOCAL / NOT_PUBLISHED / NO_PAYMENT_FLOW**.
+Scope: `tooling`. GitHub claim bootstrap: **PUBLISHED / NO_PAYMENT_FLOW**.
 The free game is independent of registration. This bootstrap preserves early
 invitation claims before an account/referral backend exists. It does not count
 all downloads, installations or active users, and it does not award money.
+
+## Optional verified community route
+
+**Email accounts and shared team cities are NOT_CONNECTED.** Their portal and
+backend are prepared but have not been safely deployed. This guide is the stable
+entry linked by the upcoming game package; opening it creates no account.
+
+For now, optionally [record an early invitation claim](https://github.com/kamenotes88/city-of-light/issues/new?template=invite-registration.yml)
+in GitHub. It is public and requires your explicit submission. Never put your
+email, credentials or private project details in that issue. This is not the
+future private email registration or a payment entitlement.
+
+After safe activation, the optional community account will use email verification,
+a display name and separate consent. It will provide one personal invitation link,
+direct invitees, separate team invitations and the owner's registered-account list.
+Team participation is not referral attribution. The account is a community account,
+not a requirement to join a paid partner programme. Sales and payouts remain
+separate later permissions.
+
+Existing public GitHub claims below are retained as pending evidence. They do
+not become accepted community relationships automatically. Their stable account
+IDs and original claim history must be reconciled in a reviewed import. Both
+routes keep referral attribution separate from payments and team access.
 
 ## What ships at the launch boundary
 
@@ -94,3 +117,4 @@ Do not advertise automated referral tracking or guaranteed future commissions.
 Primary documentation:
 [GitHub issue URL queries](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/creating-an-issue),
 [issue form schema](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-githubs-form-schema).
+
