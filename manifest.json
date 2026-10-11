@@ -1,0 +1,126 @@
+{
+  "format_version": 1,
+  "engine_version": "0.11.0",
+  "profile_version": 1,
+  "license_status": "EFFECTIVE",
+  "provenance_status": "REVIEWED",
+  "entrypoint": "Start.html",
+  "network_required": false,
+  "includes_user_data": false,
+  "connectors": "manual-context only",
+  "channel": "preview",
+  "source_sha256": "33a0eb89296c8787f236c4efe2c36d7055bd8250201c753562e6f1f334f3ca4f",
+  "sources": {
+    "PRODUCT_FILES.json": "6b31182c25b46a1eb200a68b40ace5839342aa46153ea69f13ad275879eea1da",
+    "build_portable.py": "f0394bcb412af431c8ea58fd99aa7f1a0748d7636590dda61bd4c02cfd881361",
+    "graphify-out/product-history/INSTALL.md": "4493443166e296e0479c0f36bfe53c395a79d05235b61872727116b598601746",
+    "graphify-out/product-history/LICENSE": "905c2ec11b6a5fdc91154b8a0cad622dc62666feed5667c4fb60605470a9a880",
+    "graphify-out/product-history/NOTICE": "d9318505d93999d6bbc84d2576f24fea84e23c4a317a2ba82f26d637ad99b833",
+    "graphify-out/product-history/extensions.json": "70405751cdd3657e5fab27c9417d144e02367bd656a9c0f7e169daba2fa91185",
+    "graphify-out/product-history/install-world.py": "c0311963f23c82d07a31c3409f7eb5c04c46c6adbb5a6cb3802561a5d9cff577",
+    "graphify-out/product-history/journey-core.js": "62984b5fd06023fe265229bd1a2567da91eee142118c9da0c9b58b56156fdf11",
+    "graphify-out/product-history/journey.css": "21e16c6d0a7a97b761f8242b161e937bee790472c0c73dc3fe655d20e7b62658",
+    "graphify-out/product-history/journey.js": "73a03ffa972a8e440194ad2356a25390a67eeb48f34d24aa7af4b5af05822c47",
+    "graphify-out/product-history/knowledge.css": "19a40b9ea45fd31e29859c0890657a7ae48e2c95622e952b7603024118222c58",
+    "graphify-out/product-history/knowledge.js": "d661e1456ff4492f741ee86c0ac0f33762a0052e8240b2d145107ec61cad0ba5",
+    "graphify-out/product-history/locale-catalogue.json": "7a6a58d267c8c47e52c0cc5c22f7dcf4a475463c1f4881e1e52fa7971bff6940",
+    "graphify-out/product-history/mobile.css": "471fd1ec6803b16ae0884b1aa1c0a40f901bbbb263ab80c545a97ecd4c9e9579",
+    "graphify-out/product-history/playground-chiptune.js": "6be095fa590ef7ff8e9f1cb77dd5a7f7a047cad2e113b1e008522b29fef84e40",
+    "graphify-out/product-history/playground-game.css": "6692bfc2f8ec868a6015fe788cb50b7b2c569992a4749a1dbca8f8a82d74595c",
+    "graphify-out/product-history/playground-game.js": "8d71bb9a8d245cb99426a4a6fa00e6b3c0d1b81e2aedfbd4bfcec078a52f5ed6",
+    "graphify-out/product-history/playground-missions.css": "7b45286538367a8187975dd0e386a469f2e3e6be12a6ccf897339417c374bc6d",
+    "graphify-out/product-history/playground-motion.js": "2e0e66be76e0988544e69b27e315bc6b48c5c405a6e8c16a7da94bde0d1430b4",
+    "graphify-out/product-history/playground-pixel-art.js": "cc2d4214dcc867573b6b2dc834aae550b2a4acb35b90886c19da4821d82c0bf9",
+    "graphify-out/product-history/playground-retro.css": "78afbc93c41ac6fc06ed8d263de11dda2ba8fe49b75ec54507a153c6cbcdd61d",
+    "graphify-out/product-history/playground-retro.js": "575162bea0a6ac49ba91ac81371e141cfe81e99cd0c751fe8ff889b2a1ed3773",
+    "graphify-out/product-history/playground-shell.css": "d8ee451d9bffa27a755a6c36c0ee7ced60b749cfdb7a7dc82a9a3c975b52c80e",
+    "graphify-out/product-history/playground-shell.js": "e6ebe2168127cc45f64636c6b82beb15cbdad3679de3bacacdd6bb085f97c482",
+    "graphify-out/product-history/playground-world.css": "e1a6ecfb97eec74b6b57b299bdd9f364cdfc3aa58b3807adafdaaabbf1de68e7",
+    "graphify-out/product-history/playground.css": "b506c62f62dbe24cc4b4072bb5392c432e345b07834a9362ebc71bac644512f3",
+    "graphify-out/product-history/playground.html": "e62a2a49c84ed5ac5ed928f2d99d49bea6fa5a136d9488f38b8f3f10aea15ab4",
+    "graphify-out/product-history/playground.js": "3263b6a10a58acdb50ed43d2d5b7a4823188dd5b480356b63d165a8b054f14da",
+    "graphify-out/product-history/project-world-skill.md": "943807212afb12014bd5d8d94bdcfdb9fe5c5d7d205c98e9c9a44f1ab7f332fc",
+    "graphify-out/product-history/setup-world.cjs": "05f9450c7547693efb5426ef8f2dd7d75fba11a732b89321ff2cf593bad6395c",
+    "graphify-out/product-history/start.html": "aa08cc41e713ef0569a86957262a8d519ed866984852143c898e6e764ef3fd52",
+    "graphify-out/product-history/upgrade-catalog.js": "157d3c2a2ad7bec8f7bc40297c084e2217f392edc32ea8fd36fe0e2b12fad60e",
+    "graphify-out/product-history/upgrade-core.js": "998f6d7395c364abdb9d5d6149f1eb937757d106adfaa70dbafd5e5aff0119e8",
+    "graphify-out/product-history/upgrade-panel.css": "bce1aeb6263d63d2a78d75108cad0396bb51966be8b30597a438615a616ac3fc",
+    "graphify-out/product-history/upgrade-panel.js": "57817e518ca697e31536390e7a1e70cb8d13babbbdcc9622f9ecc060747d4324",
+    "graphify-out/product-history/world-backup.css": "309c1ce2680f79c2f498830bca3fa2434422f9738034b76921d60179f8ea66bf",
+    "graphify-out/product-history/world-backup.js": "6944d0e1e693c85f3f6a194693591b5240446d80cd60bfe40fc4412f3e220ab6",
+    "graphify-out/product-history/world-bundle.js": "fe9ae4d45f81df44414b012266c6cae7af23a94bc48040ebde8738defd50c078",
+    "graphify-out/product-history/world-core.js": "5cb2f247339e361ad50c6ad457fdc9646251174a594e906755d6a9f967985fc3",
+    "graphify-out/product-history/world-graph-boot.js": "12b980260d58e451d6147de35f966b908ca672db76b7033ec2d6c27d836504b3",
+    "graphify-out/product-history/world-graph-core.js": "5ae7cc3e552abeeb0259e39af498291fe5e45faecc7dd6a1c2e6ec3f4794cb95",
+    "graphify-out/product-history/world-locale.js": "71979cd3e7fc0893b07a342803079eeb553895c16119d22b551bd0aa45227847",
+    "graphify-out/product-history/world-package.js": "217faa0aef2ec4c609a9cbcbe4efd99479745acb09c76566b7c5191276f58378",
+    "graphify-out/product-history/world-save.js": "948aa6c56373a65165072e5cbc07870b7a1f2aa68e9d62afa382dd0b5b17d167",
+    "graphify-out/product-history/world-start.css": "bdad6a82a2f14b24017d97f3436951b47fe1d85a19b835b1e3a2668ae26f98d1",
+    "graphify-out/product-history/world-start.js": "3b792121f3b96db0bf207d7ffab1ff6c560d50869166023d6d511e60eb603691",
+    "graphify-out/product-history/world-universe.css": "8d80a916e043255632726b3b7ccd69d9be195b15bbb771643e458ee04c222b96",
+    "graphify-out/product-history/world-universe.js": "67e2230dd28c8d42b4241db3af68a4d3b2ffed44e3c981a9ad8a1e924bedf324",
+    "locale_html.py": "67091a87cad1d292f44e9d7f470153c63f86658516e0e966d3fb16dcde766d77"
+  },
+  "changes": [
+    "Owner-approved first public City of Light preview: effective restricted Free license and notices accompany the engine, installer and generated worlds. Publication destination is kamenotes88/city-of-light; optional early invitation claims remain separate from commerce and verified commissions.",
+    "Prepared universal, optional project-relevant upgrade catalogue and bilingual workshop for new/restored worlds. Owner choices and history survive full backup; source references, compatibility and payment/license readiness remain separate from installation. The unchanged accepted package is retained until the existing license gates pass.",
+    "Shared project cockpit: morning/evening review, three nearest steps in source order, searchable full list and exact source references. Plans remain distinct from accepted results.",
+    "Profile and full backup preview support up to 100 projects with stable IDs, goal versions, custom heroes and bounded fallback colors. This is a data/UI limit, not a promise of concurrent autonomous execution.",
+    "HTTP owner-world views can detect changed published project snapshots and offer guarded reload after save persistence succeeds. Personal and restored worlds remain isolated. Chat ingestion, background execution and commercial update delivery are unchanged.",
+    "Full history verification remains sequential: combined expanded work is bounded at 100 MiB, while individual archives and bundle JSON remain capped at 50 MiB. Existing owner history is retained without pruning.",
+    "Planned 0.10.0 remains unpromoted while required registered LICENSE/NOTICE materials are absent; previous accepted preview is retained.",
+    "Prelaunch license gate: registered LICENSE and NOTICE are required, checked against manifest and retained in generated and restored standalone worlds. The planned 0.9.0 has not been built or promoted until effective text exists.",
+    "Public-ready exports require effective license and reviewed provenance. Public materials use a strict nested allowlist for documentation, actual fictional demo media, issue forms and a read-only pinned CI workflow. No external publication or commercial acceptance follows.",
+    "English is the default portable interface. A validated language pack localizes onboarding, graph, Journey, game and handoff; Russian remains available. Other languages can be prepared by the user’s assistant as bounded text data. Project IDs, evidence and history are preserved.",
+    "В общий комплект включён оригинальный навык Project World. Генератор создаёт его только в новом личном мире для выбранного Codex или Claude Code, сверяет файлы при повторе и сохраняет существующий мир при несовпадении.",
+    "Каталог extensions.json отделяет базовый мир от необязательных Graphify и Agent Skills. Это проверяемые ссылки с лицензиями и версиями, без автоматических установок, глобальных настроек или подключений аккаунтов.",
+    "Материалы будущего GitHub-запуска подготовлены отдельно от движка: английский README, русский быстрый старт, оригинальная иллюстрация, сценарий демонстрации, обратная связь и проект лицензии. Публикации и независимой приёмки нет.",
+    "Последняя личная подпись Ракеты в игровой истории вынесена из общего движка. Универсальная история опирается на подтверждённый результат без имени или успеха владельца шаблона.",
+    "Подготовлен отдельный проверяемый каталог для GitHub с одним набором версии, manifest и ZIP. Публичная установка требует опубликованной ссылки и независимой приёмки.",
+    "Инструкция фиксирует GitHub ref на commit перед загрузками. Перенаправления не разрешаются. Личные подписи и учебные сюжеты перенесены в локальную конфигурацию; ID аватаров v1 сохранены для совместимости существующих миров.",
+    "Подготовлен отдельный комплект бесплатного эксперимента и вымышленная демонстрация; реестр tooling/generated обновлён. Эти материалы не входят в пользовательский движок. Поведение 0.6.0 сохранено; выпуск не означает публичную или коммерческую приёмку.",
+    "Вход через одну инструкцию для Codex или Claude Code: помощник устанавливает общий пакет и собирает мир из короткого диалога без повторной анкеты.",
+    "Установщик проверяет размер, SHA256, состав ZIP и manifest; повтор не заменяет существующую установку или личный мир.",
+    "Генератор использует тот же движок графа, игры и пути; сохраняет профиль, задание для ИИ и проверяемую квитанцию.",
+    "Браузерный мастер остаётся доступен без Python/Node; выбранные сервисы остаются неподключёнными до отдельной реализации и проверки."
+  ],
+  "automatic_update_delivery": false,
+  "files": {
+    "Start.html": {
+      "bytes": 1042549,
+      "sha256": "043c7c07c410853c1fb7b45d8acd8c0ce9c25d8a0fa4f0c52f6f15683e46f818"
+    },
+    "README.txt": {
+      "bytes": 1255,
+      "sha256": "e56ea52b394f2266323b28be0f10a0821f5a4c16d3e889571f97ad524bb6052f"
+    },
+    "INSTALL.md": {
+      "bytes": 15215,
+      "sha256": "4493443166e296e0479c0f36bfe53c395a79d05235b61872727116b598601746"
+    },
+    "install-world.py": {
+      "bytes": 11182,
+      "sha256": "c0311963f23c82d07a31c3409f7eb5c04c46c6adbb5a6cb3802561a5d9cff577"
+    },
+    "setup-world.cjs": {
+      "bytes": 10748,
+      "sha256": "05f9450c7547693efb5426ef8f2dd7d75fba11a732b89321ff2cf593bad6395c"
+    },
+    "project-world-skill.md": {
+      "bytes": 5667,
+      "sha256": "943807212afb12014bd5d8d94bdcfdb9fe5c5d7d205c98e9c9a44f1ab7f332fc"
+    },
+    "extensions.json": {
+      "bytes": 2226,
+      "sha256": "70405751cdd3657e5fab27c9417d144e02367bd656a9c0f7e169daba2fa91185"
+    },
+    "LICENSE": {
+      "bytes": 4955,
+      "sha256": "905c2ec11b6a5fdc91154b8a0cad622dc62666feed5667c4fb60605470a9a880"
+    },
+    "NOTICE": {
+      "bytes": 1756,
+      "sha256": "d9318505d93999d6bbc84d2576f24fea84e23c4a317a2ba82f26d637ad99b833"
+    }
+  }
+}

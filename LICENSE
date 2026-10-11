@@ -1,0 +1,81 @@
+City of Light / Project World Free
+Restricted source-available Free license
+
+**Licensor.** Serhii Chumachenko.
+**Effective date.** October 11, 2026 (2026-10-11).
+**Public permission contact.** https://github.com/kamenotes88/city-of-light/issues
+
+Copyright 2026 Serhii Chumachenko, for copyrightable
+contributions in which he holds rights.
+
+**Scope.** These terms apply only to rights actually held by the Licensor in
+the Project World parts identified in the approved release manifest:
+the engine, installers, documentation, original skill and their embedded copies
+in permitted generated worlds. Third-party
+components, if present, retain their own licenses and notices; this text does
+not relicense them or restrict rights they have already granted.
+
+**Free use.** You may use the base version you receive indefinitely, without
+payment, for personal activities and your company's internal work, including
+work on your own client projects. You may make backup and working copies for
+yourself and your company, install them on your own devices, and privately
+modify or adapt the code, including with AI assistance.
+
+**User results.** These terms do not require you to transfer rights in your
+data, projects, or materials to us. You may save, export, use, and deliver your
+own data and results to clients when you hold the rights to their contents.
+As a specific exception to the redistribution restriction below, you may
+deliver a generated standalone world HTML to your team or a client as a
+project deliverable, provided you retain its license and notices and do not
+sell or offer the included engine as a reusable product or hosted service.
+Recipients may use that delivered world for their own internal work under
+these same terms. This exception covers the generated world, not the
+installer, reusable template, or a competing distribution of the engine.
+Exporting otherwise does not grant additional rights to included engine
+code. Payment or the expiry of a future subscription does not take away
+saved data or available basic export operations.
+
+**Separate permission.** Except for the generated-world exception above and
+the platform rights described below, transferring, publishing, selling, or distributing
+copies of the parts of the engine owned by us to third parties, including
+modified copies, and providing a service on this engine to third-party users
+require separate written permission from the rights holder in advance.
+Managing a client project in your own installation and delivering your own
+results do not, by themselves, require this permission. You may freely share
+the official release link. Viewing and forking a public repository as allowed
+by the platform are governed by that platform's terms.
+
+**Notices and names.** Permitted copies must retain applicable copyright,
+LICENSE and NOTICE texts, including embedded copies in generated worlds.
+No trademark rights are granted. Retaining names and notices in permitted
+copies and accurate descriptive attribution are allowed. Do not imply
+endorsement or identify a modified copy as an official release.
+
+**Free core and updates.** The core game and local project world are free.
+Published compatible core updates for maintained versions are offered without
+a core subscription. This does not promise a release frequency, perpetual
+maintenance, compatibility with all future systems, support, or availability
+of external services. Basic save and export are not conditioned on a paid tool.
+No update is automatically delivered by the current preview.
+
+**Optional tools and creators.** Separately offered tools, hosted operations
+and support may have their own one-time or recurring prices and terms. They
+are not currently sold by this preview. Users retain rights in their original
+tools and projects; this license does not assign those rights to the Licensor.
+A future marketplace agreement must specify the limited permissions needed to
+host and distribute each offered package, seller support, updates and refunds.
+It does not itself grant permission to resell the included engine or relicense
+third-party code. Changes to paid tool availability cannot delete a user's
+world, evidence or exported results. A purchase never, by itself, authorizes
+spending or actions in accounts that may be connected.
+
+**Quality and liability.** To the extent permitted by applicable law, the
+preview is provided as it is, without a promise of fitness for a particular
+purpose, freedom from errors, commercial results, or data preservation. The
+user checks results and keeps backups. A limitation of liability does not
+override rights that the law does not allow to be excluded.
+
+**Limits of these terms.** These terms apply only to rights the licensor
+actually holds. They do not claim exclusive ownership of ideas, algorithms,
+methods, unprotectable AI output, or an independently developed implementation.
+They do not remove lawful rights that cannot be excluded by applicable law.

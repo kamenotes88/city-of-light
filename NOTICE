@@ -1,0 +1,32 @@
+City of Light / Project World Free
+Effective date: October 11, 2026 (2026-10-11).
+Copyright 2026 Serhii Chumachenko, for copyrightable contributions in which he holds rights.
+Public permission contact: https://github.com/kamenotes88/city-of-light/issues
+
+The applicable restricted source-available terms are in LICENSE. Preserve
+LICENSE and this NOTICE in permitted copies and generated standalone worlds.
+
+The release was created with AI assistance. This notice asserts only rights
+actually held by the Licensor; it does not certify exclusive rights in every
+expression or ownership of ideas, algorithms or independent implementations.
+
+No bundled third-party upstream code, runtimes or recordings were identified
+in the bounded provenance review of its exact inspected inputs. Graphify,
+Addy Osmani's agent-skills and Garry Tan's gstack appear as reference links
+and original catalogue metadata, not bundled upstream skills or runtimes.
+The review is bounded, rather than a worldwide rights or similarity certificate;
+each changed release input requires its own review. Third-party components,
+if separately included in a later release, retain their applicable licenses
+and notices; this NOTICE grants no additional rights in those components.
+
+Pillow and Windows fonts were local rendering tools; their runtimes and font
+files are not included. The package uses generated media and ordinary font
+family references rather than distributing those tools or font files.
+
+Reference links imply no endorsement, installation, security approval or
+permission to access external accounts.
+
+Reference projects:
+Graphify: https://github.com/Graphify-Labs/graphify
+Agent Skills: https://github.com/addyosmani/agent-skills
+gstack: https://github.com/garrytan/gstack

@@ -1,0 +1,25 @@
+{
+  "format_version": 1,
+  "product_id": "project-world",
+  "engine_version": "0.11.0",
+  "channel": "preview",
+  "license_status": "EFFECTIVE",
+  "provenance_status": "REVIEWED",
+  "archive": {
+    "href": "Project-World-Preview.zip",
+    "bytes": 364601,
+    "sha256": "03faa7a8014a82c5afe2320fe07f6f4148e71b230935fd6f8bb21e024acc74f6"
+  },
+  "payload_files": [
+    "Start.html",
+    "README.txt",
+    "INSTALL.md",
+    "install-world.py",
+    "setup-world.cjs",
+    "project-world-skill.md",
+    "extensions.json",
+    "LICENSE",
+    "NOTICE",
+    "manifest.json"
+  ]
+}
