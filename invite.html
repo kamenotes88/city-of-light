@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; base-uri 'none'; form-action https://github.com">
+<title>Project World · Start and invite</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f7f6ef;color:#234340;font:17px/1.6 system-ui,sans-serif}main{max-width:740px;margin:0 auto;padding:36px 20px}h1{font-size:clamp(30px,6vw,46px);line-height:1.15}h2{font-size:22px;margin-top:0}.eyebrow{color:#6a755e;font-weight:700;letter-spacing:.12em;font-size:12px}section{margin:22px 0;padding:24px;background:#fffef8;border:1px solid #d9dfcf;border-radius:18px}.note{padding:16px;background:#f2e8cf;border-radius:12px}.muted{color:#65736d;font-size:15px}label{display:block;font-weight:700}input,textarea{width:100%;font:inherit;padding:12px;border:1px solid #aab8ab;border-radius:9px;margin:7px 0 12px;background:#fff}textarea{min-height:90px;resize:vertical}button,.button{display:inline-block;font:inherit;font-weight:700;padding:12px 18px;background:#236c61;color:#fff;border:0;border-radius:9px;text-decoration:none;cursor:pointer;max-width:100%;overflow-wrap:anywhere}button:disabled,.button[aria-disabled=true]{opacity:.55;cursor:not-allowed}.secondary{background:#e7eee0;color:#234340}a{color:#236c61}a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #e5a13c;outline-offset:3px}[hidden]{display:none}#status{min-height:1.6em;overflow-wrap:anywhere}.actions{display:flex;gap:10px;flex-wrap:wrap}code{overflow-wrap:anywhere;font-size:14px}footer{font-size:14px;color:#65736d}
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">PROJECT WORLD · CITY OF LIGHT</p>
+<h1>A clear next step.<br>Your own project world.</h1>
+<p>Start free with your coding assistant. Invitation registration is a separate, optional step.</p>
+<p id="setup-notice" class="note">Launch preparation: the official repository and pinned installation entry have not been configured. Installation and registration links are disabled.</p>
+<section>
+<h2>1. Start free</h2>
+<p>Copy this instruction into Codex or Claude Code. Setup helps you choose a goal and prepare your local world. External accounts and paid actions require their own permission.</p>
+<label for="install-prompt">Instruction for your assistant</label>
+<textarea id="install-prompt" readonly aria-describedby="setup-notice">The maintainer must supply the official installation entry before publication.</textarea>
+<div class="actions"><button id="copy-install" disabled>Copy instruction</button><a id="install-link" class="button secondary" aria-disabled="true">Read installation details</a></div>
+</section>
+<section>
+<h2>2. Keep an invitation claim — optional</h2>
+<p id="inviter-note">Nobody is named as your inviter.</p>
+<p><strong>Public and optional:</strong> the GitHub registration issue shows your GitHub username and your inviter claim to everyone. Do not add email, payment information or private project data. You may skip it and install free.</p>
+<a id="register-link" class="button" aria-disabled="true">Review public registration form</a>
+<p class="muted">Opening this link does not submit anything. You review the form and choose whether to submit it in your own GitHub account. The maintainer must verify the account and the claim.</p>
+</section>
+<section>
+<h2>3. Invite someone</h2>
+<label for="your-handle">Your GitHub username</label>
+<input id="your-handle" placeholder="octocat" maxlength="39" autocapitalize="none" autocomplete="off" spellcheck="false">
+<button id="make-invite" disabled>Create my invitation link</button>
+<div id="share-area" hidden>
+<label for="share-link">Your link</label><input id="share-link" readonly>
+<button id="copy-share" class="secondary">Copy link</button>
+<p id="share-note" class="muted"></p>
+</div>
+<p class="muted">A link records an inviter hint only after someone voluntarily submits a registration. No reward is earned for registration, downloads or recruitment. Commercial attribution and payments are not connected.</p>
+</section>
+<p id="status" role="status" aria-live="polite"></p>
+<footer>No tracking requests, cookies or background analytics are used by this page. GitHub applies its own account and privacy rules after you choose to open it. Free use is subject to the effective release license; this preparation page grants no new license.</footer>
+</main>
+<!-- The launch exporter replaces this JSON in the staged output only. No public destination is inferred from the browser or from the invitation query. -->
+<script id="invite-config" type="application/json">{"repository":"kamenotes88/city-of-light","installUrl":"https://raw.githubusercontent.com/kamenotes88/city-of-light/1f0a42d2f29398a6196ae64ccd2235b3c2e9b8ab/INSTALL.md"}</script>
+<script id="invite-entry-code">
+(function(root){
+'use strict';
+function validHandle(value){return typeof value==='string'&&/^[a-z\d](?:[a-z\d-]{0,37}[a-z\d])?$/i.test(value)&&!value.includes('--');}
+function checkedConfig(value){
+  if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).sort().join(',')!=='installUrl,repository')throw new Error('The official launch configuration is incomplete.');
+  const parts=typeof value.repository==='string'?value.repository.split('/'):[];
+  if(parts.length!==2||!validHandle(parts[0])||!/^[a-z\d_.-]{1,100}$/i.test(parts[1])||/^\.{1,2}$/.test(parts[1])||value.repository==='OWNER/REPO')throw new Error('The official repository is not configured.');
+  let url;try{url=new URL(value.installUrl);}catch(_){throw new Error('The installation entry is not configured.');}
+  const path=url.pathname.split('/');
+  if(url.protocol!=='https:'||url.hostname!=='raw.githubusercontent.com'||url.username||url.password||url.port||url.search||url.hash||path.length!==5||path[1].toLowerCase()!==parts[0].toLowerCase()||path[2].toLowerCase()!==parts[1].toLowerCase()||!/^[a-f\d]{40}$/i.test(path[3])||path[4]!=='INSTALL.md')throw new Error('A pinned INSTALL.md in the official repository is required.');
+  return Object.freeze({repository:value.repository,installUrl:url.href,owner:parts[0],repo:parts[1]});
+}
+function queryInviter(search){
+  const params=new URLSearchParams(search);const values=params.getAll('inviter');
+  if(values.length===0)return {value:'',invalid:false};
+  return values.length===1&&validHandle(values[0])?{value:values[0],invalid:false}:{value:'',invalid:true};
+}
+function registrationLink(config,inviter){
+  if(inviter&&!validHandle(inviter))throw new Error('Use a valid GitHub username without @.');
+  const url=new URL('https://github.com/'+config.repository+'/issues/new');
+  url.searchParams.set('template','invite-registration.yml');
+  if(inviter)url.searchParams.set('inviter',inviter);
+  return url.href;
+}
+function shareLink(config,handle,pageHref){
+  if(!validHandle(handle))throw new Error('Use a valid GitHub username without @.');
+  let page;try{page=new URL(pageHref);}catch(_){}
+  const expected='/'+config.repo+'/invite.html';
+  if(page&&page.protocol==='https:'&&!page.username&&!page.password&&!page.port&&page.hostname.toLowerCase()===config.owner.toLowerCase()+'.github.io'&&page.pathname===expected){
+    page.search='';page.hash='';page.searchParams.set('inviter',handle);
+    return {url:page.href,kind:'page'};
+  }
+  return {url:registrationLink(config,handle),kind:'form'};
+}
+root.InviteEntry=Object.freeze({validHandle,checkedConfig,queryInviter,registrationLink,shareLink});
+if(typeof document==='undefined')return;
+const get=id=>document.getElementById(id);const status=get('status');let config;
+try{config=checkedConfig(JSON.parse(get('invite-config').textContent));}catch(error){status.textContent=error.message;return;}
+const inviter=queryInviter(root.location.search);
+get('setup-notice').hidden=true;
+get('install-prompt').value='Install and set up Project World using '+config.installUrl+'. Ask only the questions needed for my first goal. Keep my projects local; ask before connecting external accounts, spending money or publishing.';
+get('install-link').href=config.installUrl;get('install-link').removeAttribute('aria-disabled');
+get('register-link').href=registrationLink(config,inviter.value);get('register-link').removeAttribute('aria-disabled');
+get('copy-install').disabled=false;get('make-invite').disabled=false;
+if(inviter.value)get('inviter-note').textContent='Invitation hint: @'+inviter.value+'. Verify it in the registration form; it is not yet confirmed attribution.';
+if(inviter.invalid)status.textContent='The inviter hint is invalid and was ignored. Free installation is still available.';
+async function copy(input){
+  try{if(!root.navigator.clipboard)throw new Error('unavailable');await root.navigator.clipboard.writeText(input.value);status.textContent='Copied.';}
+  catch(_){input.focus();input.select();status.textContent='Copy is unavailable here. The text is selected; copy it manually.';}
+}
+get('copy-install').addEventListener('click',()=>copy(get('install-prompt')));
+get('copy-share').addEventListener('click',()=>copy(get('share-link')));
+get('make-invite').addEventListener('click',()=>{
+  try{const link=shareLink(config,get('your-handle').value.trim(),root.location.href);get('share-link').value=link.url;get('share-area').hidden=false;get('share-note').textContent=link.kind==='page'?'This link opens the official start page with your invitation hint.':'This link opens the optional public GitHub registration form. Free installation remains available in the repository README.';status.textContent='Invitation link prepared; nothing has been sent.';}
+  catch(error){get('share-area').hidden=true;status.textContent=error.message;}
+});
+})(globalThis);
+</script>
+</body>
+</html>

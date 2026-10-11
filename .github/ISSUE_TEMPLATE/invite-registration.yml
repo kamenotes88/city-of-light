@@ -1,0 +1,30 @@
+name: Optional invitation registration
+description: Record who invited you; free installation does not require registration.
+title: "[Invitation] Optional registration"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **This issue is public.** Your GitHub username, the inviter you name and this
+        claim will be visible to everyone. Do not include email, payment details,
+        private projects or personal documents. You can install and use the free
+        product without registering. See the repository README for installation.
+
+        This records a claim for later maintainer review, not confirmed attribution,
+        a license, a payout or an active commercial program. Registration and
+        recruitment earn no reward. Future approved commercial terms are separate.
+  - type: input
+    id: inviter
+    attributes:
+      label: Direct inviter's GitHub username
+      description: Optional. Enter one username without @, or leave empty if nobody invited you. A prefilled value is a hint; verify it yourself.
+      placeholder: octocat
+    validations:
+      required: false
+  - type: checkboxes
+    id: public-consent
+    attributes:
+      label: Public registration
+      options:
+        - label: I understand this issue is public and optional, and I have checked the inviter claim above. It does not promise payment or verified attribution.
+          required: true

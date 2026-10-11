@@ -1,0 +1,34 @@
+name: Installation or interface problem
+description: Help us reproduce one problem without private project data.
+title: "[Bug]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: "Use fictional examples. Do not upload credentials, personal exports or raw chat history. For security issues, follow SECURITY.md."
+  - type: input
+    id: version
+    attributes:
+      label: Preview version
+      description: The version reported by setup-world.cjs --verify or the package manifest.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Your setup
+      placeholder: "Windows / macOS / Linux; browser; Codex / Claude Code / manual"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: The smallest steps that reproduce the problem
+      description: Include what you expected and what happened. Redact personal details.
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: Redacted error text or screenshot
+      description: Optional. Check every screenshot and message for private information first.
