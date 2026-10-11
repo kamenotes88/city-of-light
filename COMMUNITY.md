@@ -31,8 +31,9 @@ source-available, not MIT or unrestricted open source. Permission for generated
 world deliverables is separate from distributing or hosting the reusable engine.
 Contribution guidance does not assign anyone's intellectual property.
 
-English and Russian are built in. Other translation packs must be complete
-data files with preserved keys, placeholders and allowed markup. State what
+English is the public default. See [Use your language](README.md#use-your-language)
+for reading the description and setting up your personal interface. Translation
+packs must be complete data files with preserved keys, placeholders and allowed markup. State what
 language and visual review you actually performed; structural checks alone
 do not certify quality.
 

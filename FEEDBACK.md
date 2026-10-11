@@ -29,18 +29,14 @@ One specific future paid operation you would value, and why (optional):
 feature is not a purchase commitment. Stars, downloads, registrations and using
 a world are different outcomes.
 
-English and Russian are built in. Other languages use a complete data-only
-translation pack prepared by your assistant. Package checks are separate from
+English is the public default. Your assistant can use an available built-in
+language pack or prepare a complete data-only pack for your chosen language.
+See [Use your language](README.md#use-your-language). Package checks are separate from
 translation and visual quality. Version 0.11.0 passed local package checks.
 Automated anonymous HTTPS installation and repeat preservation also passed on
 the maintainer's computer. Independent user installation, native assistant skill
 discovery and other-language quality remain unverified. Please report your
 observed version and experience rather than assuming another person's result.
 
-## По-русски
-
-Достаточно версии, среды и коротких ответов: открылся ли свой мир; понятен ли
-следующий шаг; вернулись ли вы позже; удалось ли избежать конкретного повторного
-поиска или действия. Если не пробовали или ещё не возвращались, так и напишите.
-Личные файлы, переписки и пароли не нужны. Отзывы — в GitHub Issues; детали
-уязвимости отправляйте только через проверенный приватный канал из SECURITY.md.
+You may send feedback in your preferred language. Your assistant can explain
+this form in that language; no extra registration or translated form is needed.

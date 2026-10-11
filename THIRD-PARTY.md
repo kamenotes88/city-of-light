@@ -52,7 +52,7 @@ identified in this bounded payload review.
 | Mixed HTML templates | Common product mechanism reviewed; builder removes guarded local navigation/data areas and local-city config | Only normalized common extraction belongs in the portable engine |
 | Pixel artwork | Local creation event and source inspected: integer Canvas rectangles, local palettes/maps/avatars. No external image, sprite sheet or drawing library found | Embedded procedural code; no asset file or known upstream artwork included |
 | Six chiptune scores | Initial local creation event inspected; all six current lead-score lines equal the original lines. Oscillators and generated noise, without samples or recordings | Embedded Web Audio code and scores; no external recording/music license found to collect |
-| English/Russian catalogue | Completed local extraction/translation generation and current complete-pack validation inspected | Data-only built-in catalogue; independent translation quality acceptance remains a separate check |
+| Built-in language catalogue | Completed local extraction/translation generation and current complete-pack validation inspected | Data-only built-in catalogue; independent translation quality acceptance remains a separate check |
 | External extension catalogue | Original metadata and links, without copied upstream skill/code | Links are references; selection does not establish security, installation, availability or account permission |
 
 A narrow comparison of whole normalized lines of at least 100 characters

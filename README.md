@@ -2,6 +2,8 @@
 
 **Turn project chaos into one clear next step.**
 
+English is the public default. [Read and use it in your language](#use-your-language).
+
 [![Check exported preview](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml/badge.svg)](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml)
 
 A local project world for people who work with Codex or Claude Code. Keep
@@ -31,6 +33,7 @@ Install and set up City of Light (Project World engine) using https://raw.github
 Start with one useful result. Reuse the context I have already permitted,
 ask up to three short questions, and help me open my own world.
 Use my known language preference, otherwise English.
+Set the actual world interface to the same language.
 Use available tools. Do not connect accounts, spend, publish, or install
 third-party extensions without my separate permission.
 ```
@@ -44,9 +47,30 @@ Prefer a browser? Download and extract the [preview archive](Project-World-Previ
 then open `Start.html` in a modern browser. This route needs neither Python nor
 Node. Independent direct-file opening is not yet verified; see the status below.
 
-**English and Russian are built in.** Your assistant uses your known language
-preference. For another language, it can prepare a complete data-only translation
-pack; completeness checks do not certify translation quality.
+## Use your language
+
+Tell your assistant your preferred language once, or let it reuse a preference
+you have already supplied. The public documentation and initial browser screen
+are English; your personal world can use your chosen language.
+
+To read the description before installing, ask your assistant:
+
+```text
+Explain the official City of Light README in my preferred language, including
+what works now, setup requirements, limitations and license terms.
+Keep official links, filenames and commands unchanged.
+```
+
+During setup, the assistant must set the actual interface language, not only
+reply in that language. It uses a built-in pack when available, or prepares a
+complete data-only translation pack from the English template. The pack covers
+onboarding, the graph, timeline, game and AI handoff; project data and IDs stay
+unchanged. Completeness checks do not certify translation quality, so ask the
+assistant to check the rendered result and report any unreviewed language.
+
+The browser-only starter currently opens in English and has no language switch.
+Use the assistant setup above for another language. Translating a web page in
+your browser does not change the saved program's interface language.
 
 ## What your world does
 
@@ -128,17 +152,17 @@ The 364,601-byte archive contains effective LICENSE/NOTICE; its SHA256 is
 The published commit's twelve package files matched an anonymous HTTPS download
 without redirects. Installation and repeat preservation passed on the maintainer's
 computer, followed by package verification and creation/repeat checks for fictional
-English and Russian worlds. This is automated delivery verification, separate
+worlds using both built-in language packs. This is automated delivery verification, separate
 from independent user acceptance.
 
 The [first GitHub Actions run](https://github.com/kamenotes88/city-of-light/actions/runs/38159140689)
 passed on a fresh Ubuntu runner, checking the published package, isolated
-installation, repeat preservation and fictional English/Russian worlds.
+installation, repeat preservation and fictional worlds using both built-in packs.
 View the current [GitHub CI status](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml).
 Independent user installation remains unverified.
 
 Historical 0.8.0 passed local package, installation and repeat checks; its
-English goal, graph and game, and Russian goal/game were observed locally.
+English goal, graph and game, and the alternative-language goal/game were observed locally.
 Those checks do not accept 0.11.0. Native Codex/Claude UI skill discovery,
 independent direct-file opening and other-language quality review remain
 unverified. Optional tools, online multiplayer, chat-team automation and a
@@ -164,15 +188,3 @@ The first useful trial is simple: open your own world, choose a clear next step,
 then return and resume. A specific example of repeated work avoided helps us
 more than a star alone. Stars and sharing the official link are welcome and
 optional; they unlock no features or rewards.
-
-## Быстрый старт по-русски
-
-Выберите одно дело и один проверяемый результат. Вставьте инструкцию выше
-в Codex или Claude Code: помощник использует разрешённый контекст, задаст до
-трёх коротких вопросов и откроет ваш мир. Русский встроен, английский — по
-умолчанию. Для другого языка помощник может подготовить полный файл перевода.
-
-Сохраните мир и вернитесь к нему позже. Передавайте ИИ только выбранный
-контекст. Игра, карта и график показывают одну работу; учебный опыт, план и
-подтверждённый результат учитываются отдельно. Регистрация приглашения
-необязательна, платежи и автоматическая работа команды чатов пока не подключены.
