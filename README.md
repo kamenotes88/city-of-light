@@ -2,6 +2,8 @@
 
 **Turn project chaos into one clear next step.**
 
+[![Check exported preview](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml/badge.svg)](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml)
+
 A local project world for people who work with Codex or Claude Code. Keep
 one goal, a way to check success, and the next useful step. Return later with
 your saved context instead of starting the same conversation again.
@@ -129,9 +131,11 @@ computer, followed by package verification and creation/repeat checks for fictio
 English and Russian worlds. This is automated delivery verification, separate
 from independent user acceptance.
 
+The [first GitHub Actions run](https://github.com/kamenotes88/city-of-light/actions/runs/38159140689)
+passed on a fresh Ubuntu runner, checking the published package, isolated
+installation, repeat preservation and fictional English/Russian worlds.
 View the current [GitHub CI status](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml).
-Remote CI execution has not yet been verified. Independent user installation
-also remains unverified.
+Independent user installation remains unverified.
 
 Historical 0.8.0 passed local package, installation and repeat checks; its
 English goal, graph and game, and Russian goal/game were observed locally.
