@@ -14,6 +14,11 @@ Your work has three connected views: a relationship map, a progress timeline,
 and an optional game city. City of Light uses the Project World engine.
 The free core works without registration or a paid subscription.
 
+[Account and invitation setup](INVITATIONS.md) is optional. The email-account
+and shared-team service is not activated yet. You can record an early public
+GitHub invitation claim without sharing your email or private projects.
+Registration, downloads, team access and future referral payouts are separate.
+
 ![Historical English preview 0.8.0: a fictional workshop selected in its relationship map](media/graph.jpg)
 
 *Historical local preview 0.8.0. Fictional project plans, not customer results.*
