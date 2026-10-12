@@ -4,7 +4,7 @@
 
 English is the public default. [Read and use it in your language](#use-your-language).
 
-**[Download Free preview 0.12.2](https://github.com/kamenotes88/city-of-light/releases/tag/v0.12.2)** · [Set up with your AI assistant](#start-with-one-useful-result).
+**[Download full Pro preview 0.13.2](https://github.com/kamenotes88/city-of-light/releases/tag/v0.13.2)** · [Set up with your AI assistant](#start-with-one-useful-result).
 
 [![Check exported preview](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml/badge.svg)](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml)
 
@@ -12,8 +12,9 @@ A local project world for people who work with Codex or Claude Code. Keep
 one goal, a way to check success, and the next useful step. Return later with
 your saved context instead of starting the same conversation again.
 
-Your work has three connected views: a relationship map, a progress timeline,
-and an optional game city. City of Light uses the Project World engine.
+Your work has one shared state with a relationship map, a progress timeline,
+and an optional game city. The full Pro interface adds plans, human decisions,
+working-chat role links, tools and settings. City of Light uses the Project World engine.
 The free core works without registration or a paid subscription.
 
 [Account and invitation setup](INVITATIONS.md) is optional. The email-account
@@ -36,7 +37,7 @@ screenshots of that same 0.8.0 example, rather than continuous gameplay.
    the context you choose with your assistant to continue.
 
 ```text
-Install and set up City of Light (Project World engine) using https://raw.githubusercontent.com/kamenotes88/city-of-light/add74f832f62935ca58f008016b9033419ad2b92/INSTALL.md.
+Install and set up City of Light (Project World engine) using https://raw.githubusercontent.com/kamenotes88/city-of-light/669ec53c92128fe7bd4e2a87afdaeaccd47e8866/INSTALL.md.
 Start with one useful result. Reuse the context I have already permitted,
 ask up to three short questions, and help me open my own world.
 Use my known language preference, otherwise English.
@@ -52,7 +53,7 @@ and archive tools can perform the documented checks instead.
 
 Prefer a browser? Download and extract the [preview archive](Project-World-Preview.zip),
 then open `Start.html` in a modern browser. This route needs neither Python nor
-Node. Independent direct-file opening is not yet verified; see the status below.
+Node. The archive opens locally and creates a separate personal HTML world.
 
 ## Use your language
 
@@ -75,9 +76,10 @@ onboarding, the graph, timeline, game and AI handoff; project data and IDs stay
 unchanged. Completeness checks do not certify translation quality, so ask the
 assistant to check the rendered result and report any unreviewed language.
 
-The browser-only starter currently opens in English and has no language switch.
-Use the assistant setup above for another language. Translating a web page in
-your browser does not change the saved program's interface language.
+The browser wizard opens in English and offers English/Russian before creating
+your world. Settings can change languages or import a complete combined JSON
+pack translated by your assistant. Other languages need both common and Pro
+dictionaries. Your project names, IDs and history stay intact.
 
 ## What your world does
 
@@ -87,7 +89,10 @@ your browser does not change the saved program's interface language.
 | Resume work with your AI | Selected context and an AI handoff you control |
 | Understand connections | Your projects in a relationship map |
 | See progress and setbacks | A timeline that keeps plans separate from evidenced results |
-| Make returning more enjoyable | An optional city/game view of the same work |
+| Make returning more enjoyable | Heroes, missions and a city built around the same work |
+| Manage a project | A draft plan, plot, goals and selected working-chat links |
+| Answer what needs a person | Evidence-backed questions available directly or in a mission |
+| Preserve the whole world | A full Pro backup and separate restoration |
 
 For example, “Launch my workshop” can start with “Ask one reader to review the
 first draft.” Record the result when you have evidence. Playing and learning XP
@@ -157,37 +162,30 @@ from this README without a separately hosted website.
 
 ## Preview status
 
-**Preview 0.12.2 passed its local build and explicit `--check`:** 19 JavaScript
-suites and 16 Python installer cases (15 passed; one OS-dependent check skipped).
-The 380,452-byte archive contains effective LICENSE/NOTICE. Its SHA256 is
-`a43fe8d781a3228f01c39bbd5587e596a5ed30be908a647129237973fd4b4284`;
-the source SHA256 is
-`0297eaa66224ba7cdbc4d843903902f54ba82f0a4782fd401c2b6e0a0df0ca59`.
-The [published 0.12.2 preview](https://github.com/kamenotes88/city-of-light/releases/tag/v0.12.2)
-passed anonymous pinned HTTPS package verification, installation, repeat preservation
-and fictional English/Russian world creation. The [fresh Ubuntu check](https://github.com/kamenotes88/city-of-light/actions/runs/38187294438)
-passed for installer commit `add74f832f62935ca58f008016b9033419ad2b92`.
-Maintainer browser checks verified the notice, mobile dialog, focus return and
-mission pause behavior. These checks do not establish independent user acceptance
-or a security certification.
+**Full Pro preview 0.13.2 passed its local build and explicit `--check`:**
+23 JavaScript suites and 16 Python installer cases (15 passed; one OS-dependent
+check skipped). The 552,855-byte archive contains the effective LICENSE/NOTICE.
+Its SHA256 is `3cc7c9c450d071ce706f37f35c252c2177a0446aaaede575d64d0b417049712f`.
 
-**Historical published preview 0.11.0:** its 364,601-byte archive had SHA256
-`03faa7a8014a82c5afe2320fe07f6f4148e71b230935fd6f8bb21e024acc74f6`.
-The published commit's twelve package files matched an anonymous HTTPS download
-without redirects. Installation, repeat preservation and fictional worlds using
-both built-in language packs were checked on the maintainer's computer.
-The [historical first GitHub Actions run](https://github.com/kamenotes88/city-of-light/actions/runs/38159140689)
-passed on a fresh Ubuntu runner. Those results do not accept 0.12.2.
-View the repository's [GitHub CI status](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml);
-the badge and older runs do not prove an unpublished candidate passed.
-Independent user installation remains unverified.
+The twelve package files matched anonymous, commit-pinned HTTPS downloads with
+redirects refused. Actual installation, repeat preservation and fictional
+English/Russian Pro worlds passed on the maintainer's computer. Native browser
+checks covered all seven views at 375px without horizontal overflow, an English
+interface throughout, language change and reload, project creation, exact full
+backup and separate restoration with the original world preserved. No JavaScript
+errors or warnings were observed in those checks.
 
-Historical 0.8.0 passed local package, installation and repeat checks; its
-English goal, graph and game, and the alternative-language goal/game were observed locally.
-Those checks do not accept 0.12.2. Native Codex/Claude UI skill discovery,
-independent direct-file opening and other-language quality review remain
-unverified. Optional tools, online multiplayer, chat-team automation and a
-signed automatic update service are not supplied by this preview.
+The [fresh Ubuntu check for this package](https://github.com/kamenotes88/city-of-light/actions/runs/38216447307)
+passed for installer commit `669ec53c92128fe7bd4e2a87afdaeaccd47e8866`.
+These checks do not establish independent customer acceptance or security
+certification. Native Codex/Claude UI skill discovery and native quality review
+for additional languages remain unverified.
+
+[Earlier releases](https://github.com/kamenotes88/city-of-light/releases) remain
+available for history and rollback. Their checks do not substitute for this
+release's checks. Email accounts, online/team cities, payment and referral
+payouts, autonomous chat-team deployment and signed automatic update installation
+are not connected in this preview.
 
 ## License and help
 
