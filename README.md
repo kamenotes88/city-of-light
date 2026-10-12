@@ -4,6 +4,8 @@
 
 English is the public default. [Read and use it in your language](#use-your-language).
 
+**[Download Free preview 0.12.2](https://github.com/kamenotes88/city-of-light/releases/tag/v0.12.2)** · [Set up with your AI assistant](#start-with-one-useful-result).
+
 [![Check exported preview](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml/badge.svg)](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml)
 
 A local project world for people who work with Codex or Claude Code. Keep
