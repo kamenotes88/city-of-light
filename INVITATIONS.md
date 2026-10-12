@@ -9,7 +9,7 @@ all downloads, installations or active users, and it does not award money.
 
 **Email accounts and shared team cities are NOT_CONNECTED.** Their portal and
 backend are prepared but have not been safely deployed. This guide is the stable
-entry linked by the upcoming game package; opening it creates no account.
+entry linked by the game package; opening it creates no account.
 
 For now, optionally [record an early invitation claim](https://github.com/kamenotes88/city-of-light/issues/new?template=invite-registration.yml)
 in GitHub. It is public and requires your explicit submission. Never put your
@@ -117,4 +117,3 @@ Do not advertise automated referral tracking or guaranteed future commissions.
 Primary documentation:
 [GitHub issue URL queries](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/creating-an-issue),
 [issue form schema](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-githubs-form-schema).
-

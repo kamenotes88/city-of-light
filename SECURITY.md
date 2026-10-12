@@ -42,15 +42,30 @@ field-name checks cannot identify every secret pasted into free text. Review
 context before sharing it with an AI service.
 
 Keep a compatible full backup before changing engine versions. Do not expose a
-personal HTTP server or graph publicly for mobile access. Automatic updates,
-a signed update feed and authenticated hosted services are not supplied by
-this preview. A previously downloaded version receives no automatic fix.
+personal HTTP server or graph publicly for mobile access. Optional release notices fetch only a bounded text file from our fixed public
+GitHub URL, at most daily. They never execute the feed, upload a world or install
+a release. Disable the checks in Updates. GitHub receives ordinary network
+information such as IP. Notices are informational, not signed update authority.
+Automatic installation, a signed update service and authenticated hosted services
+are not supplied. A previously downloaded version receives no automatic fix.
 
 ## Review scope
 
-Current preview 0.11.0 passed its local package checks and explicit recheck.
-Its published commit's package bytes, HTTPS installation and repeat preservation
-were also checked without authenticated downloads or redirects. These automated
-checks do not establish independent user acceptance or a security certification.
+Current local preview 0.12.2 passed its build and explicit `--check`: 19 JavaScript
+suites and 16 Python installer cases (15 passed; one OS-dependent check skipped).
+Source SHA256: `0297eaa66224ba7cdbc4d843903902f54ba82f0a4782fd401c2b6e0a0df0ca59`.
+The archive is 380,452 bytes; SHA256:
+`a43fe8d781a3228f01c39bbd5587e596a5ed30be908a647129237973fd4b4284`.
+The published 0.12.2 package passed anonymous pinned HTTPS byte verification,
+installation, repeat preservation and fictional English/Russian world creation.
+The [fresh Ubuntu package check](https://github.com/kamenotes88/city-of-light/actions/runs/38187294438)
+passed for installer commit `add74f832f62935ca58f008016b9033419ad2b92`.
+Maintainer browser checks covered notification behavior, mobile layout and focus.
+These checks do not establish independent user acceptance or a security certification.
+
+Historical published preview 0.11.0 passed its local package checks and explicit
+recheck. Its published package bytes, HTTPS installation, repeat preservation and
+GitHub CI were also checked. Those results do not accept 0.12.2. Automated checks
+do not establish independent user acceptance or a security certification.
 Support scope and fixes are stated for each concrete release. Compatibility
 with every future system or indefinite maintenance is not promised.

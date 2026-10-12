@@ -34,7 +34,7 @@ screenshots of that same 0.8.0 example, rather than continuous gameplay.
    the context you choose with your assistant to continue.
 
 ```text
-Install and set up City of Light (Project World engine) using https://raw.githubusercontent.com/kamenotes88/city-of-light/1f0a42d2f29398a6196ae64ccd2235b3c2e9b8ab/INSTALL.md.
+Install and set up City of Light (Project World engine) using https://raw.githubusercontent.com/kamenotes88/city-of-light/add74f832f62935ca58f008016b9033419ad2b92/INSTALL.md.
 Start with one useful result. Reuse the context I have already permitted,
 ask up to three short questions, and help me open my own world.
 Use my known language preference, otherwise English.
@@ -100,7 +100,12 @@ creating a project does not deploy an autonomous chat team or connect accounts.
 Your personal projects, evidence and heroes stay in your world. Save a full
 world export for backup; a profile alone is not a full backup. Restore through
 a compatible engine and keep the original copy before changing versions.
-Downloaded files do not update themselves.
+The **Updates** button checks our public GitHub version notice at most once a day
+while the game is open. A newer release lights the button and explains the changes.
+Turn automatic checks off in that dialog, or check manually. No project contents,
+email or account IDs are sent; GitHub receives normal connection data such as IP.
+Offline play stays available. Downloaded files do not install updates themselves;
+keep a full world backup and follow the new release instructions.
 
 The preview has no automatic usage telemetry. Sharing selected context with
 an AI follows that assistant's permissions and data handling. Do not put
@@ -150,25 +155,34 @@ from this README without a separately hosted website.
 
 ## Preview status
 
-**Preview 0.11.0 passed local package checks:** 16 JavaScript suites and
-16 Python installer cases (15 passed; one OS-dependent check skipped).
-The 364,601-byte archive contains effective LICENSE/NOTICE; its SHA256 is
+**Preview 0.12.2 passed its local build and explicit `--check`:** 19 JavaScript
+suites and 16 Python installer cases (15 passed; one OS-dependent check skipped).
+The 380,452-byte archive contains effective LICENSE/NOTICE. Its SHA256 is
+`a43fe8d781a3228f01c39bbd5587e596a5ed30be908a647129237973fd4b4284`;
+the source SHA256 is
+`0297eaa66224ba7cdbc4d843903902f54ba82f0a4782fd401c2b6e0a0df0ca59`.
+The [published 0.12.2 preview](https://github.com/kamenotes88/city-of-light/releases/tag/v0.12.2)
+passed anonymous pinned HTTPS package verification, installation, repeat preservation
+and fictional English/Russian world creation. The [fresh Ubuntu check](https://github.com/kamenotes88/city-of-light/actions/runs/38187294438)
+passed for installer commit `add74f832f62935ca58f008016b9033419ad2b92`.
+Maintainer browser checks verified the notice, mobile dialog, focus return and
+mission pause behavior. These checks do not establish independent user acceptance
+or a security certification.
+
+**Historical published preview 0.11.0:** its 364,601-byte archive had SHA256
 `03faa7a8014a82c5afe2320fe07f6f4148e71b230935fd6f8bb21e024acc74f6`.
 The published commit's twelve package files matched an anonymous HTTPS download
-without redirects. Installation and repeat preservation passed on the maintainer's
-computer, followed by package verification and creation/repeat checks for fictional
-worlds using both built-in language packs. This is automated delivery verification, separate
-from independent user acceptance.
-
-The [first GitHub Actions run](https://github.com/kamenotes88/city-of-light/actions/runs/38159140689)
-passed on a fresh Ubuntu runner, checking the published package, isolated
-installation, repeat preservation and fictional worlds using both built-in packs.
-View the current [GitHub CI status](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml).
+without redirects. Installation, repeat preservation and fictional worlds using
+both built-in language packs were checked on the maintainer's computer.
+The [historical first GitHub Actions run](https://github.com/kamenotes88/city-of-light/actions/runs/38159140689)
+passed on a fresh Ubuntu runner. Those results do not accept 0.12.2.
+View the repository's [GitHub CI status](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml);
+the badge and older runs do not prove an unpublished candidate passed.
 Independent user installation remains unverified.
 
 Historical 0.8.0 passed local package, installation and repeat checks; its
 English goal, graph and game, and the alternative-language goal/game were observed locally.
-Those checks do not accept 0.11.0. Native Codex/Claude UI skill discovery,
+Those checks do not accept 0.12.2. Native Codex/Claude UI skill discovery,
 independent direct-file opening and other-language quality review remain
 unverified. Optional tools, online multiplayer, chat-team automation and a
 signed automatic update service are not supplied by this preview.
