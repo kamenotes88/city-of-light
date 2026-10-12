@@ -1,14 +1,14 @@
 {
   "format_version": 1,
   "product_id": "project-world",
-  "engine_version": "0.12.2",
+  "engine_version": "0.13.2",
   "channel": "preview",
   "license_status": "EFFECTIVE",
   "provenance_status": "REVIEWED",
   "archive": {
     "href": "Project-World-Preview.zip",
-    "bytes": 380452,
-    "sha256": "a43fe8d781a3228f01c39bbd5587e596a5ed30be908a647129237973fd4b4284"
+    "bytes": 552855,
+    "sha256": "3cc7c9c450d071ce706f37f35c252c2177a0446aaaede575d64d0b417049712f"
   },
   "payload_files": [
     "Start.html",

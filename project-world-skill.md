@@ -51,6 +51,12 @@ unknown until supplied or found through permitted sources.
 Continue an existing world through its supported edit/import route. Preserve a
 full backup before restoring or upgrading; starter answers and a profile are
 not a full backup. Do not replace world data or browser saves with a new plan.
+New public worlds use the full Pro interface. Save world exports a version 2
+Pro backup containing state, language, imported graph and material context.
+Restore it through Settings or Start.html into a separate HTML copy; preserve
+the current world and its browser namespace. Older full world bundles retain
+their compatible original interface. Choose a built-in language at creation
+or use complete common and Pro text dictionaries for another language.
 Installing this skill grants no spending, publication, external writing,
 messages, private-account access, background polling, or third-party installs.
 

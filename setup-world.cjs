@@ -21,16 +21,18 @@ function installed(base){
   if(!engine.legalTexts||engine.legalTexts.license!==fs.readFileSync(path.join(base,'LICENSE'),'utf8').replace(/^\uFEFF/,'')||engine.legalTexts.notice!==fs.readFileSync(path.join(base,'NOTICE'),'utf8').replace(/^\uFEFF/,''))fail('ENGINE_LEGAL_MISMATCH');
   return {engine,manifest,skill:fs.readFileSync(path.join(base,'project-world-skill.md'),'utf8')};
 }
-function initialize(product,locale){
-  const context=vm.createContext({crypto:webcrypto,TextEncoder,__TownLocaleCatalogue:product.engine.locale_catalogue});vm.runInContext(product.engine.assets['world-locale.js'],context,{filename:'world-locale.js',timeout:1000});
-  const selected=context.TownLocale.select(locale);for(const name of ['world-core.js','world-package.js'])vm.runInContext(product.engine.assets[name],context,{filename:name,timeout:1000});
-  return {...product,core:context.TownWorld,pack:context.TownPackage,locale:selected,catalogue:context.TownLocale.catalogue()};
+function initialize(product,locale,proLocale){
+  const context=vm.createContext({crypto:webcrypto,TextEncoder,__TownLocaleCatalogue:product.engine.locale_catalogue,__ProLocaleCatalogue:product.engine.pro?.locale_catalogue});vm.runInContext(product.engine.assets['world-locale.js'],context,{filename:'world-locale.js',timeout:1000});
+  const selected=context.TownLocale.select(locale);for(const name of ['world-core.js','world-package.js',...(product.engine.pro?['pro-locale.js','pro-model.js','pro-package.js']:[])])vm.runInContext(product.engine.assets[name],context,{filename:name,timeout:1000});
+  if(product.engine.pro){context.ProLocale.configure(product.engine.pro.locale_catalogue);context.ProLocale.select(proLocale||(['en','ru'].includes(selected.language.split('-')[0])?{version:1,language:selected.language,direction:selected.direction}:undefined));}
+  return {...product,core:context.TownWorld,pack:context.TownPackage,locale:selected,catalogue:context.TownLocale.catalogue(),proCatalogue:context.ProLocale?.catalogue()};
 }
-function localeTemplate(product,output){
+function localeTemplate(product,output,pro=false){
   output=path.resolve(output);noLinks(output);if(!fs.existsSync(path.dirname(output)))fail('OUTPUT_PARENT_REQUIRED');
-  const content=json({version:1,language:'en',direction:'ltr',messages:product.catalogue}),fd=fs.openSync(output,'wx');
+  if(pro&&!product.proCatalogue)fail('PRO_LANGUAGE_MODULE_REQUIRED');const catalogue=pro?product.proCatalogue:product.catalogue;
+  const content=json({version:1,language:'en',direction:'ltr',messages:catalogue}),fd=fs.openSync(output,'wx');
   try{fs.writeFileSync(fd,content,'utf8');}catch(error){try{fs.closeSync(fd);noLinks(output);fs.unlinkSync(output);}catch(_){}throw error;}finally{try{fs.closeSync(fd);}catch(_){}}
-  return {status:'LOCALE_TEMPLATE_CREATED',output,language:'en',messages:Object.keys(product.catalogue).length};
+  return {status:'LOCALE_TEMPLATE_CREATED',output,language:'en',messages:Object.keys(catalogue).length};
 }
 function existing(output,hash,product,assistant){
   if(!fs.existsSync(output))return false;if(!fs.lstatSync(output).isDirectory())fail('OUTPUT_DIRECTORY_REQUIRED');const entries=fs.readdirSync(output);if(!entries.length)return false;
@@ -47,7 +49,9 @@ async function createWorld(product,answers,output,assistant){
   output=path.resolve(output);noLinks(output);if(!fs.existsSync(path.dirname(output)))fail('OUTPUT_PARENT_REQUIRED');
   const hash=sha(canonical(answers)),repeat=existing(output,hash,product,assistant);if(repeat)return repeat;
   const profile=product.core.create(answers),data=await product.core.dataset(profile);
-  const contents={'My-Project-World.html':product.pack.buildHTML(product.engine,{profile,data}),'world.profile.json':json(profile),'AI-HANDOFF.md':product.core.handoff(profile)+'\n'};
+  const preferredPro=answers.proLocale||(['en','ru'].includes(profile.locale?.language?.split('-')[0])?{version:1,language:profile.locale.language,direction:profile.locale.direction}:undefined);
+  if(product.engine.pro&&profile.locale&&!['en','ru'].includes(profile.locale.language.split('-')[0])&&!answers.proLocale)fail('PRO_LANGUAGE_PACK_REQUIRED: translate the Pro template as answers.proLocale');
+  const contents={'My-Project-World.html':product.pack.buildHTML(product.engine,{profile,data,publicPro:true,proLocale:preferredPro}),'world.profile.json':json(profile),'AI-HANDOFF.md':product.core.handoff(profile)+'\n'};
   const skill=skillPaths[assistant];if(skill)contents[skill]=product.skill;const names=skill?[...outputs,skill]:outputs;
   const receipt={format_version:1,engine_version:product.engine.engine_version,answers_sha256:hash,worldId:profile.worldId,assistant,files:Object.fromEntries(names.map(name=>{const bytes=Buffer.from(contents[name],'utf8');return [name,{bytes:bytes.length,sha256:sha(bytes)}];})),connectors:profile.connectors,external_access:'NOT_CONNECTED',source_acceptance:'NOT_RUN',synchronization:'NOT_IMPLEMENTED'};
   contents[receiptName]=json(receipt);const created=[],directories=[];let madeDirectory=false;
@@ -63,7 +67,7 @@ async function createWorld(product,answers,output,assistant){
 }
 function argumentsFor(args){
   if(args.length===1&&args[0]==='--verify')return {verify:true};
-  if(args.length===2&&args[0]==='--locale-template'&&args[1]&&!args[1].startsWith('--'))return {localeTemplate:args[1]};
+  if(args.length===2&&['--locale-template','--pro-locale-template'].includes(args[0])&&args[1]&&!args[1].startsWith('--'))return {localeTemplate:args[1],proLocaleTemplate:args[0]==='--pro-locale-template'};
   const usage='USAGE: node setup-world.cjs --verify OR --locale-template <new-json-file> OR --answers <json-path> --output <new-personal-world-dir> [--assistant codex|claude|manual]';
   if(![4,6].includes(args.length))fail(usage);const result={};
   for(let i=0;i<args.length;i+=2){if(!['--answers','--output','--assistant'].includes(args[i])||result[args[i].slice(2)]||!args[i+1]||args[i+1].startsWith('--'))fail(usage);result[args[i].slice(2)]=args[i+1];}
@@ -72,8 +76,8 @@ function argumentsFor(args){
 async function main(args=process.argv.slice(2),base=__dirname){
   const options=argumentsFor(args),product=installed(path.resolve(base));
   if(options.verify){initialize(product);return {status:'VERIFIED',engine_version:product.engine.engine_version,profile_version:product.engine.profile_version,license_status:product.manifest.license_status||'DRAFT_NOT_EFFECTIVE',provenance_status:product.manifest.provenance_status||'PENDING',runtime:'NODE_AVAILABLE',external_access:'NOT_CONNECTED'};}
-  if(options.localeTemplate)return localeTemplate(initialize(product),options.localeTemplate);
-  const answers=readJSON(path.resolve(options.answers));return createWorld(initialize(product,answers.locale),answers,options.output,options.assistant);
+  if(options.localeTemplate)return localeTemplate(initialize(product),options.localeTemplate,options.proLocaleTemplate);
+  const answers=readJSON(path.resolve(options.answers));return createWorld(initialize(product,answers.locale,answers.proLocale),answers,options.output,options.assistant);
 }
 if(require.main===module)main().then(result=>process.stdout.write(json(result))).catch(error=>{process.stderr.write('ERROR: '+error.message+'\n');process.exitCode=1;});
 module.exports={main,canonical};

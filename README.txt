@@ -1,12 +1,14 @@
-﻿Project World — portable preview 0.12.2
+﻿Project World — portable preview 0.13.2
 
 English is the default interface. Your assistant can choose Russian or prepare a complete text-only pack for your language.
 Open Start.html in a modern browser, or give your assistant INSTALL.md.
 The assistant asks up to three initial questions and creates a separate personal world using an available Node runtime.
 No language model, paid tool, global plugin or account connection is silently installed.
 The graph, game, Journey and universe share project IDs. Project data and history are not translated or reset.
-Keep world.profile.json beside your world. A full .backup.json preserves records, history and learning.
-Use Develop → Save your world to export; restore separately through a compatible Start.html.
+New worlds use the full public Pro interface: City, Adventure, Progress, Decisions, Teams, Tools and Settings.
+Keep world.profile.json beside your world. Save world exports full Pro state, history, language and imported context.
+Restore separately through Start.html or Settings; the current world is never replaced.
+Choose English/Russian during creation or change language in Settings. Other languages use complete common and Pro JSON packs.
 For AI help, pass AI-HANDOFF.md to your assistant. Services selected in the profile remain not_connected.
 Optional daily release notices contact the public GitHub version file; disable them in Updates. They send no projects or account IDs and do not install anything.
 Automatic chat access, subscription operations and update delivery are not implemented.

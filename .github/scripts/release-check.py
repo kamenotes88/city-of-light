@@ -211,6 +211,13 @@ def runtime_checks(directory, node, served, release, locales):
                             and profile.get('locale', {}).get('language') == language
                             and len(profile.get('projects', [])) == 1 and not profile.get('connectors'),
                             'Created profile does not match fictional answers/locale')
+                    if tuple(map(int, release['engine_version'].split('.'))) >= (0, 13, 0):
+                        html = read_file(world / 'My-Project-World.html').decode('utf-8')
+                        require('window.PRO_PUBLIC_MODE=true;' in html,
+                                'New world did not use the public Pro interface')
+                        require('window.PRO_EMBEDDED_PROFILE=' in html
+                                and 'owner-data.json' not in html and 'owner-profile.json' not in html,
+                                'Public Pro depends on owner sources')
                     before = snapshot(world)
                     repeated = run(command, 'ALREADY_CREATED')
                     require(snapshot(world) == before and repeated.get('worldId') == created['worldId'],

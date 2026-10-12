@@ -18,7 +18,8 @@ questions together; skip answered questions:
 2. Which materials may we use? Nothing yet, the current permitted folder,
    selected files, selected chats, or a mixed set. Offer the few sources already
    visible through authorized tools; do not scan the whole computer or accounts.
-3. How should the world look? Graph and path, also a game, or choose for me.
+3. How should the world look, and which language should it use? Graph and path,
+   also a game, or choose for me. Reuse a known language preference.
    Name, heroes, theme, success criterion, and first step can be suggestions.
 
 For chaos, propose one initial project "Organize my work", with the criterion
@@ -134,26 +135,58 @@ built in. To select Russian, add this field to the agreed answers:
 ```
 
 Use `"en"` for English. For another language, create the complete English text
-template in a **new** file:
+templates in **new** files. The common and Pro views have separate dictionaries:
 
 ```text
 node <engine-directory>/setup-world.cjs --locale-template <new-language-template.json>
+node <engine-directory>/setup-world.cjs --pro-locale-template <new-pro-language-template.json>
 ```
 
 Translate the values in `messages` into the human's language, set `language` to
 its BCP47 code, and set `direction` to `ltr` or `rtl`. Put the full resulting
-object in `answers.locale`. Keep every message ID, placeholder such as `{0}` or
+common object in `answers.locale` and the full Pro object in `answers.proLocale`.
+Both must use the same requested language and direction. Keep every message ID, placeholder such as `{0}` or
 `{1}` with the same count, HTML tag and attribute, and leading/trailing whitespace
 or newline. Do not translate code, project IDs, names, or the user's source data.
 The pack must contain the complete dictionary; partial translations are refused.
 Values are text data, never scripts or an installation command.
 
-The helper creates the template exclusively and refuses to overwrite a file.
+The helper creates each template exclusively and refuses to overwrite a file.
 It validates the selected pack before generating localized default stories,
 helper text, and HTML, then preserves it in `world.profile.json`. Check the
 rendered language in the browser when available. A structural pack test alone
 does not confirm translation quality. Missing browser access remains a stated
 limit; it does not justify replacing the requested language with English.
+
+The browser wizard starts in English and offers English/Russian before creating
+a world. Inside a Pro world, Settings can change those languages or import a
+complete combined `{locale, proLocale}` JSON pack. Settings can export the
+English combined template for the assistant to translate. Changing UI language
+does not rename projects or translate their history.
+
+## Full public Pro world
+
+New worlds use the public Pro interface: City, Adventure, Progress, Decisions,
+Teams, Tools and Settings. Plans, plot selection, heroes, local learning XP,
+human attention records and evidence share one state. A project starts as a
+draft; neither playing nor creating a chat link proves real-world execution.
+The relationship map opens from Settings. Existing world backups remain
+compatible with their original view; they are never silently recreated.
+
+Use Save world or Settings to export the full `city-light-pro-backup` version 2
+JSON. It preserves the current state, plans, plots, questions/answers, history,
+language and imported graph/material context. Restoring through Start.html or
+Settings downloads a separate HTML world, leaving the current copy intact.
+The checksum detects damage; it is not a publisher signature or encryption.
+
+There is no automatic owner-source connection in a new world. If explicitly
+requested, Settings accepts a full Pro-state JSON snapshot for the same world,
+with a valid `source.asOf` date, from a chosen HTTP(S) URL or a manual file.
+Only selected projects synchronize. Source checks run while the world is open,
+use the selected project intervals, omit credentials and refuse redirects,
+and stop after five seconds or five MiB. They do not read chats or authorize
+an AI to execute a task. A selected source controls incoming evidence and
+questions, so choose it as carefully as the underlying project record.
 
 To include the original **Project World** skill for the selected assistant, add
 `--assistant codex` or `--assistant claude` to the creation command. The optional
