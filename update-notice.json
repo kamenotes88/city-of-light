@@ -3,8 +3,8 @@
   "product_id": "project-world",
   "channel": "preview",
   "latest": {
-    "version": "0.12.2",
-    "published_at": "2026-10-12T00:18:13Z",
-    "summary": "Optional daily release notices inside your game, with offline play and an opt-out. Account and invitation setup guide. No automatic installation or private-world upload."
+    "version": "0.13.2",
+    "published_at": "2026-10-12T07:13:11Z",
+    "summary": "Full clean Pro preview for your own projects: city, missions, progress, plans, human decisions, working-chat roles and settings. English default, language choice and complete backup with separate restore. No automatic installation, payments or online accounts."
   }
 }
