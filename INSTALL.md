@@ -267,7 +267,42 @@ other chats and writing externally need the human's authorization; installing
 this package does not supply that authorization. Do not invent universal chat
 history access, synchronization, subscriptions, or automatic update delivery.
 
+## Optional account and invitation entry
+
+After opening the world, point out **Account & invitations** in its header.
+The same entry is available in the starter and restored worlds. It opens
+https://github.com/kamenotes88/city-of-light/blob/main/INVITATIONS.md .
+Use this stable published guide while the email account service is not activated.
+Registration is optional; no sign-in, email or private world is sent automatically.
+Early GitHub claims are public and must never contain emails or private projects.
+Do not promise verified referral links, a shared city or payouts before their
+separate hosted acceptance. Local world identity is not a verified user account.
+
 Finish with the ready world's actual path/link, its first useful step, and the
 few remaining connection actions. Report package integrity, world creation,
 browser observation and source connection separately. Record only checks that
 ran. New engine files stay separate from personal worlds and their history.
+
+
+## Release notifications — 2026-10-11
+
+Shared preview 0.12.2 adds an Updates entry to Start, created/restored worlds and
+the private Pro. At most one automatic attempt per 24 hours is made while open
+and visible; failures are throttled too. Manual checks are available and the
+automatic setting can be turned off. The only remote request is anonymous GET
+to https://raw.githubusercontent.com/kamenotes88/city-of-light/main/update-notice.json.
+Project data, world/account IDs and email are not sent. GitHub sees ordinary
+connection information such as IP. Offline gameplay is unchanged.
+
+`world-update-core.js` validates numeric versions, schema/product/channel and
+calendar dates. `world-update.js` enforces a five-second deadline and an 8192-byte
+stream limit, refuses redirects and creates the release link from a validated
+version only. The feed supplies plain text, never executable code or URLs.
+No popup interrupts a mission; choosing the Updates dialog pauses the mission
+and does not change its progress. Close it and resume when ready.
+
+`update-notice.json` is publisher tooling; update it only after the
+matching public release and assets exist. Keep its version equal to that public
+release. The local catalogue still ships with the engine. Notifications do not
+install, migrate, authenticate, pay or automatically deliver improvements.
+Signed installations and full migration acceptance remain separate gates.
