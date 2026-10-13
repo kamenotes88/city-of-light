@@ -208,7 +208,10 @@ passed at that same commit.
 
 At the preceding local preparation checkpoint, those CI/HTTPS gates were
 **NOT_RUN**; the results above supersede that dated status. They cover repository
-files, not unverified release attachments. Independent customer acceptance and
+files. The published 0.15.1 archive and both manifests were then downloaded
+anonymously and matched the exact local bytes. Previous 0.15.0 and 0.13.2 archives
+remain unchanged. [Release CI](https://github.com/kamenotes88/city-of-light/actions/runs/38341311695)
+passed at the tagged release commit. Independent customer acceptance and
 native Codex/Claude UI skill discovery remain unverified. The browser still
 prepares an assistant handoff rather than executing native chat services.
 

@@ -3,8 +3,8 @@
   "product_id": "project-world",
   "channel": "preview",
   "latest": {
-    "version": "0.15.0",
-    "published_at": "2026-10-13T00:43:13Z",
-    "summary": "Connect selected existing chat and project history across graph, city, missions and progress. Optional local Codex/Claude readers and foreground refresh. Duplicate-safe imports and full backups preserve source history without inventing achievements. English default and language choice. No automatic software installation, payments or online accounts."
+    "version": "0.15.1",
+    "published_at": "2026-10-13T03:21:20Z",
+    "summary": "New tasks immediately offer a parent project and working chat. Prepare a version-bound request for Codex, Claude or another assistant to resolve the workspace, create or reuse one real chat, and save its link. Stale requests and occupied roles are protected. Routing, plans and selected history survive full backups. English default and language choice. The browser does not execute chats or install updates automatically."
   }
 }

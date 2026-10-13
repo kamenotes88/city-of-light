@@ -36,8 +36,12 @@ status recorded at the preceding local preparation checkpoint.
 A separate private adoption preserved all nine full-backup sections and existing
 awards in a new browser namespace. That personal world is excluded from the
 public package. Native host execution from the browser and independent customer
-acceptance are not established. Release attachments have not been published or
-verified at this checkpoint. Older receipts below remain historical evidence;
+acceptance are not established. After that preparation checkpoint, the public
+0.15.1 archive and both manifests were downloaded anonymously and matched their
+exact local bytes. Previous 0.15.0 and 0.13.2 archives remain unchanged.
+[Tagged release CI](https://github.com/kamenotes88/city-of-light/actions/runs/38341311695)
+passed at commit `2fe0d5f7b041b227f1328e94501160086c29601b`.
+Older receipts below remain historical evidence;
 they do not accept a new package or its deployment.
 
 Scope: `tooling`. `release-check.py` is exported as

@@ -76,9 +76,11 @@ times and English/Russian world creation and repeat preservation passed at
 installer commit `761f4547d48c0ff0fe2f7f15e4045d10b67cd523`.
 The [fresh Ubuntu package check](https://github.com/kamenotes88/city-of-light/actions/runs/38340759038)
 also passed at that commit. These results supersede the **NOT_RUN** CI/HTTPS
-status at the preceding local checkpoint. They do not verify unpublished release
-attachments, establish a security certification or prove independent customer
-acceptance. Native assistant execution from the browser is not implemented;
+status at the preceding local checkpoint. A subsequent anonymous release-asset
+readback matched the 0.15.1 archive and both manifests, while the 0.15.0 and 0.13.2
+archives remained unchanged. [Tagged release CI](https://github.com/kamenotes88/city-of-light/actions/runs/38341311695)
+also passed. These checks do not establish security certification or independent
+customer acceptance. Native assistant execution from the browser is not implemented;
 accounts, payments, online teams and signed automatic installation have separate
 permission and acceptance boundaries.
 
