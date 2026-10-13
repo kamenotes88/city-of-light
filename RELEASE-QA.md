@@ -35,6 +35,18 @@ customer or native Codex/Claude connector acceptance. Native-provider polling,
 accounts, payments, online teams and signed automatic installation remain
 unconnected or unverified. A ready feed is not accepted project execution.
 
+### Public verification — 0.15.5
+
+All 18 anonymous commit-pinned HTTPS files matched the export. Actual installation,
+English/Russian world creation and repeat preservation passed at installer pin
+`fd7551e361d4d2e761d87b5303e8de8efa4cd9ad`.
+[Installer CI](https://github.com/kamenotes88/city-of-light/actions/runs/38410938365)
+and [release commit CI](https://github.com/kamenotes88/city-of-light/actions/runs/38411881274)
+passed. All four public release assets were downloaded anonymously and matched
+exact local bytes. Earlier 0.15.4, 0.15.1, 0.15.0 and 0.13.2 ZIPs remain unchanged.
+The release notice is offered only after this verification; automatic installation
+and native-provider execution remain unconnected.
+
 ## Previous checked previews
 
 ## Checked archive/replacement preview 0.15.4 — October 13, 2026
@@ -62,6 +74,24 @@ recorded after publication below. Automatic native-chat deletion detection,
 independent customer acceptance, accounts, payments, online teams and signed
 automatic software installation remain unconnected or unverified. A missing
 history source is unknown availability; archiving does not stop external work.
+
+### Public installer verification — 0.15.4
+
+All eighteen anonymous commit-pinned HTTPS downloads matched the flat export.
+Actual installation, English/Russian world creation and repeat preservation
+passed at installer pin `66c408a26a07e716f09b114951381a80ddbdf3e7`.
+[Fresh Ubuntu CI](https://github.com/kamenotes88/city-of-light/actions/runs/38358261396)
+passed at that exact commit. Release assets and final notice are verified
+separately. Native automatic chat deletion checks remain unconnected.
+
+### Published release verification — 0.15.4
+
+The public archive and both manifests were downloaded anonymously and matched
+exact local bytes. Previous 0.15.1, 0.15.0 and 0.13.2 archives remain unchanged.
+[Release commit CI](https://github.com/kamenotes88/city-of-light/actions/runs/38358611079)
+passed at `cde5b0eebf8e28a1c8ef1cc93ed988eb2b51d04d`.
+The release notice was prepared only after asset verification. It offers an
+update; it does not install software, connect providers or accept project work.
 
 ## Historical acceptance follows
 

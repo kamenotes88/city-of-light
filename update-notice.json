@@ -3,8 +3,8 @@
   "product_id": "project-world",
   "channel": "preview",
   "latest": {
-    "version": "0.15.4",
-    "published_at": "2026-10-13T06:47:05Z",
-    "summary": "Archive projects without losing plans, history, heroes or rewards; restore the same project and reserved plot. Report an unavailable chat and keep the old link when replacing its executor. Includes lightweight feed checks and Refresh chat diagnostics. Missing data never proves deletion. Automatic native chat deletion checks and automatic software installation remain unconnected."
+    "version": "0.15.5",
+    "published_at": "2026-10-13T14:16:04Z",
+    "summary": "Keep current work across delayed source replies, other-tab changes and browser Back. Structured history preserves source revisions; legacy cursor initialization requires backup and exact matching. Decline old-plan reports and re-review changed work. Corrected evidence can complete a reopened goal without restoring a revoked reward. Custom translations need new message keys. No automatic software installation or native-provider execution."
   }
 }
