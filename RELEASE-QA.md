@@ -1,5 +1,42 @@
 # Exported preview checks
 
+## Checked synchronization preview 0.15.5 — October 13, 2026
+
+Build and explicit --check passed: all 32 JavaScript suites and 16 Python cases
+(15 passed, one OS-dependent skip). Independent exported-package verification
+passed real isolated English/Russian setup, repeat preservation, malformed-input
+refusal, selected history import and full backup restoration. All 18 flat files,
+16 ZIP payload files and manifest hashes agree; private owner markers are absent.
+No installed customer files are overwritten by this check.
+
+Changed-risk cases cover late source responses after a URL/world/work-step
+change, original structured-input revisions across reader restart, explicit
+metadata-only legacy cursor initialization, queued older tab events, page
+Back/Forward, stale report review, explicit old-report rejection, partial and
+historical revocation and corrected current-goal completion. Duplicate imports
+remain reward-free; archive choice and unavailable-chat history stay preserved.
+
+Maintainer browser checks confirmed an old-plan report has no acceptance action
+and can be declined with a reason. A different corrected artifact completed a
+reopened fictional goal: city/graph/progress retained one accepted and one revoked
+record, with chart movements +1, -1, +1 and net one. Controls worked after browser
+Back. Separately, personal adoption preserved all nine backup data sections,
+nine projects and 6641 documentary rows, without changing owner decisions or XP.
+The personal world and screenshots are excluded from this public package.
+
+Archive: 652528 bytes; SHA256 `0421166dfbf5c37c774a48f2df3d0af4d287dcf9b2af3972e19e8dbd1ec20057`.
+Source SHA256: `6cd50ff12ee7ec8973128669c139c897647d7f86724370d6407c6b8d8ddb6ecf`.
+
+Legacy structured cursor initialization requires backup and exact matching
+selected input; mismatch safely preserves the old output. New custom-language
+messages require an updated complete translation pack; transparent translation
+migration is not implemented. These are maintainer checks, not independent
+customer or native Codex/Claude connector acceptance. Native-provider polling,
+accounts, payments, online teams and signed automatic installation remain
+unconnected or unverified. A ready feed is not accepted project execution.
+
+## Previous checked previews
+
 ## Checked archive/replacement preview 0.15.4 — October 13, 2026
 
 Build and explicit --check passed: 32 JavaScript suites and 16 Python cases
@@ -25,24 +62,6 @@ recorded after publication below. Automatic native-chat deletion detection,
 independent customer acceptance, accounts, payments, online teams and signed
 automatic software installation remain unconnected or unverified. A missing
 history source is unknown availability; archiving does not stop external work.
-
-### Public installer verification — 0.15.4
-
-All eighteen anonymous commit-pinned HTTPS downloads matched the flat export.
-Actual installation, English/Russian world creation and repeat preservation
-passed at installer pin `66c408a26a07e716f09b114951381a80ddbdf3e7`.
-[Fresh Ubuntu CI](https://github.com/kamenotes88/city-of-light/actions/runs/38358261396)
-passed at that exact commit. Release assets and final notice are verified
-separately. Native automatic chat deletion checks remain unconnected.
-
-### Published release verification — 0.15.4
-
-The public archive and both manifests were downloaded anonymously and matched
-exact local bytes. Previous 0.15.1, 0.15.0 and 0.13.2 archives remain unchanged.
-[Release commit CI](https://github.com/kamenotes88/city-of-light/actions/runs/38358611079)
-passed at `cde5b0eebf8e28a1c8ef1cc93ed988eb2b51d04d`.
-The release notice was prepared only after asset verification. It offers an
-update; it does not install software, connect providers or accept project work.
 
 ## Historical acceptance follows
 
