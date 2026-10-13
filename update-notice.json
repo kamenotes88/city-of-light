@@ -3,8 +3,8 @@
   "product_id": "project-world",
   "channel": "preview",
   "latest": {
-    "version": "0.15.1",
-    "published_at": "2026-10-13T03:21:20Z",
-    "summary": "New tasks immediately offer a parent project and working chat. Prepare a version-bound request for Codex, Claude or another assistant to resolve the workspace, create or reuse one real chat, and save its link. Stale requests and occupied roles are protected. Routing, plans and selected history survive full backups. English default and language choice. The browser does not execute chats or install updates automatically."
+    "version": "0.15.4",
+    "published_at": "2026-10-13T06:47:05Z",
+    "summary": "Archive projects without losing plans, history, heroes or rewards; restore the same project and reserved plot. Report an unavailable chat and keep the old link when replacing its executor. Includes lightweight feed checks and Refresh chat diagnostics. Missing data never proves deletion. Automatic native chat deletion checks and automatic software installation remain unconnected."
   }
 }

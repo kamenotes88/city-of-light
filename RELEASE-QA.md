@@ -1,6 +1,53 @@
 # Exported preview checks
 
-Updated October 13, 2026. Current checked preview: **0.15.1**.
+## Checked archive/replacement preview 0.15.4 — October 13, 2026
+
+Build and explicit --check passed: 32 JavaScript suites and 16 Python cases
+(15 passed, one OS-dependent skip). Changed-risk checks include 22 project
+lifecycle, 10 archive-view, 34 history UI, 40 work-flow and 30 report-core cases.
+The isolated exported checker passed actual English/Russian local installation,
+repeat preservation, full backup restoration and malformed-input preservation.
+All 18 flat files, 16 payload files, manifest and ZIP agree. Owner markers are
+absent from the public package. Seven protected local files remain unchanged.
+
+Maintainer browser verification covered removal from city and active graph,
+archived-history filter, all-archived adventure, same-hero/plot restoration,
+reload, explicitly fictional unavailable-chat marker and replacement. A separate
+personal adoption preserved nine projects, 6641 documentary rows, plans, links,
+XP and rewards; its selected task was archived and immediately restored, adding
+only two history events and lifecycle metadata. That personal world is excluded.
+
+Archive: 647506 bytes; SHA256 `7cab0724681812326a83242d575c693ae7dda1c16256dfe0a68eff01ee523eec`.
+Source SHA256: `65271cb828e95b198e7606cc297d34348640ba06f07dbdd19ecc46e71017041f`.
+
+This is local maintainer evidence. Anonymous pinned HTTPS and GitHub CI are
+recorded after publication below. Automatic native-chat deletion detection,
+independent customer acceptance, accounts, payments, online teams and signed
+automatic software installation remain unconnected or unverified. A missing
+history source is unknown availability; archiving does not stop external work.
+
+### Public installer verification — 0.15.4
+
+All eighteen anonymous commit-pinned HTTPS downloads matched the flat export.
+Actual installation, English/Russian world creation and repeat preservation
+passed at installer pin `66c408a26a07e716f09b114951381a80ddbdf3e7`.
+[Fresh Ubuntu CI](https://github.com/kamenotes88/city-of-light/actions/runs/38358261396)
+passed at that exact commit. Release assets and final notice are verified
+separately. Native automatic chat deletion checks remain unconnected.
+
+### Published release verification — 0.15.4
+
+The public archive and both manifests were downloaded anonymously and matched
+exact local bytes. Previous 0.15.1, 0.15.0 and 0.13.2 archives remain unchanged.
+[Release commit CI](https://github.com/kamenotes88/city-of-light/actions/runs/38358611079)
+passed at `cde5b0eebf8e28a1c8ef1cc93ed988eb2b51d04d`.
+The release notice was prepared only after asset verification. It offers an
+update; it does not install software, connect providers or accept project work.
+
+## Historical acceptance follows
+
+
+Updated October 13, 2026. Historical checked preview: **0.15.1**.
 Its build and explicit `--check` passed. Thirty JavaScript suites ran, including
 37 work-flow, 25 source/state-preservation, 13 history-import UI and 14 lifecycle
 checks. Sixteen Python installer cases ran: fifteen passed and one OS-dependent
