@@ -4,7 +4,7 @@
 
 English is the public default. [Read and use it in your language](#use-your-language).
 
-**[Download full Pro preview 0.15.0](https://github.com/kamenotes88/city-of-light/releases/tag/v0.15.0)** · [Set up with your AI assistant](#start-with-one-useful-result).
+**[Download full Pro preview 0.15.1](https://github.com/kamenotes88/city-of-light/releases/tag/v0.15.1)** · [Set up with your AI assistant](#start-with-one-useful-result).
 
 [![Check exported preview](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml/badge.svg)](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml)
 
@@ -37,7 +37,7 @@ screenshots of that same 0.8.0 example, rather than continuous gameplay.
    the context you choose with your assistant to continue.
 
 ```text
-Install and set up City of Light (Project World engine) using https://raw.githubusercontent.com/kamenotes88/city-of-light/00d919d96e693edc04a1d15190e3f8b67a51003d/INSTALL.md.
+Install and set up City of Light (Project World engine) using https://raw.githubusercontent.com/kamenotes88/city-of-light/761f4547d48c0ff0fe2f7f15e4045d10b67cd523/INSTALL.md.
 Start with one useful result. Reuse the context I have already permitted,
 ask up to three short questions, and help me open my own world.
 Use my known language preference, otherwise English.
@@ -98,6 +98,7 @@ dictionaries. Your project names, IDs and history stay intact.
 | See progress and setbacks | A timeline that keeps plans separate from evidenced results |
 | Make returning more enjoyable | Heroes, missions and a city built around the same work |
 | Manage a project | A draft plan, plot, goals and selected working-chat links |
+| Start a new task in the right place | A parent project, workspace hints and a version-bound chat request |
 | Answer what needs a person | Evidence-backed questions available directly or in a mission |
 | Preserve the whole world | A full Pro backup and separate restoration |
 
@@ -108,6 +109,14 @@ do not prove that the real-world job was completed.
 Profiles and full backups support up to 100 projects. This is a data/interface
 limit, not 100 autonomous agents. Existing chats are not imported automatically;
 creating a project does not deploy an autonomous chat team or connect accounts.
+
+After saving a task, **Connect executor** opens immediately. Choose an existing
+parent project or an independent task, then an existing chat or creation through
+your current assistant. Technical workspace fields are optional. The assistant
+resolves a real saved workspace using available native tools and returns the
+actual chat link; confirm it in your world. The browser provides the request,
+not a private API to your AI app. Stale requests and occupied roles are protected.
+Routing is preserved with your projects in the full backup.
 
 ## Keep your work
 
@@ -169,6 +178,42 @@ from this README without a separately hosted website.
 
 ## Preview status
 
+### Current checked preview 0.15.1
+
+**Full Pro preview 0.15.1 passed its local build and explicit `--check`.**
+Thirty JavaScript suites and sixteen Python installer cases ran (fifteen passed;
+one OS-dependent case was skipped). The 626,014-byte archive contains sixteen
+verified payload files and the effective LICENSE/NOTICE. Its SHA256 is
+`742bb96af380963b5af752ef2c622cfd5b11341e1c1b0809c69f30b07ceafa61`.
+
+Focused candidate checks cover the working-report flow (37), source and state
+preservation (25), history-import UI (13) and persistence lifecycle (14).
+Stale plans, changed destinations and occupied chat roles cannot silently replace
+the current route. Full backup preserves routing, plans and imported history.
+
+Maintainer English native-browser checks created a short child task within a
+fictional parent project, opened Connect executor immediately, downloaded the
+actual request, confirmed a navigation-only test link, reloaded the world and
+verified its exact full backup. The browser prepares a request for an assistant;
+it does not execute native chat services or establish continuous autonomous work.
+Private owner projects, chats and history are excluded from the public package.
+
+Anonymous HTTPS downloads of eighteen commit-pinned repository files matched the
+export exactly, with redirects refused. Actual public HTTPS installation,
+repeat hashes/modification times and new English/Russian worlds with repeat
+preservation passed. The installer pin is
+`761f4547d48c0ff0fe2f7f15e4045d10b67cd523`.
+The [fresh Ubuntu package check](https://github.com/kamenotes88/city-of-light/actions/runs/38340759038)
+passed at that same commit.
+
+At the preceding local preparation checkpoint, those CI/HTTPS gates were
+**NOT_RUN**; the results above supersede that dated status. They cover repository
+files, not unverified release attachments. Independent customer acceptance and
+native Codex/Claude UI skill discovery remain unverified. The browser still
+prepares an assistant handoff rather than executing native chat services.
+
+### Historical preview 0.15.0
+
 **Full Pro preview 0.15.0 passed its local build and explicit `--check`.**
 The 610,942-byte archive contains sixteen verified payload files and the effective
 LICENSE/NOTICE. Its SHA256 is
@@ -187,12 +232,12 @@ IndexedDB, preserved project state and verified the shared graph, city, adventur
 and progress views. Source history is included in the full backup. These checks
 do not establish independent customer acceptance or security certification.
 Native Codex/Claude UI skill discovery and native quality review for additional
-languages remain unverified. Current exported-package CI is visible in
+languages remain unverified. Historical exported-package CI is visible in
 [GitHub Actions](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml).
 
 The [earlier Ubuntu check](https://github.com/kamenotes88/city-of-light/actions/runs/38216447307)
 belongs to 0.13.2 installer commit `669ec53c92128fe7bd4e2a87afdaeaccd47e8866`;
-it is historical evidence, not acceptance of 0.15.0.
+it is historical evidence, not acceptance of 0.15.0 or 0.15.1.
 
 [Earlier releases](https://github.com/kamenotes88/city-of-light/releases) remain
 available for history and rollback. Their checks do not substitute for this
