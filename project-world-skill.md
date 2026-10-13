@@ -71,6 +71,15 @@ messages, private-account access, background polling, or third-party installs.
 
 ## Connect the selected task to a real working chat
 
+For a read-only status check, use **Refresh chat**. It reads the configured history
+feed with bounded conditional requests, not the native assistant account itself.
+Its diagnostics distinguish a checked file from an actually connected chat source.
+If given `city-light-chat-status-request` v1, read only the named available chats
+using an authorized host connector and return the current status, source time,
+evidence scope and next step. This request grants no execution, spending, chat
+creation/wakeup, publishing or achievement acceptance. State missing access
+plainly. Preserve prior reports; current observations do not rewrite accepted work.
+
 After creating a task, use **Connect executor**. Choose an existing parent
 project or an independent task, then an existing working chat or a new chat
 through the current assistant. Advanced destination hints are optional: the
@@ -168,3 +177,22 @@ skill. Suggestions never interrupt a mission or compete with owner decisions.
 Finish with the actual result, supporting evidence, any remaining blocker, and
 one next step. Report package integrity, world creation, browser observation,
 source connection, and project acceptance separately.
+
+## Archive and working-chat replacement
+
+Use the world's Archive action to hide an activity from the active city, game,
+graph and owner queue. Preserve its ID, hero, reserved plot, plan, history,
+results and learning progress. Restoration returns that same activity and grants
+no new reward. Archiving does not stop or delete chats in an external provider;
+never infer authority to cancel external work from this local action. Keep the
+archive and chat replacement history in the full world backup. Restore an
+archived project before launching work or reviewing execution reports.
+
+Missing history, an omitted source link, login failure, timeout and loss of
+network access are unknown chat availability, not proof of deletion. Preserve
+the old connection. The owner may explicitly mark a chat unavailable and select
+a replacement for its existing role; keep the previous link and request history.
+The static browser does not automatically read or poll native chat providers.
+When an authorized connector is available, verify only the selected chat and
+report dated evidence. Do not claim native deletion detection from a ready
+history feed or an owner marker alone. Replacing a link does not prove execution.

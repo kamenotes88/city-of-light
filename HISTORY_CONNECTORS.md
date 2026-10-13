@@ -230,3 +230,49 @@ Before updating your world, download a full world backup. Core history import is
 atomic and never promotes documentary records into rewards. Restoring your
 backup uses a separate world namespace; it does not modify the source chat or
 an existing project database.
+# Lightweight refresh and manual chat verification
+
+The **Refresh chat** button checks the configured history feed for the selected
+project and reports when the file was checked, its source date and whether the
+selected chat links have matching imported sources. It never claims direct chat
+access from a navigation link. If a chat is absent from the feed, it offers a
+read-only request to the user's authorized assistant. It does not create or wake
+chats, execute work, grant acceptance or spend provider tokens itself.
+
+Automatic refresh stays opt-in and foreground-only. It makes one request to the
+configured combined feed, rather than one AI request for each project. Successfully
+validated and durably imported responses may supply ETag/Last-Modified validators.
+A valid unchanged 304 response has no history body, JSON parsing or merge. A
+changed response retains the existing size, schema and atomic-storage guards.
+Servers without validators still use the bounded, duplicate-safe import path.
+Concurrent clicks share the existing single-flight guard; automatic failures
+back off up to four hours. Manual checks bypass the delay and display errors.
+The browser keeps only small cache metadata and a reference to its current
+context; it does not retain another full raw history response.
+
+This file check makes no language-model call and consumes no model tokens. It
+still uses a small amount of CPU, memory and network traffic; provider connectors
+may have their own quotas, fees or limitations. Running project agents remains
+separate from synchronization and may consume tokens. Reading a ready feed does
+not force the upstream reader to run or guarantee current external chat state.
+
+The profile supports up to 100 projects, but that is not a promise of unlimited
+chat sources or history. Existing feed/record/byte limits remain. Large portfolios
+should use compact current-status summaries and selected incremental history,
+with paused work checked less frequently. Source freshness and checked evidence
+are separate from the owner's acceptance of made/applied/effect results.
+
+## Archived projects and unavailable chats
+
+Project archiving is a reversible local visibility choice. Shared source refresh
+preserves that choice, and missing chat data never removes the project. History
+can be inspected with the Archive/All project visibility filters in Progress.
+The full backup includes lifecycle records and previous chat connections.
+
+An omitted source-role link remains stored with an explicit source-not-reported
+marker. The owner can report unavailability and choose a different actual chat
+for that role. Old links, availability notes and captured handoffs remain in
+history. An unavailable marker remains separate from source status and project
+completion. Automatic native-chat disappearance checks require a supported,
+authorized provider connector; they are not implemented by this file importer.
+
