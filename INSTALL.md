@@ -355,6 +355,22 @@ Signed installations and full migration acceptance remain separate gates.
 
 ## Continue a real project with your assistant
 
+After creating any task, **Connect executor** is its immediate next step.
+Choose an existing parent project or an independent task. Then attach an
+existing chat, or ask your current assistant to create one in the appropriate
+saved workspace. Workspace hints are optional; the assistant should inspect
+available saved projects and reuse existing context before asking you.
+
+Copy or download the version-bound `chat-launch-request.json`. Your assistant
+uses supported native host tools where available and returns the actual chat
+title/link with the request binding. Confirm that link in the same dialog.
+Changed plans or destinations refuse stale results; existing roles are kept.
+The browser does not call private host APIs, create chats by itself or claim
+that attaching a link starts autonomous execution. When a host lacks the
+required connector, the same request provides an explicit manual fallback.
+This route works for new tasks and previously unlinked projects. Full backup
+preserves the selected parent, workspace hints, request and chat attachment.
+
 The local Work with AI button is available in every public Pro view. Select
 one project, agree its plan, and copy its next-step request to Codex or Claude.
 The request contains only that project's binding, goal and current next step;

@@ -177,7 +177,22 @@ context.TownLocale.configure(engine.locale_catalogue);context.ProLocale.configur
   for(const key of ['learning','graph','presentation','origin','attachments'])assert.equal(JSON.stringify(restored[key]),JSON.stringify(boot.PRO_BUNDLE_CONTEXT[key]));
   const restoredRepeat=context.TownHistoryCore.merge(restored.data,feed,restored.proState.projects);assert.equal(restoredRepeat.added,0);
   const copy=context.TownProPackage.buildHTML(engine,restored);assert.ok(copy.includes('restore-'));assert.ok(copy.includes('Fictional accepted source step'));assert.ok(copy.includes('Undated fictional step'));assert.doesNotMatch(copy,/<script\b[^>]*\bsrc=|<link\b[^>]*rel="stylesheet"/);
-  console.log(JSON.stringify({status:'HISTORY_PASS',records:2,duplicate:'NO_CHANGE',full_backup_restore:'PASS',awards:'UNCHANGED'}));
+  const routeVersion=engine.engine_version.split('.').map(Number),hasRoute=routeVersion[0]>0||routeVersion[1]>15||(routeVersion[1]===15&&routeVersion[2]>=1);
+  if(hasRoute){
+  const M=context.ProModel,parent=projects[0].id;
+  let routed=M.reduce(boot.PRO_EMBEDDED_DATA,'create',{name:'Fictional child task',goal:'Prepare one reviewed draft',criterion:'Readable draft',stages:['Inspect current source'],kind:'task',parentId:parent,approved:true});
+  const id=routed.selectedProjectId,destination={version:1,provider:'codex',mode:'assistant_create',role:'executor',workspace:'fictional-workspace',hostProjectId:'fictional-saved-project'};
+  routed=M.reduce(routed,'configureLaunch',{projectId:id,parentId:parent,destination});routed=M.reduce(routed,'prepareLaunch',{projectId:id});
+  const request=M.launchRequest(routed,id);assert.equal(request.parentContext.projectId,parent);assert.equal(request.destination.hostProjectId,destination.hostProjectId);
+  const answer={projectId:id,binding:request,confirmed:true,title:'Fictional actual chat',href:'https://example.test/working-chat'};
+  const changed=M.reduce(routed,'plan',{projectId:id,goal:'Changed goal',criterion:'Changed success',stages:['Review'],approved:true});assert.throws(()=>M.reduce(changed,'bindLaunch',answer));
+  const bound=M.reduce(routed,'bindLaunch',answer),project=bound.projects.find(p=>p.id===id);
+  assert.equal(project.threads[0].status,'linked_not_connected');assert.equal(project.learning.xp,0);assert.equal(project.achievements.length,0);assert.notEqual(project.status,'completed_local');
+  assert.equal(JSON.stringify(M.reduce(bound,'bindLaunch',answer)),JSON.stringify(bound));
+  const routedBackup=await context.TownProPackage.createBackup({state:bound,profile:boot.PRO_EMBEDDED_PROFILE,bundleContext:boot.PRO_BUNDLE_CONTEXT,proLocale:boot.PRO_LOCALE,engineVersion:engine.engine_version});
+  const routedRestore=await context.TownProPackage.decodeBackup(JSON.stringify(routedBackup),engine.engine_version);assert.equal(JSON.stringify(routedRestore.proState),JSON.stringify(bound));
+  }
+  console.log(JSON.stringify({status:'HISTORY_PASS',records:2,duplicate:'NO_CHANGE',full_backup_restore:'PASS',awards:'UNCHANGED',chat_route:{status:hasRoute?'PASS':'NOT_APPLICABLE',stale_binding:'REFUSED',repeat:'NO_CHANGE',backup:'EXACT',xp:0,completion:false,native_creation:'NOT_RUN'}}));
 })().catch(error=>{console.error(error.stack);process.exitCode=1;});
 '''
 
@@ -308,7 +323,8 @@ def runtime_checks(directory, node, served, release, locales):
             'install_sentinel_preserved': 'PASS', 'modified_install_preserved': 'PASS',
             'world_create_repeat_modified_refusal': 'PASS', 'history_create_repeat_backup_restore': history_status,
             'history_unknown_dates_and_awards_preserved': history_status,
-            'history_malformed_input_preserves_existing_world': history_status, 'locales': locales}
+            'history_malformed_input_preserves_existing_world': history_status,
+            'chat_route_backup_stale_binding': 'PASS' if tuple(map(int, release['engine_version'].split('.'))) >= (0, 15, 1) else 'NOT_APPLICABLE', 'locales': locales}
 
 
 def main():

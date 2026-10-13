@@ -1,6 +1,6 @@
 {
   "format_version": 1,
-  "engine_version": "0.15.0",
+  "engine_version": "0.15.1",
   "profile_version": 1,
   "license_status": "EFFECTIVE",
   "provenance_status": "REVIEWED",
@@ -9,14 +9,14 @@
   "includes_user_data": false,
   "connectors": "manual-context only",
   "channel": "preview",
-  "source_sha256": "c6bc09ef6eba2ef0945729c240099c8ac000c6c0a7c87767da16478539d65967",
+  "source_sha256": "7c0e19c9977bd69cf71469a51a85d3ef83ee59ed0580572e523c795bdec3a114",
   "sources": {
     "PRODUCT_FILES.json": "d76659d019b6d007eff6c8ec5f69f802a2676450f350b55849e0f3ba77bd12c5",
     "build_portable.py": "0fd46a7a059e581f53b7bb9a005fc2a6c8cadd5a5cb35051d97b1ad167ea5443",
     "build_public_pro.py": "ff962a93c85cc07e47fc89d4ce986cf16b6d399a5cda66dbc70720077f562509",
     "graphify-out/product-history/HISTORY_CONNECTORS.md": "a5d6a469ff042e0c9ce5d21f9792eda32844d477334483edf22c2f83334e8d39",
     "graphify-out/product-history/HISTORY_IMPORT.md": "404988edd0d1bb633f8e986d33e8450eec6cbbb8b09d9f89a70ff9aa61d3416b",
-    "graphify-out/product-history/INSTALL.md": "b1675d344710c2abfd50952358c07264943361fc9ff6104f8fc83fea39b406b7",
+    "graphify-out/product-history/INSTALL.md": "ba0225967da5eecbc59a0fcf1314a5f350faffadd92a42bf65d19e5ac28ea889",
     "graphify-out/product-history/LICENSE": "905c2ec11b6a5fdc91154b8a0cad622dc62666feed5667c4fb60605470a9a880",
     "graphify-out/product-history/NOTICE": "d9318505d93999d6bbc84d2576f24fea84e23c4a317a2ba82f26d637ad99b833",
     "graphify-out/product-history/extensions.json": "70405751cdd3657e5fab27c9417d144e02367bd656a9c0f7e169daba2fa91185",
@@ -43,7 +43,7 @@
     "graphify-out/product-history/playground.css": "b506c62f62dbe24cc4b4072bb5392c432e345b07834a9362ebc71bac644512f3",
     "graphify-out/product-history/playground.html": "9229ba1cc387f2437f229504175b8e1653b73512a5d36d0a48b9264381cee2bf",
     "graphify-out/product-history/playground.js": "3263b6a10a58acdb50ed43d2d5b7a4823188dd5b480356b63d165a8b054f14da",
-    "graphify-out/product-history/pro-locale-catalogue.json": "afcd4b11ad70ba17e73c1628651e64263d964a7a636b271baec1e60d37e85afa",
+    "graphify-out/product-history/pro-locale-catalogue.json": "7b0d31b5439933fdb3ff7e7b300c96703c27aedfefea718fa552ecd7f33b7a55",
     "graphify-out/product-history/pro-locale.js": "516f8613dc20ac5e85917d285dc8be12fbc86a758ddbb8049491c4ce1996351c",
     "graphify-out/product-history/pro-package.js": "96c1b9ab53451c76ebda14bb77280b7496c07ab0b3fa005a40717b1d5befa34a",
     "graphify-out/product-history/pro-public-tools.js": "f249e23795cf499b67d89b4735778d4f7b9e467d7cd155212732117de892bc55",
@@ -51,14 +51,14 @@
     "graphify-out/product-history/pro/adventure.js": "b772c93b13b59b9179a71a4014d19d265a1220e377fd2ad3ed82b098e2bde04e",
     "graphify-out/product-history/pro/advice.js": "b5b89ae8fb83e4bb25111e3c32a3f874ffc68d973515a1ae3ced014e58aaf771",
     "graphify-out/product-history/pro/app.css": "b70ffaeed282422ef87e6e9463a391bd033c3a66df2422fb475282d37508013e",
-    "graphify-out/product-history/pro/app.js": "4df6278f826627b48f50bd02a8394f723de3a6a6380ab6c1dfd5a5c95f7a23b3",
+    "graphify-out/product-history/pro/app.js": "189bbea0f7dd0636845ac460bd71104dacede17544f4879e91bb2f6ead2a1bb4",
     "graphify-out/product-history/pro/city.css": "168f41910d402a5fae34d0943e72aad03d77b1e3c61598afa5ea8a1917348b89",
     "graphify-out/product-history/pro/city.js": "295574d0ae04b22bbe44b054bb6eff485e1925ad7d7da84e413b1db2b71004c8",
     "graphify-out/product-history/pro/index.html": "e721b33336776e08bf31c4a8a1c0dd808b490db4f4260f8be5ad0aec390086be",
-    "graphify-out/product-history/pro/model.js": "6befa84649c8a107553fedb7d730590dea61feebe4b26a2962da50749fe48887",
+    "graphify-out/product-history/pro/model.js": "b2197b5446a5e15009dace4bd625179ae6a6eed8152a2a24738cbf04569ded2e",
     "graphify-out/product-history/pro/progress.css": "5882b5ca94a3489f2c16a1275bb2887a83c5895f19b6c705b36eac2f7f6247b8",
     "graphify-out/product-history/pro/progress.js": "8218e1c69961b2102e227765adee36517fd627a4f44a3cd979865ebba4c8c7c0",
-    "graphify-out/product-history/project-world-skill.md": "f71e4a4a2feac255e01c9bbbf207580dc41fa18cadbb7ff7022e28e190fc5fb5",
+    "graphify-out/product-history/project-world-skill.md": "51a3fa7bef3f1dd4ce98be9c0ad4584a519013631544307c83e725db6059726e",
     "graphify-out/product-history/setup-world.cjs": "5c91aa7e65735b771c18993a6191cec618739f5f8e75eccb2c16e68d5e017e4c",
     "graphify-out/product-history/start.html": "1abc62ade185bd3dbe6a4493beeb3ce86170ba335c0c0ab13b7321833f07a515",
     "graphify-out/product-history/upgrade-catalog.js": "157d3c2a2ad7bec8f7bc40297c084e2217f392edc32ea8fd36fe0e2b12fad60e",
@@ -66,7 +66,7 @@
     "graphify-out/product-history/upgrade-panel.css": "bce1aeb6263d63d2a78d75108cad0396bb51966be8b30597a438615a616ac3fc",
     "graphify-out/product-history/upgrade-panel.js": "57817e518ca697e31536390e7a1e70cb8d13babbbdcc9622f9ecc060747d4324",
     "graphify-out/product-history/work-report-core.js": "cd41fea824b1f2f4d0de2cd87a104f2ddd26047ae607171c3522b05f79e51562",
-    "graphify-out/product-history/work-report-ui.js": "012d8f6ba3dcad043d29708ec2f6c1db693f3bc50332a45013f3241459ff0551",
+    "graphify-out/product-history/work-report-ui.js": "d47c218866fa1de8982c290b6ce201c0ff58030747b7b6a43ac1da65a22b7bf7",
     "graphify-out/product-history/work-report.schema.json": "0ddb3252f7132fe3a960e1cdcff3d47102598104699e600a4a339b43c86f3d01",
     "graphify-out/product-history/work-result.cjs": "175ebd057743305efc63f280a1f14d683d953c77a246987ec2204ac0b2e8ffa3",
     "graphify-out/product-history/world-backup.css": "309c1ce2680f79c2f498830bca3fa2434422f9738034b76921d60179f8ea66bf",
@@ -89,20 +89,20 @@
     "locale_html.py": "67091a87cad1d292f44e9d7f470153c63f86658516e0e966d3fb16dcde766d77",
     "prepare_pro_locale.py": "9dc9270a167ae3761d270e0c60d955f52a1da494085f247bd075a8db06ccba96"
   },
-  "changes": "Selected chat and documentary history import across graph, city, game and progress. Source revisions, local scopes, pending steps and STOP remain distinct from achievements. Duplicate-safe, atomic feeds, optional local Codex/Claude readers and opt-in foreground refresh. Full backup preserves imported history. English default and personal language choice remain; owner data excluded.",
+  "changes": "A clear next step after creating a task: choose a parent project, select an existing working chat or prepare a version-bound request for a new chat in the right workspace. Actual chat links are attached after confirmation; stale results cannot overwrite roles. Routing, history and plans survive full backup. English default and personal language choice remain. Browser-only setup never claims chat execution; owner data excluded.",
   "automatic_update_delivery": false,
   "files": {
     "Start.html": {
-      "bytes": 1728368,
-      "sha256": "7ba8d5caeb01455de57c8c1ad4feabaf3f5241c0e950f788dead67b2b4888be9"
+      "bytes": 1777065,
+      "sha256": "098ced7e0185f52b0402a932049aebec3e838f303f8061ae8b59f3a9eef693bf"
     },
     "README.txt": {
       "bytes": 1665,
-      "sha256": "13332a9478a9cc0f5b5c99a05015054f703ab0e5bea805b99f0964f24100d8c7"
+      "sha256": "54a2762677d839a7e91c3db6b16be5aabb0e769c9c956942042d4680fe8001b7"
     },
     "INSTALL.md": {
-      "bytes": 22130,
-      "sha256": "b1675d344710c2abfd50952358c07264943361fc9ff6104f8fc83fea39b406b7"
+      "bytes": 23206,
+      "sha256": "ba0225967da5eecbc59a0fcf1314a5f350faffadd92a42bf65d19e5ac28ea889"
     },
     "install-world.py": {
       "bytes": 11602,
@@ -113,8 +113,8 @@
       "sha256": "5c91aa7e65735b771c18993a6191cec618739f5f8e75eccb2c16e68d5e017e4c"
     },
     "project-world-skill.md": {
-      "bytes": 8401,
-      "sha256": "f71e4a4a2feac255e01c9bbbf207580dc41fa18cadbb7ff7022e28e190fc5fb5"
+      "bytes": 10647,
+      "sha256": "51a3fa7bef3f1dd4ce98be9c0ad4584a519013631544307c83e725db6059726e"
     },
     "extensions.json": {
       "bytes": 2226,
