@@ -178,6 +178,31 @@ Finish with the actual result, supporting evidence, any remaining blocker, and
 one next step. Report package integrity, world creation, browser observation,
 source connection, and project acceptance separately.
 
+## Synchronization and update review
+
+Keep a full backup before an engine update and restore into a separate world
+namespace first. Use a compatible reader/engine pair. Structured reader inputs
+retain original revision, fingerprint and date in the combined file; stale or
+conflicting input is refused rather than promoted to a new current status. Old
+structured output without its cursor needs an explicit one-shot
+`--initialize-structured-cursors` after backup, using the same config and output.
+It accepts only exact current records/kind/URL and non-backward dates, preserving
+the prior output revisions and native feeds. Mismatch preserves the original
+file; do not reset IDs or revisions to make a check pass. Native JSONL needs no
+added cursor.
+
+Refreshing a file is not native chat verification or execution. A stale source
+response or opened report must be checked again against current work. An older
+report can be declined with a reason. Current completion survives revocation of
+unrelated partial or historic proof; revocation of the last current whole-goal
+proof reopens that goal. Only a different corrected artifact with fresh review
+can complete it again. Keep revoked records and do not grant duplicate rewards.
+
+New engine messages may require a completed custom translation pack. Preserve
+the original backup and old package when a target-language catalogue is refused;
+translate the current complete template and verify a separate restore. Do not
+claim transparent translation migration or silently switch the user's language.
+
 ## Archive and working-chat replacement
 
 Use the world's Archive action to hide an activity from the active city, game,

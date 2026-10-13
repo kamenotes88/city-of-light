@@ -262,6 +262,47 @@ should use compact current-status summaries and selected incremental history,
 with paused work checked less frequently. Source freshness and checked evidence
 are separate from the owner's acceptance of made/applied/effect results.
 
+## Concurrent checks and reader revisions
+
+A project-source response is applied only while its world, configured URL and
+the checked projects' goal, plan, next step, blocker and source date still match
+the request. Movement, learning and independent project edits do not invalidate
+the check. A refused stale response preserves current work and can be checked
+again against the current source. Returning to a cached page resumes the existing
+refresh mechanism; other-tab notifications read the latest durable state rather
+than trusting an older queued notification.
+
+Structured `feed-json` reader inputs keep their original revision, normalized
+SHA-256 and date in optional `readerInputCursors` metadata inside the existing
+atomic combined file. This metadata is not another source, history record or
+achievement. Lower revisions, conflicting contents at the same revision and
+backward source dates refuse the pass, including after a reader restart. Use
+the matching updated reader and engine (0.15.5 or later) together; ordinary v1
+feeds and native JSONL output remain supported. An older structured aggregate
+without an input cursor is retained unchanged by normal checks. After backing
+up that file, run the one-shot `--initialize-structured-cursors` option against
+the same selected config/output. It adds only cursor metadata when all selected
+structured records, kind and URL exactly match retained output and dates do not
+go backward. Prior output revisions, native feeds and record order remain
+unchanged. Mismatch refuses the entire write; keep both inputs for review rather
+than resetting source IDs or output revisions. Repeat initialization of the same
+known input is idempotent; it never replaces an existing cursor.
+
+An opened report review captures the relevant work state. Changed evidence,
+plan, goal, next step, blocker or chat requires a fresh review. An old report can
+be explicitly declined with a reason but cannot apply an obsolete next step.
+Revoking a partial or older-goal result preserves independently proven current
+completion. Revoking the last proof of the whole current goal reopens it; a
+different corrected artifact can complete it after a new review. The old revoked
+identity stays revoked and cannot earn a second reward.
+
+Updates add interface messages. Built-in English/Russian catalogues are paired
+with the engine. A custom translated backup must supply all messages required
+by the target version; incomplete packs are refused without changing the backup
+or current world. Keep the old package and ask the assistant to translate the
+new complete template before a separate restore. Transparent custom-language
+migration is not yet implemented.
+
 ## Archived projects and unavailable chats
 
 Project archiving is a reversible local visibility choice. Shared source refresh

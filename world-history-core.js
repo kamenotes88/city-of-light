@@ -150,6 +150,27 @@
     records.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
     return {format:feed.format, version:1, source, records};
   }
+  function validateContainer(container, projects) {
+    inspect(container);
+    if (new TextEncoder().encode(JSON.stringify(container)).length > 10 * 1024 * 1024) fail('History container exceeds 10 MiB');
+    shape(container, ['format', 'version', 'feeds'], ['readerInputCursors'], 'history container');
+    if (container.format !== 'city-light-history-feeds' || container.version !== 1 || !Array.isArray(container.feeds) || container.feeds.length > 50) fail('Unsupported history container');
+    const feeds = container.feeds.map(feed => validateFeed(feed, projects)), result = {format:container.format, version:1, feeds};
+    if (container.readerInputCursors !== undefined) {
+      if (!Array.isArray(container.readerInputCursors) || container.readerInputCursors.length > 50) fail('Invalid reader input cursors');
+      const ids = new Set(), mappings = new Set();
+      result.readerInputCursors = container.readerInputCursors.map(cursor => {
+        shape(cursor, ['id', 'mappedSourceId', 'inputSourceId', 'inputRevision', 'inputFingerprint', 'inputUpdatedAt'], [], 'reader input cursor');
+        id(cursor.id, 'reader cursor'); id(cursor.mappedSourceId, 'mapped source'); id(cursor.inputSourceId, 'input source');
+        if (ids.has(cursor.id) || mappings.has(cursor.mappedSourceId) || feeds.filter(feed => feed.source.id === cursor.mappedSourceId).length !== 1) fail('Invalid reader input cursor mapping');
+        if (!Number.isSafeInteger(cursor.inputRevision) || cursor.inputRevision < 1 || typeof cursor.inputFingerprint !== 'string' || !/^[a-f0-9]{64}$/.test(cursor.inputFingerprint)) fail('Invalid reader input revision or fingerprint');
+        date(cursor.inputUpdatedAt, 'reader input', false); ids.add(cursor.id); mappings.add(cursor.mappedSourceId);
+        return {...cursor};
+      });
+    }
+    // Reader metadata authenticates no claims and creates no graph nodes or history rows.
+    return result;
+  }
   function stored(data, projects) {
     inspect(data);
     if (!data || typeof data !== 'object' || Array.isArray(data) || !Array.isArray(data.history)) fail('Invalid world history');
@@ -219,5 +240,5 @@
     for (const row of rows) { counts[names[row.status]]++; if (row.date === null) counts.unknownDates++; else if (counts.latestDate === null || Date.parse(row.date) > Date.parse(counts.latestDate)) counts.latestDate = row.date; }
     return counts;
   }
-  return Object.freeze({version:1, MAX_BYTES, MAX_RECORDS, MAX_SOURCES, validateFeed, merge, entries, summary});
+  return Object.freeze({version:1, MAX_BYTES, MAX_RECORDS, MAX_SOURCES, validateFeed, validateContainer, merge, entries, summary});
 });

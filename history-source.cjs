@@ -7,10 +7,11 @@ const MAX_CONFIG = 64 * 1024, MAX_NATIVE = 1024 * 1024 * 1024, MAX_LINE = 128 * 
 const MAX_CONTAINER = 10 * 1024 * 1024, MAX_RECORDS = 10000, CHUNK_RECORDS = 200, MAX_FEEDS = 50;
 const BLOCKED = new Set(['__proto__', 'constructor', 'prototype']);
 const HELP = 'City of Light selected history reader\n\n' +
-  'node history-source.cjs --config <absolute-config.json> [--once | --watch]\n\n' +
+  'node history-source.cjs --config <absolute-config.json> [--once | --watch | --initialize-structured-cursors]\n\n' +
   'The default is one read. --watch is an optional foreground process; Ctrl+C stops it.\n' +
   'Only configured Codex/Claude JSONL or structured feed files are read. No chat scan, credentials, network, commands or messages are used.\n' +
-  'Chat text becomes documentary observations, never accepted achievements. Existing output history is retained.\n';
+  'Chat text becomes documentary observations, never accepted achievements. Existing output history is retained.\n' +
+  '--initialize-structured-cursors is a one-time explicit legacy migration. It requires current structured records, kind and URL to match retained output and preserves every feed/revision.\n';
 const fail = message => {throw Error(message);};
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const plain = value => value && typeof value === 'object' && !Array.isArray(value) && [Object.prototype, null].includes(Object.getPrototypeOf(value));
@@ -179,7 +180,8 @@ function readSource(source,cached) {
   if (source.provider === 'feed-json') {
     const feed = core.validateFeed(parse(read.bytes),[source.projectId]);
     if (feed.source.id !== source.id) fail('STRUCTURED_SOURCE_ID_MISMATCH');
-    return {records:feed.records,kind:feed.source.kind,updatedAt:feed.source.updatedAt,url:feed.source.url,signature:signature(read.stat)};
+    const inputCursor={id:source.id,mappedSourceId:source.id,inputSourceId:feed.source.id,inputRevision:feed.source.revision,inputFingerprint:hash(Buffer.from(JSON.stringify(canonical(feed)),'utf8')),inputUpdatedAt:feed.source.updatedAt};
+    return {records:feed.records,kind:feed.source.kind,updatedAt:feed.source.updatedAt,url:feed.source.url,inputCursor,signature:signature(read.stat)};
   }
 }
 function chunkSource(source,sourceId) {
@@ -189,15 +191,24 @@ function chunkSource(source,sourceId) {
 function previousOutput(config) {
   if (!fs.existsSync(config.output)) return {container:{format:'city-light-history-feeds',version:1,feeds:[]},read:null};
   const read = readBounded(config.output,MAX_CONTAINER), value = parse(read.bytes);
-  keys(value,['format','version','feeds']);
-  if (value.format !== 'city-light-history-feeds' || value.version !== 1 || !Array.isArray(value.feeds) || value.feeds.length > MAX_FEEDS) fail('EXISTING_OUTPUT_NOT_HISTORY_FEEDS');
-  const seen = new Set(), feeds = value.feeds.map(feed => {
+  const checked=core.validateContainer(value,[...new Set(config.sources.map(source=>source.projectId))]);
+  const seen = new Set(), feeds = checked.feeds.map(feed => {
     const source = config.sources.find(selected => chunkSource(selected,feed?.source?.id)); if (!source || seen.has(feed.source.id)) fail('OUTPUT_SOURCE_NOT_CONFIGURED');
     seen.add(feed.source.id); return core.validateFeed(feed,[source.projectId]);
   });
-  return {container:{format:value.format,version:1,feeds},read};
+  const cursors=checked.readerInputCursors;
+  for(const cursor of cursors||[]){const source=config.sources.find(source=>source.id===cursor.id);if(!source||source.provider!=='feed-json'||cursor.mappedSourceId!==source.id||cursor.inputSourceId!==source.id)fail('OUTPUT_INPUT_CURSOR_NOT_CONFIGURED');}
+  return {container:{format:value.format,version:1,feeds,...(cursors?{readerInputCursors:cursors}:{})},rawFeeds:value.feeds,read};
 }
-function sourceFeeds(source,read,previous) {
+function sourceFeeds(source,read,previous,inputCursor) {
+  if(source.provider==='feed-json'){
+    if(previous.length&&!inputCursor)fail('STRUCTURED_INPUT_CURSOR_MISSING: previous output retained; verify current structured input and explicitly run --initialize-structured-cursors without resetting its output path');
+    if(inputCursor){
+      if(read.inputCursor.inputRevision<inputCursor.inputRevision)fail('STALE_STRUCTURED_INPUT_REVISION');
+      if(read.inputCursor.inputRevision===inputCursor.inputRevision&&read.inputCursor.inputFingerprint!==inputCursor.inputFingerprint)fail('CONFLICTING_STRUCTURED_INPUT_REVISION');
+      if(Date.parse(read.inputCursor.inputUpdatedAt)<Date.parse(inputCursor.inputUpdatedAt))fail('STRUCTURED_INPUT_DATE_WENT_BACKWARDS');
+    }
+  }
   previous = [...previous].sort((a,b) => a.source.id.localeCompare(b.source.id));
   if (source.provider !== 'feed-json') previous.forEach((feed,index) => {if (feed.source.id !== source.id + ':part' + String(index + 1).padStart(4,'0')) fail('NONCONTIGUOUS_OUTPUT_CHUNKS');});
   const pages = previous.map(feed => ({previous:feed,records:new Map(feed.records.map(record => [record.id,record]))}));
@@ -234,27 +245,48 @@ function atomicOutput(config,container,priorRead) {
   return {status:'UPDATED',feeds:container.feeds.length,records:container.feeds.reduce((sum,feed) => sum + feed.records.length,0),sha256:hash(bytes)};
 }
 function runOnce(config,cache = new Map()) {
-  const previous = previousOutput(config), feeds = [], pendingCache=new Map(), diagnostics=[];
+  const previous = previousOutput(config), feeds = [], inputCursors=[], pendingCache=new Map(), diagnostics=[];
   for (const source of config.sources) {
     noLinks(source.path); const current = fs.lstatSync(source.path), cached = cache.get(source.id);
     const unchanged=cached && cached.signature===signature(current);
     const read = unchanged ? cached : readSource(source,cached);
     pendingCache.set(source.id,read);
     if(read.diagnostics)diagnostics.push({sourceId:source.id,...read.diagnostics,...(unchanged?{mode:'unchanged',bytesRead:0}:{})});
-    feeds.push(...sourceFeeds(source,read,previous.container.feeds.filter(feed => chunkSource(source,feed.source.id))));
+    feeds.push(...sourceFeeds(source,read,previous.container.feeds.filter(feed => chunkSource(source,feed.source.id)),previous.container.readerInputCursors?.find(cursor=>cursor.id===source.id)));
+    if(read.inputCursor)inputCursors.push(read.inputCursor);
   }
   if (feeds.length > MAX_FEEDS || feeds.reduce((sum,feed) => sum + feed.records.length,0) > MAX_RECORDS) fail('OUTPUT_HISTORY_COUNT_LIMIT_EXPORT_BEFORE_CONTINUING');
-  const result=atomicOutput(config,{format:'city-light-history-feeds',version:1,feeds},previous.read);for(const [id,read]of pendingCache)cache.set(id,read);
+  const result=atomicOutput(config,{format:'city-light-history-feeds',version:1,feeds,...(inputCursors.length?{readerInputCursors:inputCursors}:{})},previous.read);for(const [id,read]of pendingCache)cache.set(id,read);
   return {...result,diagnostics};
+}
+function initializeStructuredCursors(config) {
+  const previous=previousOutput(config), selected=config.sources.filter(source=>source.provider==='feed-json');
+  if(!previous.read)fail('STRUCTURED_CURSOR_INITIALIZATION_REQUIRES_EXISTING_OUTPUT');
+  if(!selected.length)fail('NO_STRUCTURED_INPUTS_TO_INITIALIZE');
+  const cursors=[...(previous.container.readerInputCursors||[])];
+  for(const source of selected){
+    const read=readSource(source), cursor=cursors.find(cursor=>cursor.id===source.id), retained=previous.container.feeds.filter(feed=>feed.source.id===source.id);
+    if(cursor){if(serialize(cursor)!==serialize(read.inputCursor))fail('STRUCTURED_CURSOR_ALREADY_INITIALIZED: run the ordinary reader for a newer input; initialization cannot replace its cursor');continue;}
+    if(retained.length!==1)fail('STRUCTURED_CURSOR_INITIALIZATION_REQUIRES_RETAINED_SOURCE');
+    const prior=retained[0];
+    if(serialize(prior.records)!==serialize(read.records)||prior.source.kind!==read.kind||prior.source.url!==read.url)fail('STRUCTURED_CURSOR_INITIALIZATION_SOURCE_MISMATCH: retained history is unchanged');
+    if(Date.parse(read.updatedAt)<Date.parse(prior.source.updatedAt))fail('STRUCTURED_CURSOR_INITIALIZATION_DATE_WENT_BACKWARDS');
+    cursors.push(read.inputCursor);
+  }
+  // Metadata-only initialization preserves the exact retained feeds and generated
+  // output revisions, so an already imported world can continue the same lineage.
+  const result=atomicOutput(config,{...previous.container,feeds:previous.rawFeeds,readerInputCursors:cursors},previous.read);
+  return {...result,mode:'INITIALIZE_STRUCTURED_CURSORS',initialized:cursors.length-(previous.container.readerInputCursors?.length||0)};
 }
 function argumentsFor(args) {
   if (args.length === 1 && args[0] === '--help') return {help:true};
-  if (![2,3].includes(args.length) || args[0] !== '--config' || !args[1] || (args.length === 3 && !['--once','--watch'].includes(args[2]))) fail('USAGE: use --help');
-  return {config:absoluteLocal(args[1]),watch:args[2] === '--watch'};
+  if (![2,3].includes(args.length) || args[0] !== '--config' || !args[1] || (args.length === 3 && !['--once','--watch','--initialize-structured-cursors'].includes(args[2]))) fail('USAGE: use --help');
+  return {config:absoluteLocal(args[1]),watch:args[2] === '--watch',initializeStructured:args[2] === '--initialize-structured-cursors'};
 }
 function main(args = process.argv.slice(2)) {
   const options = argumentsFor(args); if (options.help) return {help:HELP};
   const config = validateConfig(parse(readBounded(options.config,MAX_CONFIG).bytes),options.config), cache = new Map();
+  if(options.initializeStructured)return initializeStructuredCursors(config);
   const first = runOnce(config,cache); if (!options.watch) return first;
   process.stdout.write(serialize({...first,watching:true,intervalSeconds:config.intervalSeconds}));
   let outputStamp = signature(fs.lstatSync(config.output)), lastError;
@@ -275,4 +307,4 @@ if (require.main === module) {
   try {const result = main(); if (!result.watching) process.stdout.write(result.help || serialize(result));}
   catch (error) {process.stderr.write('ERROR: ' + error.message + '; no output replaced\n'); process.exitCode = 1;}
 }
-module.exports = {main,argumentsFor,validateConfig,readSource,messageRecord,runOnce,inertText,eventDate};
+module.exports = {main,argumentsFor,validateConfig,readSource,messageRecord,runOnce,initializeStructuredCursors,inertText,eventDate};

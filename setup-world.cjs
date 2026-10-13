@@ -14,7 +14,7 @@ function noLinks(target){let current=path.resolve(target);while(true){let stat;t
 function historyFeeds(value){
   if(!value||typeof value!=='object'||Array.isArray(value))fail('INVALID_HISTORY_FEEDS');
   const container=value.format==='city-light-history-feeds';
-  if(container&&(value.version!==1||Object.keys(value).sort().join('|')!=='feeds|format|version'))fail('INVALID_HISTORY_CONTAINER');
+  if(container&&(value.version!==1||Object.keys(value).some(key=>!['format','version','feeds','readerInputCursors'].includes(key))||!['format','version','feeds'].every(key=>Object.hasOwn(value,key))))fail('INVALID_HISTORY_CONTAINER');
   if(!container&&(value.format!=='city-light-history-feed'||value.version!==1))fail('INVALID_HISTORY_FEEDS');
   const feeds=container?value.feeds:[value];if(!Array.isArray(feeds)||!feeds.length||feeds.length>50)fail('INVALID_HISTORY_FEEDS');
   if(Buffer.byteLength(JSON.stringify(value),'utf8')>HISTORY_BYTES)fail('HISTORY_SIZE_LIMIT');
@@ -76,7 +76,7 @@ async function createWorld(product,answers,output,assistant,historyInput){
   const history=historyInput?historyFeeds(historyInput):null;
   const hash=sha(canonical(historyInput?{answers,historyInput}:answers)),repeat=existing(output,hash,product,assistant);if(repeat)return repeat;
   const profile=product.core.create(answers);let data=await product.core.dataset(profile);
-  if(history){if(!product.history)fail('HISTORY_MODULE_REQUIRED');for(const feed of history)data=product.history.merge(data,feed,profile.projects).data;}
+  if(history){if(!product.history)fail('HISTORY_MODULE_REQUIRED');const checked=historyInput.format==='city-light-history-feeds'?product.history.validateContainer(historyInput,profile.projects).feeds:history;for(const feed of checked)data=product.history.merge(data,feed,profile.projects).data;}
   const preferredPro=answers.proLocale||(['en','ru'].includes(profile.locale?.language?.split('-')[0])?{version:1,language:profile.locale.language,direction:profile.locale.direction}:undefined);
   if(product.engine.pro&&profile.locale&&!['en','ru'].includes(profile.locale.language.split('-')[0])&&!answers.proLocale)fail('PRO_LANGUAGE_PACK_REQUIRED: translate the Pro template as answers.proLocale');
   const contents={'My-Project-World.html':product.pack.buildHTML(product.engine,{profile,data,publicPro:true,proLocale:preferredPro}),'world.profile.json':json(profile),'AI-HANDOFF.md':product.core.handoff(profile)+'\n'};
