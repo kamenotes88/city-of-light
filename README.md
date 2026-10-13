@@ -4,7 +4,7 @@
 
 English is the public default. [Read and use it in your language](#use-your-language).
 
-**[Download full Pro preview 0.15.1](https://github.com/kamenotes88/city-of-light/releases/tag/v0.15.1)** · [Set up with your AI assistant](#start-with-one-useful-result).
+**[Download full Pro preview 0.15.4](https://github.com/kamenotes88/city-of-light/releases/tag/v0.15.4)** · [Set up with your AI assistant](#start-with-one-useful-result).
 
 [![Check exported preview](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml/badge.svg)](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml)
 
@@ -37,7 +37,7 @@ screenshots of that same 0.8.0 example, rather than continuous gameplay.
    the context you choose with your assistant to continue.
 
 ```text
-Install and set up City of Light (Project World engine) using https://raw.githubusercontent.com/kamenotes88/city-of-light/761f4547d48c0ff0fe2f7f15e4045d10b67cd523/INSTALL.md.
+Install and set up City of Light (Project World engine) using https://raw.githubusercontent.com/kamenotes88/city-of-light/66c408a26a07e716f09b114951381a80ddbdf3e7/INSTALL.md.
 Start with one useful result. Reuse the context I have already permitted,
 ask up to three short questions, and help me open my own world.
 Use my known language preference, otherwise English.
@@ -178,7 +178,31 @@ from this README without a separately hosted website.
 
 ## Preview status
 
-### Current checked preview 0.15.1
+### Current checked preview 0.15.4
+
+Archive a project to remove its building, hero and questions from active views
+while keeping its history, plan, reserved plot and rewards. Restore the same
+project at any time. Progress can show active, archived or all project history.
+A full backup preserves the archive and previous chat connections.
+
+Report an unavailable working chat and choose a replacement for the same role.
+The old link stays in history. Missing data, authentication errors and offline
+access never count as proof of chat deletion. **Automatic native Codex/Claude
+chat disappearance detection is not connected.** Archiving does not stop
+external chats; replacing a link does not confirm access or execution.
+
+Includes lightweight conditional history checks and a Refresh chat button.
+Unchanged feeds can skip body download, parsing and import when the source
+supports validators. A feed check makes no AI model call; project agents and
+assistant chat checks have their own token costs.
+
+Verified locally: candidate build and explicit check; 32 JavaScript suites and
+16 installer cases (one OS-dependent skip); English browser archive, active
+map, empty game, restoration, unavailable-chat marker, replacement and reload;
+exact full backup recovery; isolated English/Russian installation. Owner worlds
+are excluded. Independent customer acceptance remains unverified.
+
+### Historical checked preview 0.15.1
 
 **Full Pro preview 0.15.1 passed its local build and explicit `--check`.**
 Thirty JavaScript suites and sixteen Python installer cases ran (fifteen passed;
