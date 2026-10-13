@@ -1,6 +1,6 @@
 {
   "format_version": 1,
-  "engine_version": "0.13.2",
+  "engine_version": "0.15.0",
   "profile_version": 1,
   "license_status": "EFFECTIVE",
   "provenance_status": "REVIEWED",
@@ -9,16 +9,19 @@
   "includes_user_data": false,
   "connectors": "manual-context only",
   "channel": "preview",
-  "source_sha256": "e1cb3f4d0158a4c6782672e2ae736af01835d146c56075a577e3797cec5e8a46",
+  "source_sha256": "c6bc09ef6eba2ef0945729c240099c8ac000c6c0a7c87767da16478539d65967",
   "sources": {
-    "PRODUCT_FILES.json": "c9f65a8b95c1025957ed09a0f1067ec0bc28c72287bde85014e707019245da28",
-    "build_portable.py": "47015b4f07c6a55115e0b4ac2de59b669b38b0fc9f8ec369152303dca3f8f866",
-    "build_public_pro.py": "71244aee41d0d2356ee65c77d2c2254b9207ed120b596058c4351b7e2abc66a2",
-    "graphify-out/product-history/INSTALL.md": "2aea2704543e7fca993e47e9b4a8111bf508d4fc7db995806efeffd348aeb529",
+    "PRODUCT_FILES.json": "d76659d019b6d007eff6c8ec5f69f802a2676450f350b55849e0f3ba77bd12c5",
+    "build_portable.py": "0fd46a7a059e581f53b7bb9a005fc2a6c8cadd5a5cb35051d97b1ad167ea5443",
+    "build_public_pro.py": "ff962a93c85cc07e47fc89d4ce986cf16b6d399a5cda66dbc70720077f562509",
+    "graphify-out/product-history/HISTORY_CONNECTORS.md": "a5d6a469ff042e0c9ce5d21f9792eda32844d477334483edf22c2f83334e8d39",
+    "graphify-out/product-history/HISTORY_IMPORT.md": "404988edd0d1bb633f8e986d33e8450eec6cbbb8b09d9f89a70ff9aa61d3416b",
+    "graphify-out/product-history/INSTALL.md": "b1675d344710c2abfd50952358c07264943361fc9ff6104f8fc83fea39b406b7",
     "graphify-out/product-history/LICENSE": "905c2ec11b6a5fdc91154b8a0cad622dc62666feed5667c4fb60605470a9a880",
     "graphify-out/product-history/NOTICE": "d9318505d93999d6bbc84d2576f24fea84e23c4a317a2ba82f26d637ad99b833",
     "graphify-out/product-history/extensions.json": "70405751cdd3657e5fab27c9417d144e02367bd656a9c0f7e169daba2fa91185",
-    "graphify-out/product-history/install-world.py": "c0311963f23c82d07a31c3409f7eb5c04c46c6adbb5a6cb3802561a5d9cff577",
+    "graphify-out/product-history/history-source.cjs": "62244260684c7ea883bf4ebd4e70e7ad06eaec7dace0fc58d6555eca5762abd8",
+    "graphify-out/product-history/install-world.py": "c72b13f3acba624abe4e9fbad8ead2063904fc416719d83a8ef4a25d9a0744ba",
     "graphify-out/product-history/journey-core.js": "62984b5fd06023fe265229bd1a2567da91eee142118c9da0c9b58b56156fdf11",
     "graphify-out/product-history/journey.css": "21e16c6d0a7a97b761f8242b161e937bee790472c0c73dc3fe655d20e7b62658",
     "graphify-out/product-history/journey.js": "73a03ffa972a8e440194ad2356a25390a67eeb48f34d24aa7af4b5af05822c47",
@@ -40,10 +43,10 @@
     "graphify-out/product-history/playground.css": "b506c62f62dbe24cc4b4072bb5392c432e345b07834a9362ebc71bac644512f3",
     "graphify-out/product-history/playground.html": "9229ba1cc387f2437f229504175b8e1653b73512a5d36d0a48b9264381cee2bf",
     "graphify-out/product-history/playground.js": "3263b6a10a58acdb50ed43d2d5b7a4823188dd5b480356b63d165a8b054f14da",
-    "graphify-out/product-history/pro-locale-catalogue.json": "af22f919a3522d9e5a84bec82160fef98a5571a1a8c7cfdffbaca20c57dd0971",
+    "graphify-out/product-history/pro-locale-catalogue.json": "afcd4b11ad70ba17e73c1628651e64263d964a7a636b271baec1e60d37e85afa",
     "graphify-out/product-history/pro-locale.js": "516f8613dc20ac5e85917d285dc8be12fbc86a758ddbb8049491c4ce1996351c",
-    "graphify-out/product-history/pro-package.js": "7ebd893247dfb66a686333c2ca5a2caed47617bf1e01ab48ed7b672cf2a43dbb",
-    "graphify-out/product-history/pro-public-tools.js": "9c855590f5960c433dc5f1a81c85703ffec6a504d9a14abed9ebb1f5e2855f91",
+    "graphify-out/product-history/pro-package.js": "96c1b9ab53451c76ebda14bb77280b7496c07ab0b3fa005a40717b1d5befa34a",
+    "graphify-out/product-history/pro-public-tools.js": "f249e23795cf499b67d89b4735778d4f7b9e467d7cd155212732117de892bc55",
     "graphify-out/product-history/pro/adventure.css": "31822d0113fa2a8047813fe99a17f9c5396745de59e2592d02c15f0e745d441a",
     "graphify-out/product-history/pro/adventure.js": "b772c93b13b59b9179a71a4014d19d265a1220e377fd2ad3ed82b098e2bde04e",
     "graphify-out/product-history/pro/advice.js": "b5b89ae8fb83e4bb25111e3c32a3f874ffc68d973515a1ae3ced014e58aaf771",
@@ -53,15 +56,19 @@
     "graphify-out/product-history/pro/city.js": "295574d0ae04b22bbe44b054bb6eff485e1925ad7d7da84e413b1db2b71004c8",
     "graphify-out/product-history/pro/index.html": "e721b33336776e08bf31c4a8a1c0dd808b490db4f4260f8be5ad0aec390086be",
     "graphify-out/product-history/pro/model.js": "6befa84649c8a107553fedb7d730590dea61feebe4b26a2962da50749fe48887",
-    "graphify-out/product-history/pro/progress.css": "0a681b585f8b5b6daf6145b7a0ee237c4cb786800d21f6772e5dabfdd1dc3201",
-    "graphify-out/product-history/pro/progress.js": "502318d721a389a5e92ed3a124f22fcd023e75eb04e2e43a790c2e1ede0391d0",
-    "graphify-out/product-history/project-world-skill.md": "079a4a39887ead861af34d89b4cad4a40d2c465bac11e0ea3904cb3aeb73c042",
-    "graphify-out/product-history/setup-world.cjs": "5bec599565f56b6fa3d364652cf97f3bc3307209e5f179985585d021c96ee9cc",
+    "graphify-out/product-history/pro/progress.css": "5882b5ca94a3489f2c16a1275bb2887a83c5895f19b6c705b36eac2f7f6247b8",
+    "graphify-out/product-history/pro/progress.js": "8218e1c69961b2102e227765adee36517fd627a4f44a3cd979865ebba4c8c7c0",
+    "graphify-out/product-history/project-world-skill.md": "f71e4a4a2feac255e01c9bbbf207580dc41fa18cadbb7ff7022e28e190fc5fb5",
+    "graphify-out/product-history/setup-world.cjs": "5c91aa7e65735b771c18993a6191cec618739f5f8e75eccb2c16e68d5e017e4c",
     "graphify-out/product-history/start.html": "1abc62ade185bd3dbe6a4493beeb3ce86170ba335c0c0ab13b7321833f07a515",
     "graphify-out/product-history/upgrade-catalog.js": "157d3c2a2ad7bec8f7bc40297c084e2217f392edc32ea8fd36fe0e2b12fad60e",
     "graphify-out/product-history/upgrade-core.js": "998f6d7395c364abdb9d5d6149f1eb937757d106adfaa70dbafd5e5aff0119e8",
     "graphify-out/product-history/upgrade-panel.css": "bce1aeb6263d63d2a78d75108cad0396bb51966be8b30597a438615a616ac3fc",
     "graphify-out/product-history/upgrade-panel.js": "57817e518ca697e31536390e7a1e70cb8d13babbbdcc9622f9ecc060747d4324",
+    "graphify-out/product-history/work-report-core.js": "cd41fea824b1f2f4d0de2cd87a104f2ddd26047ae607171c3522b05f79e51562",
+    "graphify-out/product-history/work-report-ui.js": "012d8f6ba3dcad043d29708ec2f6c1db693f3bc50332a45013f3241459ff0551",
+    "graphify-out/product-history/work-report.schema.json": "0ddb3252f7132fe3a960e1cdcff3d47102598104699e600a4a339b43c86f3d01",
+    "graphify-out/product-history/work-result.cjs": "175ebd057743305efc63f280a1f14d683d953c77a246987ec2204ac0b2e8ffa3",
     "graphify-out/product-history/world-backup.css": "309c1ce2680f79c2f498830bca3fa2434422f9738034b76921d60179f8ea66bf",
     "graphify-out/product-history/world-backup.js": "6944d0e1e693c85f3f6a194693591b5240446d80cd60bfe40fc4412f3e220ab6",
     "graphify-out/product-history/world-bundle.js": "fe9ae4d45f81df44414b012266c6cae7af23a94bc48040ebde8738defd50c078",
@@ -69,6 +76,7 @@
     "graphify-out/product-history/world-core.js": "5cb2f247339e361ad50c6ad457fdc9646251174a594e906755d6a9f967985fc3",
     "graphify-out/product-history/world-graph-boot.js": "12b980260d58e451d6147de35f966b908ca672db76b7033ec2d6c27d836504b3",
     "graphify-out/product-history/world-graph-core.js": "5ae7cc3e552abeeb0259e39af498291fe5e45faecc7dd6a1c2e6ec3f4794cb95",
+    "graphify-out/product-history/world-history-core.js": "bd8f2713dfb06958a19ee85e9aad6539af545702eed40d1d81340f65324dd90f",
     "graphify-out/product-history/world-locale.js": "71979cd3e7fc0893b07a342803079eeb553895c16119d22b551bd0aa45227847",
     "graphify-out/product-history/world-package.js": "368a424e985e0a719fcd8625b76446f415bc94eadae64fd47063358b94026c3a",
     "graphify-out/product-history/world-save.js": "948aa6c56373a65165072e5cbc07870b7a1f2aa68e9d62afa382dd0b5b17d167",
@@ -79,34 +87,34 @@
     "graphify-out/product-history/world-update-core.js": "8c0f7260e5cf13282e4d25ab1be0dbe8c9c4c726f562917f1daf3be70e0c7a5d",
     "graphify-out/product-history/world-update.js": "b46656988190c4ef33ba19185441af7880c916a1482316a26a193ff9a7e53bb7",
     "locale_html.py": "67091a87cad1d292f44e9d7f470153c63f86658516e0e966d3fb16dcde766d77",
-    "prepare_pro_locale.py": "3a88f9afc55bca1395e3749ea1c3a61cfd62e3a9b1483f3158a944319fb04b66"
+    "prepare_pro_locale.py": "9dc9270a167ae3761d270e0c60d955f52a1da494085f247bd075a8db06ccba96"
   },
-  "changes": "Clean public Pro: grid city, missions, human questions, editable plans, role links, progress, optional improvements and full portable backup. English default, installation language choice and later validated language packs. Owner data and private Pro remain excluded. Saved language initializes static labels and shared account, upgrade and update controls before they mount after reload.",
+  "changes": "Selected chat and documentary history import across graph, city, game and progress. Source revisions, local scopes, pending steps and STOP remain distinct from achievements. Duplicate-safe, atomic feeds, optional local Codex/Claude readers and opt-in foreground refresh. Full backup preserves imported history. English default and personal language choice remain; owner data excluded.",
   "automatic_update_delivery": false,
   "files": {
     "Start.html": {
-      "bytes": 1627139,
-      "sha256": "2dcb7a775cceb20d161937ee86b725737647b7d90f4143a201ab086d66f63697"
+      "bytes": 1728368,
+      "sha256": "7ba8d5caeb01455de57c8c1ad4feabaf3f5241c0e950f788dead67b2b4888be9"
     },
     "README.txt": {
       "bytes": 1665,
-      "sha256": "6d8cea33cbf66f60835af89a12709241fd824f396df321aae609b998066eeb62"
+      "sha256": "13332a9478a9cc0f5b5c99a05015054f703ab0e5bea805b99f0964f24100d8c7"
     },
     "INSTALL.md": {
-      "bytes": 19556,
-      "sha256": "2aea2704543e7fca993e47e9b4a8111bf508d4fc7db995806efeffd348aeb529"
+      "bytes": 22130,
+      "sha256": "b1675d344710c2abfd50952358c07264943361fc9ff6104f8fc83fea39b406b7"
     },
     "install-world.py": {
-      "bytes": 11182,
-      "sha256": "c0311963f23c82d07a31c3409f7eb5c04c46c6adbb5a6cb3802561a5d9cff577"
+      "bytes": 11602,
+      "sha256": "c72b13f3acba624abe4e9fbad8ead2063904fc416719d83a8ef4a25d9a0744ba"
     },
     "setup-world.cjs": {
-      "bytes": 11893,
-      "sha256": "5bec599565f56b6fa3d364652cf97f3bc3307209e5f179985585d021c96ee9cc"
+      "bytes": 14818,
+      "sha256": "5c91aa7e65735b771c18993a6191cec618739f5f8e75eccb2c16e68d5e017e4c"
     },
     "project-world-skill.md": {
-      "bytes": 6122,
-      "sha256": "079a4a39887ead861af34d89b4cad4a40d2c465bac11e0ea3904cb3aeb73c042"
+      "bytes": 8401,
+      "sha256": "f71e4a4a2feac255e01c9bbbf207580dc41fa18cadbb7ff7022e28e190fc5fb5"
     },
     "extensions.json": {
       "bytes": 2226,
@@ -119,6 +127,30 @@
     "NOTICE": {
       "bytes": 1756,
       "sha256": "d9318505d93999d6bbc84d2576f24fea84e23c4a317a2ba82f26d637ad99b833"
+    },
+    "work-report.schema.json": {
+      "bytes": 2002,
+      "sha256": "0ddb3252f7132fe3a960e1cdcff3d47102598104699e600a4a339b43c86f3d01"
+    },
+    "work-result.cjs": {
+      "bytes": 14533,
+      "sha256": "175ebd057743305efc63f280a1f14d683d953c77a246987ec2204ac0b2e8ffa3"
+    },
+    "world-history-core.js": {
+      "bytes": 16448,
+      "sha256": "bd8f2713dfb06958a19ee85e9aad6539af545702eed40d1d81340f65324dd90f"
+    },
+    "history-source.cjs": {
+      "bytes": 23703,
+      "sha256": "62244260684c7ea883bf4ebd4e70e7ad06eaec7dace0fc58d6555eca5762abd8"
+    },
+    "HISTORY_IMPORT.md": {
+      "bytes": 3812,
+      "sha256": "404988edd0d1bb633f8e986d33e8450eec6cbbb8b09d9f89a70ff9aa61d3416b"
+    },
+    "HISTORY_CONNECTORS.md": {
+      "bytes": 11801,
+      "sha256": "a5d6a469ff042e0c9ce5d21f9792eda32844d477334483edf22c2f83334e8d39"
     }
   }
 }

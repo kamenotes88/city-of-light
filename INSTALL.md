@@ -22,6 +22,19 @@ questions together; skip answered questions:
    also a game, or choose for me. Reuse a known language preference.
    Name, heroes, theme, success criterion, and first step can be suggestions.
 
+When selected existing chats are available, map each explicitly to a project
+and import its dated documentary history using `HISTORY_IMPORT.md`. Reuse native
+authorized read tools or supplied exports. Never infer access from a chat link.
+For existing local Codex/Claude JSONL, offer the optional selected-file reader in
+`HISTORY_CONNECTORS.md`; no whole-computer scan or hidden background service.
+Prepare one bounded feed per source, preserve stable message/result IDs, and
+record unknown dates as null. Chat reports are observations, not achievements.
+Pass the permitted feed JSON as `--history <file>` when creating the first world
+with `setup-world.cjs`. Or use the world's History import after creation. A
+selected HTTP feed can then refresh automatically while the world is open.
+The reader/connector and feed hosting must actually be available; state a
+missing dependency clearly and continue with manual import.
+
 For chaos, propose one initial project "Organize my work", with the criterion
 "one priority and one next step are agreed". Treat this as a plan, not an
 achievement. Do not make the human fill a second questionnaire after answering.
@@ -339,3 +352,33 @@ matching public release and assets exist. Keep its version equal to that public
 release. The local catalogue still ships with the engine. Notifications do not
 install, migrate, authenticate, pay or automatically deliver improvements.
 Signed installations and full migration acceptance remain separate gates.
+
+## Continue a real project with your assistant
+
+The local Work with AI button is available in every public Pro view. Select
+one project, agree its plan, and copy its next-step request to Codex or Claude.
+The request contains only that project's binding, goal and current next step;
+it grants no new production, spending, private-chat or publication authority.
+
+Your assistant returns a bounded data-only report. The installed
+`work-report.schema.json` defines the format; the verified engine provides:
+
+```text
+node <engine-directory>/work-result.cjs --request work-request.json --claim claim.json --output report.json
+node <engine-directory>/work-result.cjs --check report.json
+```
+
+Optionally add `--artifact <regular-local-file>` to record its SHA256. No file
+is executed or uploaded. Existing output is preserved; changed reports require
+a new filename and report ID. A checksum records bytes, not result quality.
+
+In Work with AI, import the report, inspect its scope and evidence, then accept
+or reject it. Import alone creates no achievement. A checked partial step can
+advance the next action while the goal stays in progress. Completing the whole
+goal requires a separate confirmation. The graph, city and statistics read the
+same saved record; repeat imports do not award the same result again. Export a
+full world backup before switching devices or restoring. Linked external
+projects continue accepting results in their authoritative source.
+
+This local workflow needs no accounts or database. It does not automatically
+create chats, execute projects, read chat history or deliver engine updates.

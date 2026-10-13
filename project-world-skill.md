@@ -36,6 +36,15 @@ project record. Preserve project IDs and writer roles. Use available authorized
 tools; state a missing connection plainly. Do not infer account access from a
 link, a connector choice, or this skill.
 
+For existing selected chats, use `HISTORY_IMPORT.md` and `HISTORY_CONNECTORS.md`.
+Map source-to-project explicitly and keep stable record IDs and source revisions.
+Import the available history before proposing that already completed work must
+be repeated. Use available authorized native tools, an export, or the optional
+selected-file reader; never scan private chats or accounts just from a link.
+Refresh a configured data-only feed after material changes. Preserve STOP,
+scope, source dates and prior revisions. A reported/local result is documentary
+history; achievement acceptance follows the independent existing review route.
+
 Record confirmed achievements only after the relevant acceptance is observed:
 **made** describes the artifact, **applied** describes where it was used, and
 **effect** describes the measured outcome. Keep exact scope, date, and evidence;
@@ -59,6 +68,32 @@ their compatible original interface. Choose a built-in language at creation
 or use complete common and Pro text dictionaries for another language.
 Installing this skill grants no spending, publication, external writing,
 messages, private-account access, background polling, or third-party installs.
+
+## Return a checked step to the user's world
+
+The Work with AI entry exports a selected `work-request.json`. It binds the
+world/project IDs and goal/plan versions without exporting other projects.
+Read the current source and scope; a copied request does not approve a draft
+plan, spending, publication, production changes or access to another chat.
+
+After permitted work, prepare a data-only claim following the installed
+`work-report.schema.json`. Use `work-result.cjs --request work-request.json
+--claim claim.json --output report.json` in the verified engine. Optional
+`--artifact` records a regular local file's SHA256; it does not verify quality.
+Evidence must name an actual source. Paths remain text, never instructions.
+Keep `artifactId` stable for the same result across made/applied/effect; never
+change IDs to obtain another achievement. Do not set acceptance, XP, billing
+rights or completion fields outside the schema. A partial step does not finish
+the project's goal. Claim the exact scope and leave unknown effect explicit.
+
+Ask the user to import the report through Work with AI and review the evidence.
+Import stores a pending claim; explicit local review may accept a checked step
+and its proposed next action. The world remains one source for graph, city and
+progress. External-source projects retain their authoritative acceptance route.
+Do not rewrite HTML, browser storage, backups or the owner's project tracker
+to bypass review. Full Pro backup preserves the report and review history;
+restore a separate world as before. This is local assisted exchange, not an
+autonomous chat execution service or account connection.
 
 ## Useful improvements, without another questionnaire
 

@@ -1,8 +1,9 @@
 'use strict';
 // Local preparation only. An installed Node runtime and account access are separate.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),{createHash,webcrypto}=require('node:crypto');
-const payload=['Start.html','README.txt','INSTALL.md','setup-world.cjs','install-world.py','project-world-skill.md','extensions.json','LICENSE','NOTICE'],outputs=['My-Project-World.html','world.profile.json','AI-HANDOFF.md'],receiptName='setup-receipt.json';
+const payload=['Start.html','README.txt','INSTALL.md','setup-world.cjs','install-world.py','project-world-skill.md','extensions.json','LICENSE','NOTICE','work-result.cjs','work-report.schema.json','world-history-core.js','history-source.cjs','HISTORY_IMPORT.md','HISTORY_CONNECTORS.md'],outputs=['My-Project-World.html','world.profile.json','AI-HANDOFF.md'],receiptName='setup-receipt.json';
 const skillPaths={codex:'.agents/skills/project-world/SKILL.md',claude:'.claude/skills/project-world/SKILL.md'};
+const HISTORY_BYTES=10*1024*1024;
 const sha=value=>createHash('sha256').update(value).digest('hex');
 const json=value=>JSON.stringify(value,null,2)+'\n';
 const fail=message=>{throw new Error(message);};
@@ -10,6 +11,30 @@ function canonical(value){if(Array.isArray(value))return '['+value.map(canonical
 function readJSON(file){try{return JSON.parse(fs.readFileSync(file,'utf8').replace(/^\uFEFF/,''));}catch(_){fail('INVALID_JSON: '+path.basename(file));}}
 function regular(file){const stat=fs.lstatSync(file);if(!stat.isFile()||stat.isSymbolicLink())fail('REGULAR_FILE_REQUIRED: '+path.basename(file));return stat;}
 function noLinks(target){let current=path.resolve(target);while(true){let stat;try{stat=fs.lstatSync(current);}catch(error){if(error.code!=='ENOENT')throw error;}if(stat){if(stat.isSymbolicLink())fail('SYMLINK_REFUSED: '+current);if(current!==path.resolve(target)&&!stat.isDirectory())fail('DIRECTORY_REQUIRED: '+current);}const parent=path.dirname(current);if(parent===current)break;current=parent;}}
+function historyFeeds(value){
+  if(!value||typeof value!=='object'||Array.isArray(value))fail('INVALID_HISTORY_FEEDS');
+  const container=value.format==='city-light-history-feeds';
+  if(container&&(value.version!==1||Object.keys(value).sort().join('|')!=='feeds|format|version'))fail('INVALID_HISTORY_CONTAINER');
+  if(!container&&(value.format!=='city-light-history-feed'||value.version!==1))fail('INVALID_HISTORY_FEEDS');
+  const feeds=container?value.feeds:[value];if(!Array.isArray(feeds)||!feeds.length||feeds.length>50)fail('INVALID_HISTORY_FEEDS');
+  if(Buffer.byteLength(JSON.stringify(value),'utf8')>HISTORY_BYTES)fail('HISTORY_SIZE_LIMIT');
+  return feeds;
+}
+function readHistory(file){
+  if(typeof file!=='string'||!path.isAbsolute(file)||file.includes('\0')||/^(?:\\\\|\/\/|[a-z][a-z0-9+.-]*:\/\/)/i.test(file))fail('EXACT_LOCAL_HISTORY_PATH_REQUIRED');
+  file=path.resolve(file);noLinks(file);const before=regular(file);if(before.size>HISTORY_BYTES)fail('HISTORY_SIZE_LIMIT');
+  const same=(a,b)=>a.dev===b.dev&&a.ino===b.ino,stamp=stat=>[stat.size,stat.mtimeMs,stat.ctimeMs].join(':');
+  const fd=fs.openSync(file,fs.constants.O_RDONLY|(fs.constants.O_NOFOLLOW||0));let bytes;
+  try{
+    const opened=fs.fstatSync(fd);noLinks(file);if(!opened.isFile()||!same(before,opened)||!same(opened,fs.lstatSync(file)))fail('HISTORY_CHANGED_DURING_READ');
+    const parts=[],buffer=Buffer.alloc(65536);let size=0,count;
+    while((count=fs.readSync(fd,buffer,0,buffer.length,null))){size+=count;if(size>HISTORY_BYTES)fail('HISTORY_SIZE_LIMIT');parts.push(Buffer.from(buffer.subarray(0,count)));}
+    const after=fs.fstatSync(fd);noLinks(file);if(!same(opened,fs.lstatSync(file))||stamp(opened)!==stamp(after)||size!==after.size)fail('HISTORY_CHANGED_DURING_READ');
+    bytes=Buffer.concat(parts,size);
+  }finally{fs.closeSync(fd);}
+  let value;try{value=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes).replace(/^\uFEFF/,''));}catch(_){fail('INVALID_JSON: '+path.basename(file));}
+  historyFeeds(value);return value;
+}
 function installed(base){
   regular(path.join(base,'manifest.json'));const manifest=readJSON(path.join(base,'manifest.json'));
   if(manifest.format_version!==1||manifest.entrypoint!=='Start.html'||!/^\d+\.\d+\.\d+$/.test(manifest.engine_version||'')||manifest.profile_version!==1||!manifest.files||Object.keys(manifest.files).sort().join('|')!==payload.slice().sort().join('|'))fail('INVALID_MANIFEST');
@@ -22,10 +47,11 @@ function installed(base){
   return {engine,manifest,skill:fs.readFileSync(path.join(base,'project-world-skill.md'),'utf8')};
 }
 function initialize(product,locale,proLocale){
-  const context=vm.createContext({crypto:webcrypto,TextEncoder,__TownLocaleCatalogue:product.engine.locale_catalogue,__ProLocaleCatalogue:product.engine.pro?.locale_catalogue});vm.runInContext(product.engine.assets['world-locale.js'],context,{filename:'world-locale.js',timeout:1000});
-  const selected=context.TownLocale.select(locale);for(const name of ['world-core.js','world-package.js',...(product.engine.pro?['pro-locale.js','pro-model.js','pro-package.js']:[])])vm.runInContext(product.engine.assets[name],context,{filename:name,timeout:1000});
+  // These modules are verified before initialization. Keep a finite bound with room for busy PCs.
+  const context=vm.createContext({crypto:webcrypto,TextEncoder,URL,__TownLocaleCatalogue:product.engine.locale_catalogue,__ProLocaleCatalogue:product.engine.pro?.locale_catalogue});vm.runInContext(product.engine.assets['world-locale.js'],context,{filename:'world-locale.js',timeout:5000});
+  const selected=context.TownLocale.select(locale);for(const name of ['world-core.js',...(product.engine.assets['world-history-core.js']?['world-history-core.js']:[]),'world-package.js',...(product.engine.pro?['pro-locale.js','pro-model.js','pro-package.js']:[])])vm.runInContext(product.engine.assets[name],context,{filename:name,timeout:5000});
   if(product.engine.pro){context.ProLocale.configure(product.engine.pro.locale_catalogue);context.ProLocale.select(proLocale||(['en','ru'].includes(selected.language.split('-')[0])?{version:1,language:selected.language,direction:selected.direction}:undefined));}
-  return {...product,core:context.TownWorld,pack:context.TownPackage,locale:selected,catalogue:context.TownLocale.catalogue(),proCatalogue:context.ProLocale?.catalogue()};
+  return {...product,core:context.TownWorld,pack:context.TownPackage,locale:selected,catalogue:context.TownLocale.catalogue(),proCatalogue:context.ProLocale?.catalogue(),history:context.TownHistoryCore};
 }
 function localeTemplate(product,output,pro=false){
   output=path.resolve(output);noLinks(output);if(!fs.existsSync(path.dirname(output)))fail('OUTPUT_PARENT_REQUIRED');
@@ -45,10 +71,12 @@ function existing(output,hash,product,assistant){
   if(profile.worldId!==receipt.worldId||JSON.stringify(receipt.connectors)!==JSON.stringify(profile.connectors)||receipt.external_access!=='NOT_CONNECTED')fail('RECEIPT_MISMATCH');
   return {status:'ALREADY_CREATED',output,worldId:profile.worldId,engine_version:product.engine.engine_version,assistant,skill:skill||null};
 }
-async function createWorld(product,answers,output,assistant){
+async function createWorld(product,answers,output,assistant,historyInput){
   output=path.resolve(output);noLinks(output);if(!fs.existsSync(path.dirname(output)))fail('OUTPUT_PARENT_REQUIRED');
-  const hash=sha(canonical(answers)),repeat=existing(output,hash,product,assistant);if(repeat)return repeat;
-  const profile=product.core.create(answers),data=await product.core.dataset(profile);
+  const history=historyInput?historyFeeds(historyInput):null;
+  const hash=sha(canonical(historyInput?{answers,historyInput}:answers)),repeat=existing(output,hash,product,assistant);if(repeat)return repeat;
+  const profile=product.core.create(answers);let data=await product.core.dataset(profile);
+  if(history){if(!product.history)fail('HISTORY_MODULE_REQUIRED');for(const feed of history)data=product.history.merge(data,feed,profile.projects).data;}
   const preferredPro=answers.proLocale||(['en','ru'].includes(profile.locale?.language?.split('-')[0])?{version:1,language:profile.locale.language,direction:profile.locale.direction}:undefined);
   if(product.engine.pro&&profile.locale&&!['en','ru'].includes(profile.locale.language.split('-')[0])&&!answers.proLocale)fail('PRO_LANGUAGE_PACK_REQUIRED: translate the Pro template as answers.proLocale');
   const contents={'My-Project-World.html':product.pack.buildHTML(product.engine,{profile,data,publicPro:true,proLocale:preferredPro}),'world.profile.json':json(profile),'AI-HANDOFF.md':product.core.handoff(profile)+'\n'};
@@ -68,16 +96,16 @@ async function createWorld(product,answers,output,assistant){
 function argumentsFor(args){
   if(args.length===1&&args[0]==='--verify')return {verify:true};
   if(args.length===2&&['--locale-template','--pro-locale-template'].includes(args[0])&&args[1]&&!args[1].startsWith('--'))return {localeTemplate:args[1],proLocaleTemplate:args[0]==='--pro-locale-template'};
-  const usage='USAGE: node setup-world.cjs --verify OR --locale-template <new-json-file> OR --answers <json-path> --output <new-personal-world-dir> [--assistant codex|claude|manual]';
-  if(![4,6].includes(args.length))fail(usage);const result={};
-  for(let i=0;i<args.length;i+=2){if(!['--answers','--output','--assistant'].includes(args[i])||result[args[i].slice(2)]||!args[i+1]||args[i+1].startsWith('--'))fail(usage);result[args[i].slice(2)]=args[i+1];}
+  const usage='USAGE: node setup-world.cjs --verify OR --locale-template <new-json-file> OR --answers <json-path> --output <new-personal-world-dir> [--assistant codex|claude|manual] [--history <permitted-history-json>]';
+  if(![4,6,8].includes(args.length))fail(usage);const result={};
+  for(let i=0;i<args.length;i+=2){if(!['--answers','--output','--assistant','--history'].includes(args[i])||result[args[i].slice(2)]||!args[i+1]||args[i+1].startsWith('--'))fail(usage);result[args[i].slice(2)]=args[i+1];}
   if(!result.answers||!result.output||result.assistant&&!['codex','claude','manual'].includes(result.assistant))fail(usage);result.assistant=result.assistant||'manual';return result;
 }
 async function main(args=process.argv.slice(2),base=__dirname){
   const options=argumentsFor(args),product=installed(path.resolve(base));
   if(options.verify){initialize(product);return {status:'VERIFIED',engine_version:product.engine.engine_version,profile_version:product.engine.profile_version,license_status:product.manifest.license_status||'DRAFT_NOT_EFFECTIVE',provenance_status:product.manifest.provenance_status||'PENDING',runtime:'NODE_AVAILABLE',external_access:'NOT_CONNECTED'};}
   if(options.localeTemplate)return localeTemplate(initialize(product),options.localeTemplate,options.proLocaleTemplate);
-  const answers=readJSON(path.resolve(options.answers));return createWorld(initialize(product,answers.locale,answers.proLocale),answers,options.output,options.assistant);
+  const answers=readJSON(path.resolve(options.answers));return createWorld(initialize(product,answers.locale,answers.proLocale),answers,options.output,options.assistant,options.history?readHistory(options.history):null);
 }
 if(require.main===module)main().then(result=>process.stdout.write(json(result))).catch(error=>{process.stderr.write('ERROR: '+error.message+'\n');process.exitCode=1;});
-module.exports={main,canonical};
+module.exports={main,canonical,readHistory,historyFeeds};

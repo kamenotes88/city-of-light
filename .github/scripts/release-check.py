@@ -16,7 +16,9 @@ import zipfile
 
 MAX_BYTES = 50 * 1024 * 1024
 BASE_FILES = {'Start.html', 'README.txt', 'INSTALL.md', 'install-world.py',
-              'setup-world.cjs', 'project-world-skill.md', 'extensions.json'}
+              'setup-world.cjs', 'project-world-skill.md', 'extensions.json',
+              'work-result.cjs', 'work-report.schema.json', 'world-history-core.js',
+              'history-source.cjs', 'HISTORY_IMPORT.md', 'HISTORY_CONNECTORS.md'}
 LEGAL_FILES = {'LICENSE', 'NOTICE'}
 ARCHIVE = 'Project-World-Preview.zip'
 HASH = re.compile(r'[a-f0-9]{64}')
@@ -151,6 +153,35 @@ def run(command, expected_status=None, refusal=None):
     return output
 
 
+HISTORY_SMOKE = r'''
+'use strict';
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),{webcrypto}=require('node:crypto');
+const [startFile,worldFile,historyFile]=process.argv.slice(2);
+const start=fs.readFileSync(startFile,'utf8'),matches=[...start.matchAll(/<script id="town-engine" type="application\/json">\s*(\{[\s\S]*?\})\s*<\/script>/g)];
+assert.equal(matches.length,1);const engine=JSON.parse(matches[0][1]);
+const html=fs.readFileSync(worldFile,'utf8'),boots=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].filter(m=>/^window\./.test(m[1])&&/\bwindow\.TownProfile=/.test(m[1]));
+assert.equal(boots.length,1);assert.doesNotMatch(html,/owner-data\.json|owner-profile\.json|knowledge-index\.json|page_60fc8e0f53d88191a64023a74b92c409|page_f9a470356fd08191baf2ee20d3acd7b2/);
+const globals=vm.createContext({window:{}});vm.runInContext(boots[0][1],globals);const boot=globals.window;
+const context={TextEncoder,TextDecoder,URL,crypto:webcrypto,console};context.window=context;context.globalThis=context;vm.createContext(context);
+context.__TownLocaleCatalogue=engine.locale_catalogue;context.__ProLocaleCatalogue=engine.pro.locale_catalogue;
+for(const name of ['world-locale.js','world-core.js','world-history-core.js','pro-locale.js','pro-model.js','pro-package.js'])vm.runInContext(engine.assets[name],context,{filename:name,timeout:5000});
+context.TownLocale.configure(engine.locale_catalogue);context.ProLocale.configure(engine.pro.locale_catalogue);context.TownLocale.select(boot.PRO_EMBEDDED_PROFILE.locale);context.ProLocale.select(boot.PRO_LOCALE);
+(async()=>{
+  const before=JSON.stringify(boot.PRO_EMBEDDED_DATA),data=boot.PRO_BUNDLE_CONTEXT.data,projects=boot.PRO_EMBEDDED_DATA.projects;
+  const imported=context.TownHistoryCore.entries(data,projects);assert.equal(imported.length,2);assert.equal(imported.filter(r=>r.status==='accepted_local').length,1);assert.equal(imported.filter(r=>r.date===null).length,1);
+  assert.equal(projects[0].achievements.length,0);assert.equal(projects[0].learning.xp,0);
+  const feed=JSON.parse(fs.readFileSync(historyFile,'utf8'));const repeat=context.TownHistoryCore.merge(data,feed,projects);assert.equal(repeat.added,0);assert.equal(JSON.stringify(boot.PRO_EMBEDDED_DATA),before);
+  const backup=await context.TownProPackage.createBackup({state:boot.PRO_EMBEDDED_DATA,profile:boot.PRO_EMBEDDED_PROFILE,bundleContext:boot.PRO_BUNDLE_CONTEXT,proLocale:boot.PRO_LOCALE,engineVersion:engine.engine_version});
+  const restored=await context.TownProPackage.decodeBackup(JSON.stringify(backup),engine.engine_version);
+  assert.equal(JSON.stringify(restored.proState),before);assert.equal(JSON.stringify(restored.data),JSON.stringify(data));
+  for(const key of ['learning','graph','presentation','origin','attachments'])assert.equal(JSON.stringify(restored[key]),JSON.stringify(boot.PRO_BUNDLE_CONTEXT[key]));
+  const restoredRepeat=context.TownHistoryCore.merge(restored.data,feed,restored.proState.projects);assert.equal(restoredRepeat.added,0);
+  const copy=context.TownProPackage.buildHTML(engine,restored);assert.ok(copy.includes('restore-'));assert.ok(copy.includes('Fictional accepted source step'));assert.ok(copy.includes('Undated fictional step'));assert.doesNotMatch(copy,/<script\b[^>]*\bsrc=|<link\b[^>]*rel="stylesheet"/);
+  console.log(JSON.stringify({status:'HISTORY_PASS',records:2,duplicate:'NO_CHANGE',full_backup_restore:'PASS',awards:'UNCHANGED'}));
+})().catch(error=>{console.error(error.stack);process.exitCode=1;});
+'''
+
+
 def runtime_checks(directory, node, served, release, locales):
     verify = run([node, str(directory / 'setup-world.cjs'), '--verify'], 'VERIFIED')
     require(verify.get('engine_version') == release['engine_version'], 'Node verified another version')
@@ -222,6 +253,43 @@ def runtime_checks(directory, node, served, release, locales):
                     repeated = run(command, 'ALREADY_CREATED')
                     require(snapshot(world) == before and repeated.get('worldId') == created['worldId'],
                             'World repeat changed bytes/mtime/identity')
+                    if tuple(map(int, release['engine_version'].split('.'))) >= (0, 15, 0):
+                        history = root / (language + '-selected-history.json')
+                        history_value = {
+                            'format': 'city-light-history-feed', 'version': 1,
+                            'source': {'id': 'fictional-qa-chat', 'label': 'Permitted fictional QA chat',
+                                       'revision': 1, 'updatedAt': '2026-10-12T00:00:00Z', 'kind': 'chat',
+                                       'url': 'https://example.com/fictional-qa-chat'},
+                            'records': [
+                                {'id': 'local-step', 'projectId': profile['projects'][0]['id'],
+                                 'title': 'Fictional accepted source step', 'detail': 'Local source evidence only.',
+                                 'date': '2026-10-11', 'status': 'accepted_local', 'scope': 'Local source scope',
+                                 'evidence': ['fictional/source.json']},
+                                {'id': 'pending-step', 'projectId': profile['projects'][0]['id'],
+                                 'title': 'Undated fictional step', 'detail': 'An unknown date stays unknown.',
+                                 'date': None, 'status': 'pending', 'scope': 'Planned work', 'evidence': []}]}
+                        history.write_text(json.dumps(history_value), encoding='utf-8')
+                        history_world = root / (language + '-history-world')
+                        history_command = [node, str(installed / 'setup-world.cjs'), '--answers', str(answers),
+                                           '--output', str(history_world), '--assistant', 'manual',
+                                           '--history', str(history)]
+                        history_created = run(history_command, 'CREATED')
+                        history_before = snapshot(history_world)
+                        history_repeat = run(history_command, 'ALREADY_CREATED')
+                        require(snapshot(history_world) == history_before
+                                and history_repeat['worldId'] == history_created['worldId'],
+                                'History setup repeat changed bytes/mtime/identity')
+                        smoke = root / (language + '-history-smoke.cjs')
+                        smoke.write_text(HISTORY_SMOKE, encoding='utf-8')
+                        checked = run([node, str(smoke), str(installed / 'Start.html'),
+                                       str(history_world / 'My-Project-World.html'), str(history)], 'HISTORY_PASS')
+                        require(checked.get('records') == 2 and checked.get('duplicate') == 'NO_CHANGE'
+                                and checked.get('full_backup_restore') == 'PASS'
+                                and checked.get('awards') == 'UNCHANGED', 'History smoke did not prove preservation')
+                        history.write_text('{malformed JSON', encoding='utf-8')
+                        run(history_command, refusal='INVALID_JSON')
+                        require(snapshot(history_world) == history_before,
+                                'Malformed history changed an existing user world')
                     with (world / 'My-Project-World.html').open('ab') as stream:
                         stream.write(b'\n<!-- Customer change -->\n')
                     before = snapshot(world)
@@ -235,21 +303,25 @@ def runtime_checks(directory, node, served, release, locales):
         finally:
             server.shutdown()
             worker.join(timeout=5)
+    history_status = 'PASS' if tuple(map(int, release['engine_version'].split('.'))) >= (0, 15, 0) else 'NOT_APPLICABLE'
     return {'node_verify': 'PASS', 'loopback_install': 'PASS', 'install_repeat_hashes_mtime': 'PASS',
             'install_sentinel_preserved': 'PASS', 'modified_install_preserved': 'PASS',
-            'world_create_repeat_modified_refusal': 'PASS', 'locales': locales}
+            'world_create_repeat_modified_refusal': 'PASS', 'history_create_repeat_backup_restore': history_status,
+            'history_unknown_dates_and_awards_preserved': history_status,
+            'history_malformed_input_preserves_existing_world': history_status, 'locales': locales}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--directory', type=Path, default=Path('.'), help='Flat exported preview root; read only')
+    parser.add_argument('--root', type=Path, help='Alias for the flat exported preview root')
     parser.add_argument('--node', default=shutil.which('node'), help='Installed Node executable')
     parser.add_argument('--locales', nargs='+', choices=['en', 'ru'], default=['en'])
     parser.add_argument('--public-ready', action='store_true', help='Require effective/reviewed complete legal payload')
     parser.add_argument('--artifacts-only', action='store_true', help='Skip local execution and loopback; never runtime PASS')
     args = parser.parse_args()
     try:
-        directory = args.directory.resolve(strict=True)
+        directory = (args.root or args.directory).resolve(strict=True)
         require(directory.is_dir(), 'Export directory required')
         release, manifest, payload, served, legal = artifact_checks(directory, args.public_ready)
         inputs = {name: (sha(read_file(directory / name)), (directory / name).stat().st_mtime_ns)

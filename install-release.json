@@ -1,14 +1,14 @@
 {
   "format_version": 1,
   "product_id": "project-world",
-  "engine_version": "0.13.2",
+  "engine_version": "0.15.0",
   "channel": "preview",
   "license_status": "EFFECTIVE",
   "provenance_status": "REVIEWED",
   "archive": {
     "href": "Project-World-Preview.zip",
-    "bytes": 552855,
-    "sha256": "3cc7c9c450d071ce706f37f35c252c2177a0446aaaede575d64d0b417049712f"
+    "bytes": 610942,
+    "sha256": "ce7fd740915c2f2cb38bb0da2f296cf57ca427fa4eae15704e2aed71e4ee22f1"
   },
   "payload_files": [
     "Start.html",
@@ -20,6 +20,12 @@
     "extensions.json",
     "LICENSE",
     "NOTICE",
+    "work-report.schema.json",
+    "work-result.cjs",
+    "world-history-core.js",
+    "history-source.cjs",
+    "HISTORY_IMPORT.md",
+    "HISTORY_CONNECTORS.md",
     "manifest.json"
   ]
 }
