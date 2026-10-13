@@ -4,7 +4,7 @@
 
 English is the public default. [Read and use it in your language](#use-your-language).
 
-**[Download full Pro preview 0.13.2](https://github.com/kamenotes88/city-of-light/releases/tag/v0.13.2)** · [Set up with your AI assistant](#start-with-one-useful-result).
+**[Download full Pro preview 0.15.0](https://github.com/kamenotes88/city-of-light/releases/tag/v0.15.0)** · [Set up with your AI assistant](#start-with-one-useful-result).
 
 [![Check exported preview](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml/badge.svg)](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml)
 
@@ -37,7 +37,7 @@ screenshots of that same 0.8.0 example, rather than continuous gameplay.
    the context you choose with your assistant to continue.
 
 ```text
-Install and set up City of Light (Project World engine) using https://raw.githubusercontent.com/kamenotes88/city-of-light/669ec53c92128fe7bd4e2a87afdaeaccd47e8866/INSTALL.md.
+Install and set up City of Light (Project World engine) using https://raw.githubusercontent.com/kamenotes88/city-of-light/00d919d96e693edc04a1d15190e3f8b67a51003d/INSTALL.md.
 Start with one useful result. Reuse the context I have already permitted,
 ask up to three short questions, and help me open my own world.
 Use my known language preference, otherwise English.
@@ -50,6 +50,13 @@ third-party extensions without my separate permission.
 Assistant setup needs workspace-write and command permission plus Node.
 Python is used by the download helper; an assistant with native download
 and archive tools can perform the documented checks instead.
+
+Already have projects in existing chats? Your assistant can import selected
+available history into the same graph, city and progress view. See
+[History import](HISTORY_IMPORT.md) and [optional chat readers](HISTORY_CONNECTORS.md).
+No chat-wide account access is implied. Repeated imports preserve source
+revisions and do not create extra achievements. An explicitly configured feed
+can refresh while your world is open; private project history stays local.
 
 Prefer a browser? Download and extract the [preview archive](Project-World-Preview.zip),
 then open `Start.html` in a modern browser. This route needs neither Python nor
@@ -162,24 +169,30 @@ from this README without a separately hosted website.
 
 ## Preview status
 
-**Full Pro preview 0.13.2 passed its local build and explicit `--check`:**
-23 JavaScript suites and 16 Python installer cases (15 passed; one OS-dependent
-check skipped). The 552,855-byte archive contains the effective LICENSE/NOTICE.
-Its SHA256 is `3cc7c9c450d071ce706f37f35c252c2177a0446aaaede575d64d0b417049712f`.
+**Full Pro preview 0.15.0 passed its local build and explicit `--check`.**
+The 610,942-byte archive contains sixteen verified payload files and the effective
+LICENSE/NOTICE. Its SHA256 is
+`ce7fd740915c2f2cb38bb0da2f296cf57ca427fa4eae15704e2aed71e4ee22f1`.
 
-The twelve package files matched anonymous, commit-pinned HTTPS downloads with
-redirects refused. Actual installation, repeat preservation and fictional
-English/Russian Pro worlds passed on the maintainer's computer. Native browser
-checks covered all seven views at 375px without horizontal overflow, an English
-interface throughout, language change and reload, project creation, exact full
-backup and separate restoration with the original world preserved. No JavaScript
-errors or warnings were observed in those checks.
+Selected-history checks cover initial import, repeated import without another
+reward, source revisions, malformed-input preservation and full backup/restore.
+An optional local reader streams only explicitly selected Codex/Claude transcripts;
+it does not discover or connect private cloud chats from their URLs. Visible
+message excerpts are documentary observations, not accepted project achievements.
+Optional foreground refresh imports data, never executes a chat instruction.
+See [history import](HISTORY_IMPORT.md) and [local connectors](HISTORY_CONNECTORS.md).
 
-The [fresh Ubuntu check for this package](https://github.com/kamenotes88/city-of-light/actions/runs/38216447307)
-passed for installer commit `669ec53c92128fe7bd4e2a87afdaeaccd47e8866`.
-These checks do not establish independent customer acceptance or security
-certification. Native Codex/Claude UI skill discovery and native quality review
-for additional languages remain unverified.
+Maintainer native-browser checks saved and reloaded a large history through local
+IndexedDB, preserved project state and verified the shared graph, city, adventure
+and progress views. Source history is included in the full backup. These checks
+do not establish independent customer acceptance or security certification.
+Native Codex/Claude UI skill discovery and native quality review for additional
+languages remain unverified. Current exported-package CI is visible in
+[GitHub Actions](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml).
+
+The [earlier Ubuntu check](https://github.com/kamenotes88/city-of-light/actions/runs/38216447307)
+belongs to 0.13.2 installer commit `669ec53c92128fe7bd4e2a87afdaeaccd47e8866`;
+it is historical evidence, not acceptance of 0.15.0.
 
 [Earlier releases](https://github.com/kamenotes88/city-of-light/releases) remain
 available for history and rollback. Their checks do not substitute for this
