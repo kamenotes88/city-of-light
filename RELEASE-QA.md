@@ -1,5 +1,60 @@
 # Exported preview checks
 
+## Checked local-runner preview 0.17.4 — October 14, 2026 UTC
+
+The candidate build and final explicit --check passed all 39 JavaScript suites
+and 16 Python cases (15 PASS, one OS-dependent skip). A prior check caught a
+test that counted event-loop ticks instead of awaiting WebCrypto completion.
+The fixture now waits for an observable result with a five-second bound; a held
+digest regression proves the cause. Product sources and the immutable ZIP did
+not change. The failed receipt is retained by the maintainer.
+
+Independent exported-package verification passed isolated English/Russian
+install, create and repeat, all nine full-backup sections, separate restoration,
+privacy patterns, embedded LICENSE/NOTICE and exact manifest checks. The archive
+contains 22 payload files plus manifest, 23 entries. ZIP: 746333 bytes;
+SHA256 `560b8c149a9d06ed9b1d0cd95d6607c6ff63e7432112cae73e330b54a73920f1`.
+Source SHA256: `86d4b393c6a360efcab73e2cd1c2ddb247983f5aa5e48e0f2d0590ea42030cc0`.
+
+A maintainer-only real Codex pilot in 0.17.1 produced one advisory plan and one
+read-only README work report. These were two explicit model invocations, with
+no automatic retry. The five provider/schema source hashes are unchanged in
+0.17.4, so that evidence is reused. A plan is a pending proposal before separate
+review and approval; a work report is pending before evidence acceptance.
+
+The unchanged 0.17.2 Chrome UI checks cover stage acceptance, city/graph/progress
+agreement, repeat reward prevention, archive/restore, separately approved plan
+drafts and desktop/mobile layouts. Current 0.17.4 checks additionally cover a
+226-chunk/20000-row bounded live manifest, compact lossless storage and an actual
+maintainer world's event history. Its selected-source cold read retained every
+prior row and source revision; the browser imported new observations without
+changing projects, plans, placements, achievements or XP. Actual file chooser,
+separate restored HTML opening and full browser re-export matched all nine
+backup sections exactly. These private worlds and chats are excluded from the
+distribution. Synchronization made no model calls.
+
+The local runner is optional and loopback-only. It reuses an available runtime;
+existing Desktop chats remain navigation/history sources. Only an explicitly
+started game-owned Codex executor runs work. Unknown prior outcomes refuse a
+repeat; a known terminal executor requires explicit reconnection. History has
+refusal bounds of 128 selected files, 256 chunks, 20000 total records and 20 MiB;
+overflow preserves previous data and requires a bounded export. This is not an
+unlimited-source or 100-agent workload benchmark.
+
+Independent customer acceptance, Claude native execution, account/payment/
+referral activation, online teams, signed automatic installation and automatic
+translation migration remain NOT_RUN or NOT_CONNECTED. A release notice offers
+an update; it does not install it. Public HTTPS and CI results are recorded only
+after the matching artifacts are published and actually verified.
+
+### Public installer verification — 0.17.4
+
+All 25 anonymous commit-pinned HTTPS files matched the exported bytes at
+`c30af4c017feac82666160071f7271b16d659b19`. Real isolated HTTPS installation,
+verification and repeat preservation passed; English/Russian Pro-world creation
+and repeat passed. [Installer CI](https://github.com/kamenotes88/city-of-light/actions/runs/38510316498)
+passed at that exact commit. No credentials or private data were sent.
+
 ## Checked synchronization preview 0.15.5 — October 13, 2026
 
 Build and explicit --check passed: all 32 JavaScript suites and 16 Python cases

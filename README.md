@@ -4,7 +4,7 @@
 
 English is the public default. [Read and use it in your language](#use-your-language).
 
-**[Download full Pro preview 0.15.4](https://github.com/kamenotes88/city-of-light/releases/tag/v0.15.4)** · [Set up with your AI assistant](#start-with-one-useful-result).
+**[Download the latest checked Pro preview](https://github.com/kamenotes88/city-of-light/releases/latest)** · [Set up with your AI assistant](#start-with-one-useful-result).
 
 [![Check exported preview](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml/badge.svg)](https://github.com/kamenotes88/city-of-light/actions/workflows/check-preview.yml)
 
@@ -16,6 +16,22 @@ Your work has one shared state with a relationship map, a progress timeline,
 and an optional game city. The full Pro interface adds plans, human decisions,
 working-chat role links, tools and settings. City of Light uses the Project World engine.
 The free core works without registration or a paid subscription.
+
+With the optional local runner, one launcher opens your world, selected-chat
+history and the supported Codex connection. Ask AI for a plan, review and edit
+its stages, approve it separately, then explicitly start one agreed step. The
+worker's report returns to your city as pending evidence. A confirmed complete
+stage adds a floor; a short completed task becomes a city object. Repeated
+messages and game play do not manufacture project achievements.
+
+Selected local files update through one foreground event connection, without
+model calls. Closing and reopening catches up from saved source revisions.
+**Refresh chat** checks synchronization when you need it. Planning and actual
+AI work use your provider's limits; watching and rendering still use ordinary
+CPU and memory. Existing Desktop/Claude links are navigation and selected
+history, not permission to take over or resume those chats. The current runner
+executes one game-owned Codex step at a time; it does not run every project
+autonomously or automatically approve its results.
 
 [Account and invitation setup](INVITATIONS.md) is optional. The email-account
 and shared-team service is not activated yet. You can record an early public
@@ -37,7 +53,7 @@ screenshots of that same 0.8.0 example, rather than continuous gameplay.
    the context you choose with your assistant to continue.
 
 ```text
-Install and set up City of Light (Project World engine) using https://raw.githubusercontent.com/kamenotes88/city-of-light/fd7551e361d4d2e761d87b5303e8de8efa4cd9ad/INSTALL.md.
+Install and set up City of Light (Project World engine) using https://raw.githubusercontent.com/kamenotes88/city-of-light/c30af4c017feac82666160071f7271b16d659b19/INSTALL.md.
 Start with one useful result. Reuse the context I have already permitted,
 ask up to three short questions, and help me open my own world.
 Use my known language preference, otherwise English.
@@ -114,9 +130,11 @@ After saving a task, **Connect executor** opens immediately. Choose an existing
 parent project or an independent task, then an existing chat or creation through
 your current assistant. Technical workspace fields are optional. The assistant
 resolves a real saved workspace using available native tools and returns the
-actual chat link; confirm it in your world. The browser provides the request,
-not a private API to your AI app. Stale requests and occupied roles are protected.
-Routing is preserved with your projects in the full backup.
+actual chat link; confirm it in your world. Without the optional local runner, the browser prepares a request for your
+assistant; it does not execute that request. With the runner, use the explicit
+Codex action to create a game-owned executor and receive a pending work report.
+Existing Desktop chats stay separate. Stale requests and occupied roles are
+protected. Routing is preserved in the full backup.
 
 ## Keep your work
 
@@ -178,7 +196,7 @@ from this README without a separately hosted website.
 
 ## Preview status
 
-### Current checked preview 0.15.4
+### Current preview capabilities
 
 Archive a project to remove its building, hero and questions from active views
 while keeping its history, plan, reserved plot and rewards. Restore the same
@@ -196,11 +214,18 @@ Unchanged feeds can skip body download, parsing and import when the source
 supports validators. A feed check makes no AI model call; project agents and
 assistant chat checks have their own token costs.
 
-Verified locally: candidate build and explicit check; 32 JavaScript suites and
-16 installer cases (one OS-dependent skip); English browser archive, active
-map, empty game, restoration, unavailable-chat marker, replacement and reload;
-exact full backup recovery; isolated English/Russian installation. Owner worlds
-are excluded. Independent customer acceptance remains unverified.
+With the optional local runner, selected history shares one event connection,
+AI plan proposals remain drafts until reviewed and approved, and an explicitly
+started Codex step returns pending evidence. A separately confirmed complete
+stage adds one floor; repeated records do not add another reward. The graph,
+city and Progress use that same evidence. Desktop/Claude links remain navigation
+and selected-history sources, rather than control of those chats.
+
+Release-specific checks and public verification are recorded in
+[RELEASE-QA.md](RELEASE-QA.md) after they run. Historical checks below apply only
+to their named releases. Owner worlds are excluded. Independent customer
+acceptance, always-on autonomous teams and cloud/Claude native execution remain
+unverified or unconnected.
 
 ### Historical checked preview 0.15.1
 

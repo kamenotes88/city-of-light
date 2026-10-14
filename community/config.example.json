@@ -1,0 +1,5 @@
+{
+  "supabaseUrl": "https://YOUR-PROJECT.supabase.co",
+  "publishableKey": "YOUR-PUBLISHABLE-KEY",
+  "portalUrl": "https://YOUR-HOST/community/"
+}
