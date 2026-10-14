@@ -55,6 +55,13 @@ verification and repeat preservation passed; English/Russian Pro-world creation
 and repeat passed. [Installer CI](https://github.com/kamenotes88/city-of-light/actions/runs/38510316498)
 passed at that exact commit. No credentials or private data were sent.
 
+All four v0.17.4 release assets were subsequently downloaded anonymously and
+matched the exact checked export. The old public v0.15.5 ZIP was also retained
+and reverified. [Release commit CI](https://github.com/kamenotes88/city-of-light/actions/runs/38510677624)
+passed at `9a3647c3abda3938cd1394bb3bcf4a8e4f2ab2b7`.
+The generic community portal sources are present with empty service URL/key;
+no account database, backend or payment/referral service was activated.
+
 ## Checked synchronization preview 0.15.5 — October 13, 2026
 
 Build and explicit --check passed: all 32 JavaScript suites and 16 Python cases

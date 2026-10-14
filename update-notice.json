@@ -3,8 +3,8 @@
   "product_id": "project-world",
   "channel": "preview",
   "latest": {
-    "version": "0.15.5",
-    "published_at": "2026-10-13T14:16:04Z",
-    "summary": "Keep current work across delayed source replies, other-tab changes and browser Back. Structured history preserves source revisions; legacy cursor initialization requires backup and exact matching. Decline old-plan reports and re-review changed work. Corrected evidence can complete a reopened goal without restoring a revoked reward. Custom translations need new message keys. No automatic software installation or native-provider execution."
+    "version": "0.17.4",
+    "published_at": "2026-10-14T04:19:51Z",
+    "summary": "Open your world with an optional local launcher. Selected Codex/Claude history updates through one event connection without model calls; Refresh chat checks freshness. Review AI plans before approval, explicitly start supported game-owned Codex work, and accept evidence-backed stages. Save and restore the complete world separately. Accounts, payments, online teams and automatic software installation remain unconnected."
   }
 }
