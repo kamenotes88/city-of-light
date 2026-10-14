@@ -44,9 +44,16 @@ files are refused. Your existing world stays intact on failure.
 ```
 
 For multiple feeds use `{ "format": "city-light-history-feeds", "version": 1,
-"feeds": [...] }`. Each feed is limited to 2 MiB; a combined file to 10 MiB.
-IDs are stable ASCII identifiers, at most 128 characters. A feed has at most
-10,000 records. Dates are ISO dates/timestamps or `null` when unknown. Statuses:
+"feeds": [...] }`. Each feed is limited to 2 MiB; one combined container/page
+to 50 feeds and 10 MiB. For larger selected-reader output use
+`{ "format": "city-light-history-pages", "version": 1, "pages": [...] }`,
+with up to six such pages, 256 feeds/chunks, 20,000 records and 20 MiB in total.
+The selected-file reader accepts at most 128 files and retains at most 10,000
+messages per selected source. The world's imported history also has a 20,000
+record-revision limit; an update preserves earlier revisions and counts toward
+that limit. These bounds refuse an oversized import without removing old history.
+IDs are stable ASCII identifiers, at most 128 characters. A single feed has at
+most 10,000 records. Dates are ISO dates/timestamps or `null` when unknown. Statuses:
 `observation`, `accepted_local`, `pending`, `blocked`, `stop`, `revoked`.
 Optional `stage` is `made`, `applied`, or `effect`; it describes the source scope
 and does not award that achievement. Source URLs are optional safe navigation.

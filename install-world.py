@@ -19,7 +19,7 @@ JSON_BYTES = 1024 * 1024
 PAYLOAD_FILES = ('Start.html', 'README.txt', 'INSTALL.md', 'setup-world.cjs',
                  'install-world.py', 'project-world-skill.md', 'extensions.json',
                  'LICENSE', 'NOTICE', 'work-result.cjs', 'work-report.schema.json',
-                 'world-history-core.js', 'history-source.cjs', 'HISTORY_IMPORT.md', 'HISTORY_CONNECTORS.md', 'manifest.json')
+                 'world-history-core.js', 'history-source.cjs', 'HISTORY_IMPORT.md', 'HISTORY_CONNECTORS.md', 'run-world.cjs', 'native-bridge-core.cjs', 'native-bridge-codex.cjs', 'work-report-core.js', 'live-history-service.cjs', 'plan-proposal-core.js', 'plan-proposal.schema.json', 'manifest.json')
 RECEIPT = 'install-receipt.json'
 
 

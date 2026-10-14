@@ -5,7 +5,7 @@
   else root.TownHistoryCore = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const MAX_BYTES = 2 * 1024 * 1024, MAX_RECORDS = 10000, MAX_SOURCES = 1000;
+  const MAX_BYTES = 2 * 1024 * 1024, MAX_RECORDS = 20000, MAX_FEED_RECORDS = 10000, MAX_SOURCES = 1000;
   const unsafe = new Set(['__proto__', 'constructor', 'prototype']);
   const statuses = ['observation', 'accepted_local', 'pending', 'blocked', 'stop', 'revoked'];
   const objectPrototypes = new WeakSet([Object.prototype]), arrayPrototypes = new WeakSet([Array.prototype]);
@@ -144,7 +144,7 @@
     shape(feed, ['format', 'version', 'source', 'records'], [], 'feed');
     if (feed.format !== 'city-light-history-feed' || feed.version !== 1) fail('Unsupported feed format');
     const ids = projectSet(projects), source = sourceCheck(feed.source);
-    if (!Array.isArray(feed.records) || feed.records.length > MAX_RECORDS) fail('Invalid record count');
+    if (!Array.isArray(feed.records) || feed.records.length > MAX_FEED_RECORDS) fail('Invalid record count');
     const records = feed.records.map(record => recordCheck(record, ids)), seen = new Set();
     for (const record of records) { if (seen.has(record.id)) fail('Duplicate record ID within source'); seen.add(record.id); }
     records.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
@@ -197,7 +197,7 @@
       if (!previous || previous.sourceRevision < sourceRevision) latest.set(key, row);
       imported.push(row);
     }
-    if (imported.length > MAX_RECORDS) fail('Imported history exceeds 10000 revisions; export history before continuing');
+    if (imported.length > MAX_RECORDS) fail('Imported history exceeds 20000 revisions; export history before continuing');
     return {imports, cursors, latest, imported};
   }
   function entryId(sourceId, recordId, revision) { return 'history:' + encodeURIComponent(sourceId) + ':' + encodeURIComponent(recordId) + ':r' + revision; }
@@ -223,7 +223,7 @@
       const {id:recordId, ...fields} = record;
       additions.push({id:entryId(feed.source.id, recordId, feed.source.revision), type:'imported_history', sourceId:feed.source.id, recordId, sourceRevision:feed.source.revision, source:{...feed.source}, ...fields});
     }
-    if (existing.imported.length + additions.length > MAX_RECORDS) fail('Imported history exceeds 10000 revisions; export history before continuing');
+    if (existing.imported.length + additions.length > MAX_RECORDS) fail('Imported history exceeds 20000 revisions; export history before continuing');
     const nextCursor = {...feed.source, fingerprint:hash};
     const sources = existing.imports.sources.filter(source => source.id !== feed.source.id).map(source => ({...source})); sources.push(nextCursor); sources.sort((a,b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
     return {data:{...data, history:[...data.history, ...additions], historyImports:{version:1, sources}}, added:additions.length, unchanged, sourceId:feed.source.id, revision:feed.source.revision};

@@ -180,14 +180,18 @@ The reader retains its imported records and owns the output revision stream.
 
 ## Limits, failure and recovery
 
-The configuration has at most 32 sources. Native transcripts are read sequentially
+The configuration has at most 128 selected source files. Native transcripts are read sequentially
 with a reusable 64 KiB read buffer and a 128 KiB line buffer. Each selected native
-read pass is limited to 1 GiB of scanned bytes and 30 seconds. A validated in-memory
-append cache can follow a file whose total size grows beyond 1 GiB by reading
-only its new bytes. The first import of an already larger file is refused;
-export bounded documentary feeds for that source instead. Retained output is
-limited to 10,000 messages. Each feed
-is limited to 2 MiB; the container is limited to 10 MiB and 50 sources/chunks.
+read pass is limited to 4 GiB of scanned bytes and a 30-second deadline in the
+current reader. These are upper safety bounds, not an expected workload or a
+promise that a large scan completes. A validated in-memory append cache can
+follow a larger file by reading only its new bytes within that pass budget.
+A first import above the reader's budget is refused; export bounded documentary feeds for that
+source instead. Retained output is limited to 10,000 messages per selected source
+and 20,000 records across all sources, with at most 256 feeds/chunks. Each feed is
+limited to 2 MiB. Each output page holds at most 50 feeds and 10 MiB; a paged
+output has at most six pages and 20 MiB in total. Storage uses compact JSON
+without changing record IDs, source revisions or cursor lineage.
 These are refusal limits, not a rule to silently discard old history.
 
 Tool, system and reasoning records are excluded. Oversized records are scanned
@@ -204,8 +208,9 @@ Truncation, replacement, a changed size-stable file or a mismatching fingerprint
 causes a full bounded re-read. Those anchors are an optimization for native
 append-only logs, not proof that an arbitrary middle-of-file rewrite did not occur.
 Restart the reader after external transcript rewrites to force a full re-read.
-Restarting discards the in-memory append cache; a source already above the initial
-1 GiB read budget then needs a bounded export rather than an unbounded re-scan.
+Restarting discards the in-memory append cache; a source already above the
+current reader's initial 4 GiB pass budget then needs a bounded export rather than
+an unbounded re-scan.
 Incomplete trailing JSON waits for later appended bytes; malformed complete lines
 still refuse the pass. No cursor sidecar or background service is created.
 Each native pass freezes the file size observed when it opens the selected chat.
@@ -316,4 +321,29 @@ for that role. Old links, availability notes and captured handoffs remain in
 history. An unavailable marker remains separate from source status and project
 completion. Automatic native-chat disappearance checks require a supported,
 authorized provider connector; they are not implemented by this file importer.
+
+## Optional same-origin live delivery
+
+The unified local runner accepts one exact existing `--history-config`. Its
+worker watches the selected files, uses incremental reader cursors and keeps
+the dedicated output's last valid revision after an error or restart. A single
+worker pass has a separate 60-second deadline for all selected sources; an error
+retains the prior output and a timed-out worker requires a runner restart. A single
+authenticated foreground SSE connection advertises bounded source chunks.
+The browser requests only changed whole chunks by their advertised generation,
+revision and canonical fingerprint. A changed generation refuses the batch and
+triggers a fresh snapshot; changed world/plan/routes/lifecycle refuses stale
+application. All validated chunks persist together into the existing world
+context before its views refresh. Importing twice adds zero duplicate rows or
+awards. Hidden tabs pause delivery and catch up when they return.
+
+Manual refresh reads current selected source data without invoking an AI model.
+This verifies reader freshness, not cloud execution, accepted progress or chat
+deletion. The preview bounds are 128 selected source files, 10,000 retained
+messages per selected source, 256 chunks, up to six pages of at most 50 feeds
+and 10 MiB each, 20,000 retained rows and 20 MiB in total. Reader output above one
+container uses `city-light-history-pages` v1 with `pages` holding the existing
+closed `city-light-history-feeds` containers. New output pages do not reset
+source lineage. Legacy cursor initialization remains an explicit exact-match
+operation; errors preserve the original.
 

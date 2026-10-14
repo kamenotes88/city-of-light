@@ -221,3 +221,54 @@ The static browser does not automatically read or poll native chat providers.
 When an authorized connector is available, verify only the selected chat and
 report dated evidence. Do not claim native deletion detection from a ready
 history feed or an owner marker alone. Replacing a link does not prove execution.
+
+## Optional local native execution
+
+When the user asks to start work from their game, reuse verified `run-world.cjs`
+from the installed engine. Launch with the exact generated HTML, matching
+world ID, and explicitly authorized workspace; no arbitrary program/cwd from
+browser input. Prefer the generated Start-Game launcher for a new personal
+world. Startup and connection checks make no model call.
+
+Only game-created projects with approved local plans may use the first native
+executor. Existing Desktop chat URLs remain navigation; never independently
+resume them because a separate server reports `notLoaded`. Keep existing
+source-project roles, Controls and acceptance rules. Native output is pending
+report evidence, not accepted completion. After an unknown dispatch outcome,
+inspect the existing receipt/chat before retrying. Never copy credentials or
+install/enable connectors, run production/SQL, publish or spend through an
+implicit permission. Claude/native existing Desktop control remain unsupported
+until verified by their own adapter.
+
+Before switching an already-used world to a different server port or from
+file://, require a fresh full backup from its current browser origin. Restore
+into a separate current-engine HTML and verify preservation before starting
+the runner on that copy. Original embedded HTML may be stale. Keep the old
+world unchanged; unavailable fresh backup is a migration blocker, not authority
+to overwrite or claim the latest state was preserved.
+
+## Event history, plan proposals and stage proof
+
+Use the installed runner's optional exact `--history-config` for selected local
+sources only. Ask before choosing files; never scan all chats. Setup binds that
+config's verified path and SHA in its generated launcher, so changes to source
+selection require explicit reconfiguration. Read selected sources in one local
+worker and deliver generation-bound complete chunks through the same-origin
+authenticated event stream. Preserve the last valid history after errors or a
+restart. The manual refresh button must not wake the model or execute a step.
+
+AI planning returns the separate closed plan-proposal contract. A proposal is
+reviewed, saved as a draft, edited and then separately approved. Keep stable
+stage IDs and explicit independent completion criteria. Changing a criterion
+requires a new stage ID; renaming/reordering does not. Preserve completed and
+retired stage history when expanding a project. Never infer accepted floors
+from messages, activity, tool success, report arrival or game play. A reviewed
+partial result remains partial. Existing accepted evidence can be explicitly
+mapped to an approved stage without another achievement or XP award.
+
+Only one native command may run at a time. Real planning and execution use
+provider tokens. Reconnection requires a confirmed terminal prior receipt and
+an explicit new-step owner action; create a new owned executor and preserve
+the previous link instead of taking over Desktop chats. Unknown outcome means
+read-only recovery first. Do not promise native Claude execution, paid services,
+online teams, account/payment activation or signed automatic installations.

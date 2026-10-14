@@ -11,9 +11,16 @@
 /history-source.cjs -text
 /install-release.json -text
 /install-world.py -text
+/live-history-service.cjs -text
 /manifest.json -text
+/native-bridge-codex.cjs -text
+/native-bridge-core.cjs -text
+/plan-proposal-core.js -text
+/plan-proposal.schema.json -text
 /project-world-skill.md -text
+/run-world.cjs -text
 /setup-world.cjs -text
+/work-report-core.js -text
 /work-report.schema.json -text
 /work-result.cjs -text
 /world-history-core.js -text

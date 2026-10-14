@@ -50,7 +50,8 @@ function parseJSON(bytes) {
   try {return JSON.parse(new TextDecoder('utf-8', {fatal: true}).decode(bytes).replace(/^\uFEFF/, ''));} catch (_) {fail('INVALID_JSON');}
 }
 function validateRequest(value) {
-  if (!plain(value) || Object.keys(value).sort().join('|') !== REQUEST_KEYS.slice().sort().join('|') || value.format !== 'city-of-light-work-request' || value.version !== 1) fail('INVALID_WORK_REQUEST');
+  if (!plain(value) || REQUEST_KEYS.some(key=>!Object.hasOwn(value,key)) || Object.keys(value).some(key=>!REQUEST_KEYS.includes(key)&&key!=='planStageId') || value.format !== 'city-of-light-work-request' || value.version !== 1) fail('INVALID_WORK_REQUEST');
+  if (value.planStageId!==undefined && (typeof value.planStageId!=='string'||!/^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$/.test(value.planStageId)||['__proto__','constructor','prototype'].includes(value.planStageId))) fail('INVALID_REQUEST_STAGE');
   for (const key of ['worldId', 'projectId']) if (typeof value[key] !== 'string' || !/^[A-Za-z0-9_.:-]{1,140}$/.test(value[key])) fail('INVALID_REQUEST_BINDING');
   for (const key of ['goalVersion', 'planVersion']) if (!Number.isSafeInteger(value[key]) || value[key] < 1) fail('INVALID_REQUEST_VERSION');
   for (const [key, maximum] of [['name', 100], ['goal', 600], ['criterion', 800], ['nextStep', 500], ['blocker', 1000]]) if (typeof value[key] !== 'string' || value[key].length > maximum) fail('INVALID_REQUEST_TEXT');
@@ -159,6 +160,7 @@ async function main(args = process.argv.slice(2), base = __dirname) {
   const allowed = Object.keys(core.schema.properties).filter(key => !['format', 'version', ...BINDINGS].includes(key));
   if (!plain(claim) || Object.keys(claim).some(key => !allowed.includes(key)) || allowed.some(key => core.schema.required.includes(key) && !Object.hasOwn(claim, key))) fail('INVALID_CLAIM_FIELDS');
   const report = {format: 'city-of-light-work-report', version: 1, ...Object.fromEntries(BINDINGS.map(key => [key, request[key]])), ...claim};
+  if(request.planStageId!==undefined){if(claim.planStageId!==undefined&&claim.planStageId!==request.planStageId)fail('REPORT_STAGE_MISMATCH');report.planStageId=request.planStageId;}
   core.validateReport(report);
   let measured;
   if (options.artifact) {

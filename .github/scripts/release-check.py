@@ -18,7 +18,9 @@ MAX_BYTES = 50 * 1024 * 1024
 BASE_FILES = {'Start.html', 'README.txt', 'INSTALL.md', 'install-world.py',
               'setup-world.cjs', 'project-world-skill.md', 'extensions.json',
               'work-result.cjs', 'work-report.schema.json', 'world-history-core.js',
-              'history-source.cjs', 'HISTORY_IMPORT.md', 'HISTORY_CONNECTORS.md'}
+              'history-source.cjs', 'HISTORY_IMPORT.md', 'HISTORY_CONNECTORS.md',
+              'run-world.cjs', 'native-bridge-core.cjs', 'native-bridge-codex.cjs', 'work-report-core.js',
+              'live-history-service.cjs', 'plan-proposal-core.js', 'plan-proposal.schema.json'}
 LEGAL_FILES = {'LICENSE', 'NOTICE'}
 ARCHIVE = 'Project-World-Preview.zip'
 HASH = re.compile(r'[a-f0-9]{64}')

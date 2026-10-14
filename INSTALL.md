@@ -203,7 +203,7 @@ questions, so choose it as carefully as the underlying project record.
 
 To include the original **Project World** skill for the selected assistant, add
 `--assistant codex` or `--assistant claude` to the creation command. The optional
-flag defaults to `manual`; that keeps the four-file world below. For example:
+flag defaults to `manual`; that keeps the six-file world listed below. For example:
 
 When the current assistant is known to be Codex or Claude Code, use its matching
 option within the permitted new-world folder; no extra questionnaire is needed.
@@ -225,7 +225,8 @@ Project skill locations follow the official
 [Codex skill documentation](https://learn.chatgpt.com/docs/build-skills) and
 [Claude Code skill documentation](https://code.claude.com/docs/en/skills).
 
-The output is `My-Project-World.html`, `world.profile.json`, `AI-HANDOFF.md`, and
+The output includes `My-Project-World.html`, `world.profile.json`, `AI-HANDOFF.md`,
+`Start-Game.cjs`, `Start-Game.cmd`, and
 `setup-receipt.json`, plus the scoped skill when selected. Open the HTML through
 an available browser/preview. If the
 assistant has no browser or runs in a cloud executor, provide the actual HTML
@@ -396,5 +397,94 @@ same saved record; repeat imports do not award the same result again. Export a
 full world backup before switching devices or restoring. Linked external
 projects continue accepting results in their authoritative source.
 
-This local workflow needs no accounts or database. It does not automatically
-create chats, execute projects, read chat history or deliver engine updates.
+The offline workflow needs no accounts or database. The optional local native
+runner adds explicit Codex execution for game-created tasks; it does not take
+over existing Desktop chats or automatically deliver engine updates.
+
+## Start the game with local AI
+
+For newly created worlds, open **Start-Game.cmd** on Windows, or run
+`node Start-Game.cjs` on another system. The launcher starts a local-only server
+and opens its browser address. Leave its terminal running while using local AI.
+It makes no model call merely by opening the game. If Node or Codex is not
+available, ask your installation assistant to inspect the available runtime;
+missing providers are never silently installed or billed.
+
+Inside **Work with AI**, connect the local runtime, agree the plan, select the
+workspace, and click **Start approved step**. The first version uses one
+executor for a game-created project. It creates a separate game-owned Codex
+chat; a link to an existing Desktop chat is not execution access. The workspace
+must match the directory explicitly chosen when starting the runner.
+
+For a world already used under `file://` or another local server address,
+export a **fresh full world backup** from that currently used world first.
+Restore it into a separate HTML with the current engine, verify all backup
+sections, and launch that restored copy. Browser storage belongs to its origin;
+opening the old generated HTML on another port loads its embedded snapshot,
+which may be older than current browser changes. Keep the original world and
+backup until the new copy has been checked. The runner does not silently migrate
+browser storage or overwrite your old world.
+
+After that guarded migration, your authorized assistant can start:
+
+```text
+node <engine-directory>/run-world.cjs --world <exact-world.html> --world-id <world-id> --workspace <authorized-directory> --open
+```
+
+`--codex <verified-executable>` selects an already installed Codex binary.
+`--read-only` permits connection/status checks and blocks work dispatch.
+The runner listens only on 127.0.0.1 (default port 8899). Its temporary bearer
+stays in browser/session memory and is excluded from world backups. Normal
+agent work consumes the connected provider's tokens; lightweight status checks
+do not call a model. The runner disables inherited MCP servers only for its own thread and verifies
+their native disabled status with empty tool/resource catalogues before work.
+Your normal Codex plugin configuration is preserved. Native permissions that
+require owner approval stop with an explicit message. No permissions are
+automatically granted.
+
+Completed reports arrive as pending evidence for manual review. A report is not
+an accepted result, and a partial step does not complete the whole goal. The
+same command cannot be submitted twice for a second reward. After a crash with
+an unknown submission outcome, check the existing chat before any new launch;
+the runner will not automatically replay that work. Existing file-history
+imports and manual handoff remain available without the runner. Claude native
+execution and control of already-running Desktop chats are not connected by
+this version.
+
+## Live selected history and reviewed stages
+
+For permitted existing chats, your assistant prepares an exact local reader
+config with selected Codex/Claude JSONL or structured feed paths, stable source
+IDs and explicit project mappings. It must use a dedicated output outside the
+generated world. Pass that existing config as `--history-config <absolute.json>`
+to setup or to `run-world.cjs`. Nothing scans all your chats or uploads their
+contents. Files available only in the cloud require a permitted connector or
+export; a navigation link alone cannot read them.
+
+One local worker reads changed selected files. One authenticated foreground
+event stream lets the game fetch changed complete chunks and save them together
+before updating graph, city, progress and missions. Reopening catches up from
+saved source fingerprints. **Refresh chat/history** is a manual check without a
+model call. Offline or invalid input keeps previous history. The bounded preview
+supports 100 projects, 128 selected files, 256 chunks, 20,000 retained records
+and 20 MiB per imported batch. A larger source needs selected history or an
+explicitly prepared export; it is never silently truncated into a claimed full
+history. Watching and rendering use CPU and memory even though they use no AI
+tokens. New records remain observations, never automatic awards or authority.
+
+Use **Suggest/improve plan with AI** for a bounded proposal. Review it, apply it
+as a draft, edit its independent stages and completion criteria, then approve
+separately. Approval does not start a worker. Select a stage when starting an
+approved work step. The report first appears as pending evidence. Accepting a
+partial step gives no completed floor; a separately verified complete stage
+gives one floor. Renaming, reordering, repeating imports or expanding the same
+project does not award that stage twice. Revoked last proof reopens the stage.
+Short tasks remain city objects. Rendering shows at most 50 detailed floors;
+the exact approved/confirmed counts and all stages remain available in Progress.
+
+After a runtime restart, an old game-owned chat stays in history. If its prior
+run has a known terminal receipt, an explicit reconnect can create a new
+executor for a genuinely new approved step. Unknown outcomes block dispatch;
+do not resume an unrelated Desktop chat or repeat its work. Existing-source
+projects retain their original roles and acceptance route.
+

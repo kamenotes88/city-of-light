@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "City of Light plan proposal",
+  "description": "A draft only. Validation does not approve, apply, start work or accept any result.",
+  "type": "object", "additionalProperties": false,
+  "required": ["format","version","proposalId","worldId","projectId","baseGoalVersion","basePlanVersion","basePlanDigest","goal","criterion","stageDetails","nextStep","questions"],
+  "properties": {
+    "format": {"const":"city-of-light-plan-proposal"},
+    "version": {"const":1},
+    "proposalId": {"type":"string","pattern":"^[A-Za-z0-9_.:-]{1,80}$"},
+    "worldId": {"type":"string","pattern":"^[A-Za-z0-9_.:-]{1,140}$"},
+    "projectId": {"type":"string","pattern":"^[A-Za-z0-9_.:-]{1,140}$"},
+    "baseGoalVersion": {"type":"integer","minimum":1},
+    "basePlanVersion": {"type":"integer","minimum":1},
+    "basePlanDigest": {"type":"string","pattern":"^[a-f0-9]{64}$"},
+    "goal": {"type":"string","minLength":1,"maxLength":600},
+    "criterion": {"type":"string","minLength":1,"maxLength":800},
+    "stages": {"type":"array","minItems":0,"maxItems":128,"items":{"type":"string","minLength":1,"maxLength":300}},
+    "stageDetails": {
+      "type":"array","minItems":0,"maxItems":128,
+      "items": {
+        "type":"object","additionalProperties":false,"required":["id","label","criterion","steps"],
+        "properties": {
+          "id":{"type":"string","pattern":"^[A-Za-z0-9][A-Za-z0-9_-]{0,79}$"},
+          "label":{"type":"string","minLength":1,"maxLength":120},
+          "criterion":{"type":"string","minLength":1,"maxLength":800},
+          "steps":{"type":"array","minItems":0,"maxItems":12,"items":{"type":"string","minLength":1,"maxLength":300}}
+        }
+      }
+    },
+    "nextStep":{"type":"string","maxLength":500},
+    "questions":{"type":"array","minItems":0,"maxItems":12,"items":{"type":"string","minLength":1,"maxLength":500}}
+  }
+}

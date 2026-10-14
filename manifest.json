@@ -1,6 +1,6 @@
 {
   "format_version": 1,
-  "engine_version": "0.15.5",
+  "engine_version": "0.17.4",
   "profile_version": 1,
   "license_status": "EFFECTIVE",
   "provenance_status": "REVIEWED",
@@ -9,26 +9,34 @@
   "includes_user_data": false,
   "connectors": "manual-context only",
   "channel": "preview",
-  "source_sha256": "6cd50ff12ee7ec8973128669c139c897647d7f86724370d6407c6b8d8ddb6ecf",
+  "source_sha256": "86d4b393c6a360efcab73e2cd1c2ddb247983f5aa5e48e0f2d0590ea42030cc0",
   "sources": {
-    "PRODUCT_FILES.json": "b9f8428b524b0eabac3d322be08cb788d1c5f0d2e2caf4aa150d28a1bf7db86b",
-    "build_portable.py": "49ef45b09a10ec0788ae72ca4d044c799fda5bf4efeaf4fb69ae99ff7938f1dd",
-    "build_public_pro.py": "60c8be43bfa7d8ce47c51d167f5b306132c4f445eaa4537a1c654e374655d0e1",
-    "graphify-out/product-history/HISTORY_CONNECTORS.md": "d24d7f926286c882acf43dcf0671f655f0354db2df21ed2705f7cdf91017855b",
-    "graphify-out/product-history/HISTORY_IMPORT.md": "404988edd0d1bb633f8e986d33e8450eec6cbbb8b09d9f89a70ff9aa61d3416b",
-    "graphify-out/product-history/INSTALL.md": "ba0225967da5eecbc59a0fcf1314a5f350faffadd92a42bf65d19e5ac28ea889",
+    "PRODUCT_FILES.json": "6a1851bc18e0eabc3facca4b5d873cfb87b987d72136696dd9d4c3b2def03590",
+    "build_portable.py": "3a9fb53c24ee09d8bed3edcced504944601208f5da7bb0c33bbad693ade66353",
+    "build_public_pro.py": "90128ace6bff838e3d34d4c926977549743ec702a124998bca37a2a25a25bf4c",
+    "graphify-out/product-history/HISTORY_CONNECTORS.md": "36d4a10c61af31158920544ef582c961530b6742fb1190766adeafd34b908433",
+    "graphify-out/product-history/HISTORY_IMPORT.md": "8ed8d4ca2a00790f62b098104b65edebdb076ce093ca11b6785ad31a1523cde7",
+    "graphify-out/product-history/INSTALL.md": "b692cebd81d9fd031b6e0b68860ccbeb02d11ccd117b75dc78d7afb3347118c6",
     "graphify-out/product-history/LICENSE": "905c2ec11b6a5fdc91154b8a0cad622dc62666feed5667c4fb60605470a9a880",
     "graphify-out/product-history/NOTICE": "d9318505d93999d6bbc84d2576f24fea84e23c4a317a2ba82f26d637ad99b833",
     "graphify-out/product-history/extensions.json": "70405751cdd3657e5fab27c9417d144e02367bd656a9c0f7e169daba2fa91185",
-    "graphify-out/product-history/history-source.cjs": "10e74998d0d4cc01e1682a6b90235ac8d3975a20101e494d9aae02e957c0a818",
-    "graphify-out/product-history/install-world.py": "c72b13f3acba624abe4e9fbad8ead2063904fc416719d83a8ef4a25d9a0744ba",
+    "graphify-out/product-history/history-live-ui.js": "e9d9019b65708dc3be0c094456118eacac9fbfe00132162c036e351740858254",
+    "graphify-out/product-history/history-source.cjs": "cf9f4e2efa78aa54b41ebef5828e9fdd5ebe699ab0c6491ab2f9b3a05d23d74b",
+    "graphify-out/product-history/install-world.py": "e2827d147d4b36d76d5aa8359dd43dd8c00caa137de83fed52603f92bf0e628b",
     "graphify-out/product-history/journey-core.js": "62984b5fd06023fe265229bd1a2567da91eee142118c9da0c9b58b56156fdf11",
     "graphify-out/product-history/journey.css": "21e16c6d0a7a97b761f8242b161e937bee790472c0c73dc3fe655d20e7b62658",
     "graphify-out/product-history/journey.js": "73a03ffa972a8e440194ad2356a25390a67eeb48f34d24aa7af4b5af05822c47",
     "graphify-out/product-history/knowledge.css": "19a40b9ea45fd31e29859c0890657a7ae48e2c95622e952b7603024118222c58",
     "graphify-out/product-history/knowledge.js": "d661e1456ff4492f741ee86c0ac0f33762a0052e8240b2d145107ec61cad0ba5",
+    "graphify-out/product-history/live-history-service.cjs": "cebd871fe7bfac9fc95efc5a71b204dd9c94f1985e922505f8488bb850f45a2d",
     "graphify-out/product-history/locale-catalogue.json": "aa019a02c501361913ab207d5731ad057d5d59979594eac25743a7ce48d8ce66",
     "graphify-out/product-history/mobile.css": "471fd1ec6803b16ae0884b1aa1c0a40f901bbbb263ab80c545a97ecd4c9e9579",
+    "graphify-out/product-history/native-bridge-codex.cjs": "5736d5e6fcb0505ce2e06db493e17eb4f3077c8bd06fe5891d11cedeec0a091b",
+    "graphify-out/product-history/native-bridge-core.cjs": "1faec0bd3bddf264fa358be7f5f8ec85aa40d55521941148b1bacc6416a1291c",
+    "graphify-out/product-history/native-bridge-ui.js": "db667ec54de854e135d8c7488ca5948cfb2839567927ea2367e9a0dbc8b647ca",
+    "graphify-out/product-history/plan-proposal-core.js": "9e28d1fce9955292eb1059e0b5f21cbb8da24f43fd7b023dc2b0a6a4ee087a3a",
+    "graphify-out/product-history/plan-proposal-ui.js": "8a87827228e7da858173be7cacc3a0da15a755761a647b4e648afcf1e47cffd4",
+    "graphify-out/product-history/plan-proposal.schema.json": "62b0c6b5ebcb3d6ed11ea0064ea691749f56467eb63af91f31d1d06eb6efdd1c",
     "graphify-out/product-history/playground-chiptune.js": "6be095fa590ef7ff8e9f1cb77dd5a7f7a047cad2e113b1e008522b29fef84e40",
     "graphify-out/product-history/playground-game.css": "6692bfc2f8ec868a6015fe788cb50b7b2c569992a4749a1dbca8f8a82d74595c",
     "graphify-out/product-history/playground-game.js": "8d71bb9a8d245cb99426a4a6fa00e6b3c0d1b81e2aedfbd4bfcec078a52f5ed6",
@@ -43,40 +51,41 @@
     "graphify-out/product-history/playground.css": "b506c62f62dbe24cc4b4072bb5392c432e345b07834a9362ebc71bac644512f3",
     "graphify-out/product-history/playground.html": "9229ba1cc387f2437f229504175b8e1653b73512a5d36d0a48b9264381cee2bf",
     "graphify-out/product-history/playground.js": "3263b6a10a58acdb50ed43d2d5b7a4823188dd5b480356b63d165a8b054f14da",
-    "graphify-out/product-history/pro-locale-catalogue.json": "860fe4b17635cf847ce23e626a3ee67f7e22fef18417598896481f82496aadf1",
+    "graphify-out/product-history/pro-locale-catalogue.json": "99524c0153e317694e9dfd71e86442ddf647e5ffd8fb1cb61e6afdc790b6e77f",
     "graphify-out/product-history/pro-locale.js": "516f8613dc20ac5e85917d285dc8be12fbc86a758ddbb8049491c4ce1996351c",
-    "graphify-out/product-history/pro-package.js": "96c1b9ab53451c76ebda14bb77280b7496c07ab0b3fa005a40717b1d5befa34a",
-    "graphify-out/product-history/pro-public-tools.js": "2626e3eb0269bfd237a3862542c014dcff171d30a143b2bb80e0ece360416134",
+    "graphify-out/product-history/pro-package.js": "e5dd65c873c8f3d906d3ca29376f5fe61dc3dc2b9f2ff700345aeb1a193599e8",
+    "graphify-out/product-history/pro-public-tools.js": "637256a94db7d0e58d8a99be1a6672c598c01e998e649579b648b9ea46957f58",
     "graphify-out/product-history/pro/adventure.css": "31822d0113fa2a8047813fe99a17f9c5396745de59e2592d02c15f0e745d441a",
-    "graphify-out/product-history/pro/adventure.js": "1267cb0b26b76756d9bcf372e57e6b0464bca8328c9f346e199e9e4973b755c6",
+    "graphify-out/product-history/pro/adventure.js": "2231378f924cf9ef3164533817eca9b90940d035f00c3ee9ba073711e48663bb",
     "graphify-out/product-history/pro/advice.js": "b5b89ae8fb83e4bb25111e3c32a3f874ffc68d973515a1ae3ced014e58aaf771",
     "graphify-out/product-history/pro/app.css": "b70ffaeed282422ef87e6e9463a391bd033c3a66df2422fb475282d37508013e",
-    "graphify-out/product-history/pro/app.js": "6bb1e6447e31e4094c4117eea5dd11d5a91199ce68dcb82ce893234dfd5f6d2e",
+    "graphify-out/product-history/pro/app.js": "8d4ab447c3d203de80c21f0734a86664b60e62e0afd624206b5a9a72d73a1f3b",
     "graphify-out/product-history/pro/city.css": "168f41910d402a5fae34d0943e72aad03d77b1e3c61598afa5ea8a1917348b89",
-    "graphify-out/product-history/pro/city.js": "aa75b04efde9d2531fa2798cfd61a2e1e95c153b0064632fcaed72b6cab2f8f8",
+    "graphify-out/product-history/pro/city.js": "ba24d71a3f36de1865e8a507de2ef13f83cedbd23c12f0329c658ae5a4eb292d",
     "graphify-out/product-history/pro/index.html": "e721b33336776e08bf31c4a8a1c0dd808b490db4f4260f8be5ad0aec390086be",
-    "graphify-out/product-history/pro/model.js": "bf7038fa7cbea4a914074f78f0d16a5de5359e3347f47936b09666bc4c68a71d",
+    "graphify-out/product-history/pro/model.js": "b08275004244914d7c2bdf59862c2be6cd492548df5b05fdd85727181521c2ba",
     "graphify-out/product-history/pro/progress.css": "5882b5ca94a3489f2c16a1275bb2887a83c5895f19b6c705b36eac2f7f6247b8",
-    "graphify-out/product-history/pro/progress.js": "bb9152b0abc41ad66036ab42901b818231dfe7d1ef47235fbd982343547b14f9",
-    "graphify-out/product-history/project-world-skill.md": "3acc79754f9ef768e2945dc86cd01ae581be2a1b3e6ad1932cd5e1cfbbc27ecb",
-    "graphify-out/product-history/setup-world.cjs": "980633e8c9a8bbeda14ce6f0b5da36d6eaaaaca138c5879763fd0f7842fec96c",
+    "graphify-out/product-history/pro/progress.js": "6e6e55ef7e075ef09d096f51c39326f97c62661b16a98bbb1b3d21ec2d046f3f",
+    "graphify-out/product-history/project-world-skill.md": "fb14855d44fa66fd623c80df9c5e4cf4bbfc14e6366e3ea4e56ce900a0f36c3e",
+    "graphify-out/product-history/run-world.cjs": "30ebc3daee79bca485823414c867d6862b1f7c1946ad1b7f3ae6faa14aac7f33",
+    "graphify-out/product-history/setup-world.cjs": "8aeee12c8bae5ae950f7fd26961e9a61d1f37f3c15b97d3fb7b69c92668057e4",
     "graphify-out/product-history/start.html": "1abc62ade185bd3dbe6a4493beeb3ce86170ba335c0c0ab13b7321833f07a515",
     "graphify-out/product-history/upgrade-catalog.js": "157d3c2a2ad7bec8f7bc40297c084e2217f392edc32ea8fd36fe0e2b12fad60e",
     "graphify-out/product-history/upgrade-core.js": "998f6d7395c364abdb9d5d6149f1eb937757d106adfaa70dbafd5e5aff0119e8",
     "graphify-out/product-history/upgrade-panel.css": "bce1aeb6263d63d2a78d75108cad0396bb51966be8b30597a438615a616ac3fc",
     "graphify-out/product-history/upgrade-panel.js": "57817e518ca697e31536390e7a1e70cb8d13babbbdcc9622f9ecc060747d4324",
-    "graphify-out/product-history/work-report-core.js": "e5eb0985de97b3e96e7554ae4b25450196b671890855ffe51d8328dbfe253974",
-    "graphify-out/product-history/work-report-ui.js": "7aed53d5d7fdbed40cf44ced4079b80113ffcf7618294cbebedeb86ba34c78a3",
-    "graphify-out/product-history/work-report.schema.json": "0ddb3252f7132fe3a960e1cdcff3d47102598104699e600a4a339b43c86f3d01",
-    "graphify-out/product-history/work-result.cjs": "175ebd057743305efc63f280a1f14d683d953c77a246987ec2204ac0b2e8ffa3",
+    "graphify-out/product-history/work-report-core.js": "ad463d40ed4136df1f590b87b5bdbfb6f530f94d38019b94595746a8938161f1",
+    "graphify-out/product-history/work-report-ui.js": "2988b388ed5d82a1b26f46b5e163bd974eb57fd5e198d1b51a1c4317f43296ce",
+    "graphify-out/product-history/work-report.schema.json": "97f13a7d215db47dfd824714100d0d894b56fa206946c5f32d5432ccfdfac107",
+    "graphify-out/product-history/work-result.cjs": "eb9e508eb80f3a631ac62cacbf0f1cdce884f72c98e1d1c4e3e57452c42efeaa",
     "graphify-out/product-history/world-backup.css": "309c1ce2680f79c2f498830bca3fa2434422f9738034b76921d60179f8ea66bf",
     "graphify-out/product-history/world-backup.js": "6944d0e1e693c85f3f6a194693591b5240446d80cd60bfe40fc4412f3e220ab6",
     "graphify-out/product-history/world-bundle.js": "fe9ae4d45f81df44414b012266c6cae7af23a94bc48040ebde8738defd50c078",
     "graphify-out/product-history/world-community.js": "3a62e0ad1ba0a00aa61f3a12f43576ec148f566ed6bf07e51944354dd665fb02",
-    "graphify-out/product-history/world-core.js": "5cb2f247339e361ad50c6ad457fdc9646251174a594e906755d6a9f967985fc3",
+    "graphify-out/product-history/world-core.js": "ed5bf03c9076426e6b66fe3ebc911bfa2d80e6526010df80dababcf907f7a7ba",
     "graphify-out/product-history/world-graph-boot.js": "12b980260d58e451d6147de35f966b908ca672db76b7033ec2d6c27d836504b3",
     "graphify-out/product-history/world-graph-core.js": "5ae7cc3e552abeeb0259e39af498291fe5e45faecc7dd6a1c2e6ec3f4794cb95",
-    "graphify-out/product-history/world-history-core.js": "8ff308ee3126c1c7ec87d9edafcb794db5165d5d1981b4d4f5a72475f49168f1",
+    "graphify-out/product-history/world-history-core.js": "3bac802a451cb5a4f4da57669c6a4dfe04f41ae72860642bfb56a803eeecd053",
     "graphify-out/product-history/world-locale.js": "71979cd3e7fc0893b07a342803079eeb553895c16119d22b551bd0aa45227847",
     "graphify-out/product-history/world-package.js": "368a424e985e0a719fcd8625b76446f415bc94eadae64fd47063358b94026c3a",
     "graphify-out/product-history/world-save.js": "948aa6c56373a65165072e5cbc07870b7a1f2aa68e9d62afa382dd0b5b17d167",
@@ -89,32 +98,32 @@
     "locale_html.py": "67091a87cad1d292f44e9d7f470153c63f86658516e0e966d3fb16dcde766d77",
     "prepare_pro_locale.py": "9dc9270a167ae3761d270e0c60d955f52a1da494085f247bd075a8db06ccba96"
   },
-  "changes": "Synchronization preserves current work across delayed responses, queued tab notifications and browser back/forward. Structured history retains input revisions across reader restarts, with explicit guarded cursor initialization preserving existing output revisions. Stale report reviews refuse acceptance but allow explicit decline. Partial and historical revocation preserve current completion; corrected new evidence can complete a reopened goal. No native chat polling or automatic acceptance.",
+  "changes": "One optional local launcher serves the world, selected-file event history and explicit Codex work. Generation-bound source chunks save atomically with durable fingerprints and catch up after reopening; observations never award accepted progress. AI plan proposals remain separately reviewed drafts before approval. Up to 128 explicit stable stages retain criteria and proof; one separately confirmed completed stage becomes one floor, repeated or renamed stages add no reward, and short tasks remain objects. Selected work stages bind pending native reports. Restart recovery preserves old game chats and requires explicit new-executor confirmation after a known terminal run; unknown outcomes block dispatch. Default English and paired Russian interfaces, verified existing runtime reuse and guarded full backup restoration preserve user data. Claude native execution, Desktop takeover, cloud accounts/payments/online teams and signed automatic installs remain unconnected. Native output schemas request only mandatory canonical fields so strict provider responses do not invent optional stages, paths or hashes; an explicitly selected work stage remains required and exact-bound. A real single-reader SSE connection delivers changes; manual reconciliation stays pending until a post-request reader pass completes, and fatal worker failures preserve their original reason and prior data. History storage uses compact lossless JSON with byte-bounded pages validated before writing; legacy message IDs, revisions and selected input cursors remain unchanged. Large valid source manifests fit the bounded live transport. Connector and import guides state current per-source, page and aggregate refusal limits accurately.",
   "automatic_update_delivery": false,
   "files": {
     "Start.html": {
-      "bytes": 1856489,
-      "sha256": "65f9b132fbe30ad05371354fd6c9d2fad2a1dce76220684e3be7430288d47d96"
+      "bytes": 2041428,
+      "sha256": "4a42aef070de72f88a141303f12026bfd0debb02aaef2dc297f8c4cd5e4f49d8"
     },
     "README.txt": {
       "bytes": 1665,
-      "sha256": "a3e3ac98687e53b894128cdffc38d75f211f6bf52aeb5c5c61cad60e598f9375"
+      "sha256": "0c0ce4643641880b40fff7d32dfd704421d8a2a122554af692cd875bd9d898f5"
     },
     "INSTALL.md": {
-      "bytes": 23206,
-      "sha256": "ba0225967da5eecbc59a0fcf1314a5f350faffadd92a42bf65d19e5ac28ea889"
+      "bytes": 28778,
+      "sha256": "b692cebd81d9fd031b6e0b68860ccbeb02d11ccd117b75dc78d7afb3347118c6"
     },
     "install-world.py": {
-      "bytes": 11602,
-      "sha256": "c72b13f3acba624abe4e9fbad8ead2063904fc416719d83a8ef4a25d9a0744ba"
+      "bytes": 11777,
+      "sha256": "e2827d147d4b36d76d5aa8359dd43dd8c00caa137de83fed52603f92bf0e628b"
     },
     "setup-world.cjs": {
-      "bytes": 15062,
-      "sha256": "980633e8c9a8bbeda14ce6f0b5da36d6eaaaaca138c5879763fd0f7842fec96c"
+      "bytes": 20975,
+      "sha256": "8aeee12c8bae5ae950f7fd26961e9a61d1f37f3c15b97d3fb7b69c92668057e4"
     },
     "project-world-skill.md": {
-      "bytes": 14052,
-      "sha256": "3acc79754f9ef768e2945dc86cd01ae581be2a1b3e6ad1932cd5e1cfbbc27ecb"
+      "bytes": 17494,
+      "sha256": "fb14855d44fa66fd623c80df9c5e4cf4bbfc14e6366e3ea4e56ce900a0f36c3e"
     },
     "extensions.json": {
       "bytes": 2226,
@@ -129,28 +138,56 @@
       "sha256": "d9318505d93999d6bbc84d2576f24fea84e23c4a317a2ba82f26d637ad99b833"
     },
     "work-report.schema.json": {
-      "bytes": 2002,
-      "sha256": "0ddb3252f7132fe3a960e1cdcff3d47102598104699e600a4a339b43c86f3d01"
+      "bytes": 2088,
+      "sha256": "97f13a7d215db47dfd824714100d0d894b56fa206946c5f32d5432ccfdfac107"
     },
     "work-result.cjs": {
-      "bytes": 14533,
-      "sha256": "175ebd057743305efc63f280a1f14d683d953c77a246987ec2204ac0b2e8ffa3"
+      "bytes": 15009,
+      "sha256": "eb9e508eb80f3a631ac62cacbf0f1cdce884f72c98e1d1c4e3e57452c42efeaa"
     },
     "world-history-core.js": {
-      "bytes": 18394,
-      "sha256": "8ff308ee3126c1c7ec87d9edafcb794db5165d5d1981b4d4f5a72475f49168f1"
+      "bytes": 18425,
+      "sha256": "3bac802a451cb5a4f4da57669c6a4dfe04f41ae72860642bfb56a803eeecd053"
     },
     "history-source.cjs": {
-      "bytes": 27293,
-      "sha256": "10e74998d0d4cc01e1682a6b90235ac8d3975a20101e494d9aae02e957c0a818"
+      "bytes": 34023,
+      "sha256": "cf9f4e2efa78aa54b41ebef5828e9fdd5ebe699ab0c6491ab2f9b3a05d23d74b"
     },
     "HISTORY_IMPORT.md": {
-      "bytes": 3812,
-      "sha256": "404988edd0d1bb633f8e986d33e8450eec6cbbb8b09d9f89a70ff9aa61d3416b"
+      "bytes": 4353,
+      "sha256": "8ed8d4ca2a00790f62b098104b65edebdb076ce093ca11b6785ad31a1523cde7"
     },
     "HISTORY_CONNECTORS.md": {
-      "bytes": 17406,
-      "sha256": "d24d7f926286c882acf43dcf0671f655f0354db2df21ed2705f7cdf91017855b"
+      "bytes": 19777,
+      "sha256": "36d4a10c61af31158920544ef582c961530b6742fb1190766adeafd34b908433"
+    },
+    "run-world.cjs": {
+      "bytes": 11127,
+      "sha256": "30ebc3daee79bca485823414c867d6862b1f7c1946ad1b7f3ae6faa14aac7f33"
+    },
+    "native-bridge-core.cjs": {
+      "bytes": 27014,
+      "sha256": "1faec0bd3bddf264fa358be7f5f8ec85aa40d55521941148b1bacc6416a1291c"
+    },
+    "native-bridge-codex.cjs": {
+      "bytes": 18949,
+      "sha256": "5736d5e6fcb0505ce2e06db493e17eb4f3077c8bd06fe5891d11cedeec0a091b"
+    },
+    "work-report-core.js": {
+      "bytes": 18858,
+      "sha256": "ad463d40ed4136df1f590b87b5bdbfb6f530f94d38019b94595746a8938161f1"
+    },
+    "live-history-service.cjs": {
+      "bytes": 11435,
+      "sha256": "cebd871fe7bfac9fc95efc5a71b204dd9c94f1985e922505f8488bb850f45a2d"
+    },
+    "plan-proposal-core.js": {
+      "bytes": 7798,
+      "sha256": "9e28d1fce9955292eb1059e0b5f21cbb8da24f43fd7b023dc2b0a6a4ee087a3a"
+    },
+    "plan-proposal.schema.json": {
+      "bytes": 1924,
+      "sha256": "62b0c6b5ebcb3d6ed11ea0064ea691749f56467eb63af91f31d1d06eb6efdd1c"
     }
   }
 }

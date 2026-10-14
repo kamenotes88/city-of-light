@@ -1,14 +1,14 @@
 {
   "format_version": 1,
   "product_id": "project-world",
-  "engine_version": "0.15.5",
+  "engine_version": "0.17.4",
   "channel": "preview",
   "license_status": "EFFECTIVE",
   "provenance_status": "REVIEWED",
   "archive": {
     "href": "Project-World-Preview.zip",
-    "bytes": 652528,
-    "sha256": "0421166dfbf5c37c774a48f2df3d0af4d287dcf9b2af3972e19e8dbd1ec20057"
+    "bytes": 746333,
+    "sha256": "560b8c149a9d06ed9b1d0cd95d6607c6ff63e7432112cae73e330b54a73920f1"
   },
   "payload_files": [
     "Start.html",
@@ -26,6 +26,13 @@
     "history-source.cjs",
     "HISTORY_IMPORT.md",
     "HISTORY_CONNECTORS.md",
+    "run-world.cjs",
+    "native-bridge-core.cjs",
+    "native-bridge-codex.cjs",
+    "work-report-core.js",
+    "live-history-service.cjs",
+    "plan-proposal-core.js",
+    "plan-proposal.schema.json",
     "manifest.json"
   ]
 }

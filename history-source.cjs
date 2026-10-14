@@ -3,8 +3,8 @@
 const fs = require('node:fs'), path = require('node:path');
 const {createHash, randomBytes} = require('node:crypto');
 const core = require('./world-history-core.js');
-const MAX_CONFIG = 64 * 1024, MAX_NATIVE = 1024 * 1024 * 1024, MAX_LINE = 128 * 1024, READ_BUFFER = 64 * 1024, MAX_NATIVE_MS = 30000, NATIVE_DETAIL = 900;
-const MAX_CONTAINER = 10 * 1024 * 1024, MAX_RECORDS = 10000, CHUNK_RECORDS = 200, MAX_FEEDS = 50;
+const MAX_CONFIG = 64 * 1024, MAX_NATIVE = 4 * 1024 * 1024 * 1024, MAX_LINE = 128 * 1024, READ_BUFFER = 64 * 1024, MAX_NATIVE_MS = 30000, NATIVE_DETAIL = 900;
+const MAX_CONTAINER = 20 * 1024 * 1024, MAX_RECORDS = 20000, MAX_SOURCE_MESSAGES = 10000, CHUNK_RECORDS = 200, PAGE_FEEDS = 50, PAGE_BYTES = 10 * 1024 * 1024, MAX_FEEDS = 256, MAX_SOURCES = 128;
 const BLOCKED = new Set(['__proto__', 'constructor', 'prototype']);
 const HELP = 'City of Light selected history reader\n\n' +
   'node history-source.cjs --config <absolute-config.json> [--once | --watch | --initialize-structured-cursors]\n\n' +
@@ -62,7 +62,7 @@ function keys(value, required, optional = []) {
 function validId(value) {return typeof value === 'string' && /^[A-Za-z0-9][A-Za-z0-9._:-]{0,109}$/.test(value) && !BLOCKED.has(value);}
 function validateConfig(value, configFile) {
   inspect(value); keys(value,['version','sources','output','intervalSeconds']);
-  if (value.version !== 1 || !Number.isSafeInteger(value.intervalSeconds) || value.intervalSeconds < 30 || value.intervalSeconds > 3600 || !Array.isArray(value.sources) || !value.sources.length || value.sources.length > 32) fail('INVALID_READER_CONFIG');
+  if (value.version !== 1 || !Number.isSafeInteger(value.intervalSeconds) || value.intervalSeconds < 30 || value.intervalSeconds > 3600 || !Array.isArray(value.sources) || !value.sources.length || value.sources.length > MAX_SOURCES) fail('INVALID_READER_CONFIG');
   const output = absoluteLocal(value.output), seen = new Set(), pathKey = file => process.platform === 'win32' ? file.toLowerCase() : file;
   const paths = new Set([pathKey(output),pathKey(configFile)]);
   if (pathKey(output) === pathKey(configFile)) fail('OUTPUT_CANNOT_REPLACE_CONFIG');
@@ -133,13 +133,13 @@ function readNative(source,cached) {
     if(!opened.isFile() || !sameFile(before,opened) || !sameFile(opened,fs.lstatSync(source.path)))fail('SOURCE_CHANGED_DURING_READ');
     let append=!!cached?.native && sameFile(cached.native.stat,opened) && opened.size>cached.native.stat.size && cached.native.offset<=opened.size;
     if(append){const pins=anchor(fd,cached.native.offset);append=pins.head===cached.native.anchors.head && pins.tail===cached.native.anchors.tail;}
-    if(opened.size-(append?cached.native.offset:0)>MAX_NATIVE)fail('NATIVE_PASS_BYTE_LIMIT: maximum is 1 GiB per pass; an existing larger file requires a bounded export');
+    if(opened.size-(append?cached.native.offset:0)>MAX_NATIVE)fail('NATIVE_PASS_BYTE_LIMIT: maximum is 4 GiB per pass; an existing larger file requires a bounded export');
     const boundaryPins=anchor(fd,opened.size);
     const records=append?new Map(cached.records.map(record=>[record.id,record])):new Map();
     const totals=append?{...cached.native.totals}:{lines:0,oversizedRecords:0,oversizedVisibleMessages:0,oversizedOtherRecords:0,truncatedExcerpts:0};
     let updatedAt=append?cached.updatedAt:undefined,offset=append?cached.native.offset:0,lineBytes=0,prefixSize=0,completeOffset=offset,bytesRead=0,incompleteTail=false;
     const buffer=Buffer.alloc(READ_BUFFER),prefix=Buffer.alloc(MAX_LINE);let digest=createHash('sha256');
-    function retain(record){if(!record)return;records.set(record.id,record);if(records.size>MAX_RECORDS)fail('SOURCE_MESSAGE_LIMIT');if(record.date&&record.date.length>10&&(!updatedAt||Date.parse(record.date)>Date.parse(updatedAt)))updatedAt=record.date;}
+    function retain(record){if(!record)return;records.set(record.id,record);if(records.size>MAX_SOURCE_MESSAGES)fail('SOURCE_MESSAGE_LIMIT');if(record.date&&record.date.length>10&&(!updatedAt||Date.parse(record.date)>Date.parse(updatedAt)))updatedAt=record.date;}
     function consume(part){lineBytes+=part.length;digest.update(part);const length=Math.min(part.length,MAX_LINE-prefixSize);if(length){part.copy(prefix,prefixSize,0,length);prefixSize+=length;}if(lineBytes>MAX_LINE){const rest=part.subarray(length),tailSize=4096,tailStart=MAX_LINE-tailSize;if(rest.length>=tailSize)rest.copy(prefix,tailStart,rest.length-tailSize);else if(rest.length){prefix.copy(prefix,tailStart,tailStart+rest.length,MAX_LINE);rest.copy(prefix,MAX_LINE-rest.length);}}}
     function complete(tail=false){
       if(lineBytes>MAX_LINE){
@@ -188,17 +188,56 @@ function chunkSource(source,sourceId) {
   if (source.provider === 'feed-json') return sourceId === source.id;
   return sourceId.startsWith(source.id + ':part') && /^\d{4,}$/.test(sourceId.slice(source.id.length + 5));
 }
+function outputPages(value,projectIds) {
+  let pages;
+  if (value?.format === 'city-light-history-pages') {
+    keys(value,['format','version','pages']);
+    if(value.version!==1||!Array.isArray(value.pages)||!value.pages.length||value.pages.length>Math.ceil(MAX_FEEDS/PAGE_FEEDS))fail('INVALID_HISTORY_PAGES');
+    pages=value.pages;
+  } else pages=[value];
+  const feeds=[], cursors=[], seen=new Set(), cursorIds=new Set(), mapped=new Set();
+  for(const page of pages){
+    const checked=core.validateContainer(page,projectIds);
+    for(const feed of checked.feeds){if(seen.has(feed.source.id))fail('DUPLICATE_OUTPUT_SOURCE');seen.add(feed.source.id);feeds.push(feed);}
+    for(const cursor of checked.readerInputCursors||[]){if(cursorIds.has(cursor.id)||mapped.has(cursor.mappedSourceId))fail('DUPLICATE_OUTPUT_INPUT_CURSOR');cursorIds.add(cursor.id);mapped.add(cursor.mappedSourceId);cursors.push(cursor);}
+  }
+  if(feeds.length>MAX_FEEDS||feeds.reduce((sum,feed)=>sum+feed.records.length,0)>MAX_RECORDS)fail('OUTPUT_HISTORY_COUNT_LIMIT_EXPORT_BEFORE_CONTINUING');
+  return {feeds,...(cursors.length?{readerInputCursors:cursors}:{})};
+}
+function packPages(feeds,cursors=[]) {
+  if(feeds.length>MAX_FEEDS||feeds.reduce((sum,feed)=>sum+feed.records.length,0)>MAX_RECORDS)fail('OUTPUT_HISTORY_COUNT_LIMIT_EXPORT_BEFORE_CONTINUING');
+  const seen=new Set(feeds.map(feed=>feed.source.id));
+  if(seen.size!==feeds.length||cursors.some(cursor=>!seen.has(cursor.mappedSourceId)))fail('OUTPUT_INPUT_CURSOR_NOT_CONFIGURED');
+  const pages=[],empty={format:'city-light-history-feeds',version:1,feeds:[]},baseBytes=Buffer.byteLength(JSON.stringify(empty)),cursorOverhead=Buffer.byteLength(JSON.stringify({...empty,readerInputCursors:[]}))-baseBytes;
+  const cursorSizes=new Map();for(const cursor of cursors){const prior=cursorSizes.get(cursor.mappedSourceId)||{bytes:0,count:0};prior.bytes+=Buffer.byteLength(JSON.stringify(cursor));prior.count++;cursorSizes.set(cursor.mappedSourceId,prior);}
+  let selected=[],feedBytes=0,inputBytes=0,inputCount=0;
+  const pageBytes=(count,bytes,cursorCount,cursorBytes)=>baseBytes+bytes+Math.max(0,count-1)+(cursorCount?cursorOverhead+cursorBytes+cursorCount-1:0);
+  const flush=()=>{
+    const ids=new Set(selected.map(feed=>feed.source.id)),input=cursors.filter(cursor=>ids.has(cursor.mappedSourceId)),page={...empty,feeds:selected,...(input.length?{readerInputCursors:input}:{})};
+    pages.push(page);if(pages.length>Math.ceil(MAX_FEEDS/PAGE_FEEDS))fail('INVALID_HISTORY_PAGES');
+    selected=[];feedBytes=0;inputBytes=0;inputCount=0;
+  };
+  for(const feed of feeds){
+    const bytes=Buffer.byteLength(JSON.stringify(feed)),input=cursorSizes.get(feed.source.id)||{bytes:0,count:0};
+    if(selected.length&&(selected.length===PAGE_FEEDS||pageBytes(selected.length+1,feedBytes+bytes,inputCount+input.count,inputBytes+input.bytes)>PAGE_BYTES))flush();
+    if(pageBytes(1,bytes,input.count,input.bytes)>PAGE_BYTES)fail('OUTPUT_PAGE_BYTE_LIMIT');
+    selected.push(feed);feedBytes+=bytes;inputBytes+=input.bytes;inputCount+=input.count;
+  }
+  if(selected.length||!pages.length)flush();
+  return pages.length===1?pages[0]:{format:'city-light-history-pages',version:1,pages};
+}
 function previousOutput(config) {
   if (!fs.existsSync(config.output)) return {container:{format:'city-light-history-feeds',version:1,feeds:[]},read:null};
   const read = readBounded(config.output,MAX_CONTAINER), value = parse(read.bytes);
-  const checked=core.validateContainer(value,[...new Set(config.sources.map(source=>source.projectId))]);
+  const checked=outputPages(value,[...new Set(config.sources.map(source=>source.projectId))]);
   const seen = new Set(), feeds = checked.feeds.map(feed => {
     const source = config.sources.find(selected => chunkSource(selected,feed?.source?.id)); if (!source || seen.has(feed.source.id)) fail('OUTPUT_SOURCE_NOT_CONFIGURED');
     seen.add(feed.source.id); return core.validateFeed(feed,[source.projectId]);
   });
   const cursors=checked.readerInputCursors;
   for(const cursor of cursors||[]){const source=config.sources.find(source=>source.id===cursor.id);if(!source||source.provider!=='feed-json'||cursor.mappedSourceId!==source.id||cursor.inputSourceId!==source.id)fail('OUTPUT_INPUT_CURSOR_NOT_CONFIGURED');}
-  return {container:{format:value.format,version:1,feeds,...(cursors?{readerInputCursors:cursors}:{})},rawFeeds:value.feeds,read};
+  const rawFeeds=value.format==='city-light-history-pages'?value.pages.flatMap(page=>page.feeds):value.feeds;
+  return {container:{format:'city-light-history-feeds',version:1,feeds,...(cursors?{readerInputCursors:cursors}:{})},rawFeeds,read};
 }
 function sourceFeeds(source,read,previous,inputCursor) {
   if(source.provider==='feed-json'){
@@ -213,11 +252,12 @@ function sourceFeeds(source,read,previous,inputCursor) {
   if (source.provider !== 'feed-json') previous.forEach((feed,index) => {if (feed.source.id !== source.id + ':part' + String(index + 1).padStart(4,'0')) fail('NONCONTIGUOUS_OUTPUT_CHUNKS');});
   const pages = previous.map(feed => ({previous:feed,records:new Map(feed.records.map(record => [record.id,record]))}));
   const assigned = new Map(); pages.forEach((page,index) => page.records.forEach((_,id) => {if (assigned.has(id)) fail('DUPLICATE_STORED_MESSAGE'); assigned.set(id,index);}));
+  if (assigned.size > MAX_SOURCE_MESSAGES) fail('RETAINED_SOURCE_HISTORY_LIMIT');
   for (const record of read.records) {
     if (assigned.has(record.id)) {pages[assigned.get(record.id)].records.set(record.id,record); continue;}
     if (!pages.length || (source.provider !== 'feed-json' && pages.at(-1).records.size >= CHUNK_RECORDS)) pages.push({records:new Map()});
     pages.at(-1).records.set(record.id,record); assigned.set(record.id,pages.length - 1);
-    if (assigned.size > MAX_RECORDS) fail('RETAINED_SOURCE_HISTORY_LIMIT');
+    if (assigned.size > MAX_SOURCE_MESSAGES) fail('RETAINED_SOURCE_HISTORY_LIMIT');
   }
   if (!pages.length) pages.push({records:new Map()});
   return pages.map((page,index) => {
@@ -229,8 +269,19 @@ function sourceFeeds(source,read,previous,inputCursor) {
   });
 }
 function atomicOutput(config,container,priorRead) {
-  const content = serialize(container), bytes = Buffer.from(content,'utf8'); if (bytes.length > MAX_CONTAINER) fail('OUTPUT_HISTORY_LIMIT_EXPORT_BEFORE_CONTINUING');
-  if (priorRead && hash(priorRead.bytes) === hash(bytes)) return {status:'UNCHANGED',feeds:container.feeds.length,records:container.feeds.reduce((sum,feed) => sum + feed.records.length,0)};
+  // Validate the exact page shape with configured projects, including empty feeds.
+  outputPages(container,[...new Set(config.sources.map(source=>source.projectId))]);
+  // Only storage is compact. serialize() also defines legacy fallback message IDs.
+  const content = JSON.stringify(canonical(container)) + '\n', bytes = Buffer.from(content,'utf8');
+  const feeds=container.format==='city-light-history-pages'?container.pages.flatMap(page=>page.feeds):container.feeds;
+  if (bytes.length > MAX_CONTAINER) {
+    const error=Error('OUTPUT_HISTORY_LIMIT_EXPORT_BEFORE_CONTINUING');
+    error.code='OUTPUT_HISTORY_LIMIT_EXPORT_BEFORE_CONTINUING';
+    error.outputBytes=bytes.length;error.maximumBytes=MAX_CONTAINER;
+    error.outputRecords=feeds.reduce((sum,feed)=>sum+feed.records.length,0);error.outputFeeds=feeds.length;
+    throw error;
+  }
+  if (priorRead && hash(priorRead.bytes) === hash(bytes)) return {status:'UNCHANGED',feeds:feeds.length,records:feeds.reduce((sum,feed) => sum + feed.records.length,0)};
   noLinks(config.output); const temporary = path.join(path.dirname(config.output),'.' + path.basename(config.output) + '.history-' + process.pid + '-' + randomBytes(6).toString('hex') + '.tmp');
   let fd;
   try {
@@ -242,7 +293,7 @@ function atomicOutput(config,container,priorRead) {
     } else if (fs.existsSync(config.output)) fail('OUTPUT_APPEARED_REFUSED');
     fs.renameSync(temporary,config.output);
   } finally {if (fd !== undefined) fs.closeSync(fd); if (fs.existsSync(temporary)) fs.unlinkSync(temporary);}
-  return {status:'UPDATED',feeds:container.feeds.length,records:container.feeds.reduce((sum,feed) => sum + feed.records.length,0),sha256:hash(bytes)};
+  return {status:'UPDATED',feeds:feeds.length,records:feeds.reduce((sum,feed) => sum + feed.records.length,0),sha256:hash(bytes)};
 }
 function runOnce(config,cache = new Map()) {
   const previous = previousOutput(config), feeds = [], inputCursors=[], pendingCache=new Map(), diagnostics=[];
@@ -256,7 +307,7 @@ function runOnce(config,cache = new Map()) {
     if(read.inputCursor)inputCursors.push(read.inputCursor);
   }
   if (feeds.length > MAX_FEEDS || feeds.reduce((sum,feed) => sum + feed.records.length,0) > MAX_RECORDS) fail('OUTPUT_HISTORY_COUNT_LIMIT_EXPORT_BEFORE_CONTINUING');
-  const result=atomicOutput(config,{format:'city-light-history-feeds',version:1,feeds,...(inputCursors.length?{readerInputCursors:inputCursors}:{})},previous.read);for(const [id,read]of pendingCache)cache.set(id,read);
+  const result=atomicOutput(config,packPages(feeds,inputCursors),previous.read);for(const [id,read]of pendingCache)cache.set(id,read);
   return {...result,diagnostics};
 }
 function initializeStructuredCursors(config) {
@@ -275,7 +326,7 @@ function initializeStructuredCursors(config) {
   }
   // Metadata-only initialization preserves the exact retained feeds and generated
   // output revisions, so an already imported world can continue the same lineage.
-  const result=atomicOutput(config,{...previous.container,feeds:previous.rawFeeds,readerInputCursors:cursors},previous.read);
+  const result=atomicOutput(config,packPages(previous.rawFeeds,cursors),previous.read);
   return {...result,mode:'INITIALIZE_STRUCTURED_CURSORS',initialized:cursors.length-(previous.container.readerInputCursors?.length||0)};
 }
 function argumentsFor(args) {
@@ -283,15 +334,43 @@ function argumentsFor(args) {
   if (![2,3].includes(args.length) || args[0] !== '--config' || !args[1] || (args.length === 3 && !['--once','--watch','--initialize-structured-cursors'].includes(args[2]))) fail('USAGE: use --help');
   return {config:absoluteLocal(args[1]),watch:args[2] === '--watch',initializeStructured:args[2] === '--initialize-structured-cursors'};
 }
+function loadConfig(file) {
+  const configPath=absoluteLocal(file), read=readBounded(configPath,MAX_CONFIG);
+  return {config:validateConfig(parse(read.bytes),configPath),configPath,configDigest:hash(read.bytes)};
+}
+// The reader CLI and the live service share these narrow transport locks. A
+// lock contains only ownership metadata, never chat contents or achievement data.
+function claimWriter(config,configFile) {
+  const paths=[absoluteLocal(configFile),absoluteLocal(config.output)].sort(), released=[];
+  try {
+    for(const target of paths){
+      const digest=hash(process.platform==='win32'?target.toLowerCase():target), file=path.join(path.dirname(target),'.city-light-history-'+digest.slice(0,24)+'.lock');noLinks(file);
+      if(fs.existsSync(file)){
+        const priorRead=readBounded(file,2048), prior=parse(priorRead.bytes);
+        keys(prior,['format','pid','nonce','targetDigest']);
+        if(prior.format!=='city-light-history-lock'||!Number.isSafeInteger(prior.pid)||prior.pid<1||!/^[a-f0-9]{32}$/.test(prior.nonce)||prior.targetDigest!==digest)fail('INVALID_HISTORY_WRITER_LOCK');
+        let live=true;try{process.kill(prior.pid,0);}catch(error){if(error.code==='ESRCH')live=false;}
+        if(live)fail('HISTORY_WRITER_ALREADY_RUNNING');
+        const checked=readBounded(file,2048);if(hash(checked.bytes)!==hash(priorRead.bytes)||signature(checked.stat)!==signature(priorRead.stat))fail('HISTORY_WRITER_LOCK_CHANGED');noLinks(file);fs.unlinkSync(file);
+      }
+      const raw=Buffer.from(JSON.stringify({format:'city-light-history-lock',pid:process.pid,nonce:randomBytes(16).toString('hex'),targetDigest:digest})+'\n');
+      const fd=fs.openSync(file,fs.constants.O_WRONLY|fs.constants.O_CREAT|fs.constants.O_EXCL|(fs.constants.O_NOFOLLOW||0),0o600);
+      try{let offset=0;while(offset<raw.length){const written=fs.writeSync(fd,raw,offset,raw.length-offset);if(!written)fail('HISTORY_LOCK_WRITE_FAILED');offset+=written;}fs.fsyncSync(fd);}finally{fs.closeSync(fd);}
+      released.push(()=>{try{noLinks(file);const current=readBounded(file,2048);if(hash(current.bytes)===hash(raw))fs.unlinkSync(file);}catch{}});
+    }
+  }catch(error){for(const release of released.reverse())release();throw error;}
+  return ()=>{for(const release of released.splice(0).reverse())release();};
+}
 function main(args = process.argv.slice(2)) {
   const options = argumentsFor(args); if (options.help) return {help:HELP};
-  const config = validateConfig(parse(readBounded(options.config,MAX_CONFIG).bytes),options.config), cache = new Map();
-  if(options.initializeStructured)return initializeStructuredCursors(config);
-  const first = runOnce(config,cache); if (!options.watch) return first;
+  const loaded=loadConfig(options.config), config=loaded.config, cache = new Map(), release=claimWriter(config,options.config);
+  let first;try{first=options.initializeStructured?initializeStructuredCursors(config):runOnce(config,cache);}catch(error){release();throw error;}
+  if(!options.watch){release();return first;}
   process.stdout.write(serialize({...first,watching:true,intervalSeconds:config.intervalSeconds}));
   let outputStamp = signature(fs.lstatSync(config.output)), lastError;
   const timer = setInterval(() => {
     try {
+      if(hash(readBounded(options.config,MAX_CONFIG).bytes)!==loaded.configDigest)fail('HISTORY_CONFIG_CHANGED_RESTART_REQUIRED');
       noLinks(config.output);
       const unchanged = signature(fs.lstatSync(config.output)) === outputStamp && config.sources.every(source => {noLinks(source.path); return cache.get(source.id)?.signature === signature(fs.lstatSync(source.path));});
       if (unchanged) return;
@@ -299,7 +378,7 @@ function main(args = process.argv.slice(2)) {
       if (result.status !== 'UNCHANGED') process.stdout.write(serialize(result));
     } catch (error) {if (lastError !== error.message) process.stderr.write('ERROR: ' + error.message + '; previous output retained\n'); lastError = error.message;}
   },config.intervalSeconds * 1000);
-  const stop = () => {clearInterval(timer); process.removeListener('SIGINT',stop); process.removeListener('SIGTERM',stop);};
+  const stop = () => {clearInterval(timer);release(); process.removeListener('SIGINT',stop); process.removeListener('SIGTERM',stop);};
   process.once('SIGINT',stop); process.once('SIGTERM',stop);
   return {watching:true,stop};
 }
@@ -307,4 +386,4 @@ if (require.main === module) {
   try {const result = main(); if (!result.watching) process.stdout.write(result.help || serialize(result));}
   catch (error) {process.stderr.write('ERROR: ' + error.message + '; no output replaced\n'); process.exitCode = 1;}
 }
-module.exports = {main,argumentsFor,validateConfig,readSource,messageRecord,runOnce,initializeStructuredCursors,inertText,eventDate};
+module.exports = {main,argumentsFor,validateConfig,readSource,messageRecord,runOnce,initializeStructuredCursors,inertText,eventDate,loadConfig,claimWriter,previousOutput,outputPages,packPages,readBounded,noLinks,signature,hash,canonical,parse,MAX_CONFIG,MAX_CONTAINER,MAX_RECORDS,MAX_SOURCE_MESSAGES,MAX_NATIVE,MAX_FEEDS,MAX_SOURCES};
