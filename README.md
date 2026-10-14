@@ -24,6 +24,10 @@ worker's report returns to your city as pending evidence. A confirmed complete
 stage adds a floor; a short completed task becomes a city object. Repeated
 messages and game play do not manufacture project achievements.
 
+Legacy plans have an explicit **Prepare verifiable stages** action: describe
+how to check each stage, save a draft, then approve it separately. Existing
+results and history stay intact; preparing a plan awards no floors or XP.
+
 Selected local files update through one foreground event connection, without
 model calls. Closing and reopening catches up from saved source revisions.
 **Refresh chat** checks synchronization when you need it. Planning and actual
@@ -53,7 +57,7 @@ screenshots of that same 0.8.0 example, rather than continuous gameplay.
    the context you choose with your assistant to continue.
 
 ```text
-Install and set up City of Light (Project World engine) using https://raw.githubusercontent.com/kamenotes88/city-of-light/c30af4c017feac82666160071f7271b16d659b19/INSTALL.md.
+Install and set up City of Light (Project World engine) using https://raw.githubusercontent.com/kamenotes88/city-of-light/61427c679446652d5a79677338ede69cb71f6908/INSTALL.md.
 Start with one useful result. Reuse the context I have already permitted,
 ask up to three short questions, and help me open my own world.
 Use my known language preference, otherwise English.

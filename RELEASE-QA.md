@@ -1,5 +1,51 @@
 # Exported preview checks
 
+## Checked preview 0.17.5 — October 14, 2026 UTC
+
+Build and explicit --check passed 40 JavaScript suites and 16 Python cases
+(15 passed, one OS-dependent skip). The new Pro input regressions are part
+of mandatory builds. Isolated English/Russian install, create, repeat and
+separate restoration preserved all nine backup sections.
+
+A sustained real HTTP test found that ordinary stream backpressure wrongly
+closed larger connections in 0.17.4. The fix waits for drain, keeps only the
+latest pending snapshot, limits response buffers to 128 KiB and disconnects
+a stalled consumer after 30 seconds. One uninterrupted connection received
+keepalive and two changes for small, 77-chunk and 226-chunk fictional sources.
+Delivery measured 111–193 ms, 1.6–2.4 s and 2.1–3.0 s respectively. These
+are local transport measurements, not an instant cloud-chat guarantee.
+
+Actual maintainer browser checks cover required legacy-stage criteria,
+saved draft then separate approval, evidence-backed stage acceptance and
+agreement between City, internal graph and Progress, with the whole goal
+still open. Mission start, keyboard input and Escape pause passed without
+console errors. Source tests cover independent keyboard/touch ownership,
+repeated proofs, revocation, archive/restore, task objects and the 128-stage
+model with the documented 50-floor graphical detail limit. Personal adoption
+retained prior records, plans, placements, achievements and XP. No business
+achievement or model inference was created by this maintenance update.
+
+Archive: 747731 bytes; SHA256
+`94bc65a91c53cfc7e876a23c8251c1ede05731c15b09c0a832bbc22619568514`.
+Source SHA256:
+`5c6f53d19ab4e3f738897b26cfcd69ba4a67a68b7c1ee99a6f0073d671b3f4ce`.
+
+The prior read-only Codex plan/report pilot is reused by unchanged provider
+source pins. Native Claude, autonomous five-chat teams, accounts, payments,
+referrals, online cities and signed automatic installs remain unconnected.
+All historical checks below remain evidence for their stated scopes; the
+new sustained-flow test supersedes their transport coverage. Public HTTPS
+and release assets are verified separately after actual publication.
+
+### Public installer verification — 0.17.5
+
+All 25 anonymous commit-pinned HTTPS files matched the checked export at
+`61427c679446652d5a79677338ede69cb71f6908`. Actual HTTPS installation,
+repeat and verification passed; English/Russian create, repeat, backup and
+separate restoration preserved all nine sections. No credentials or private
+projects were sent. [Installer CI](https://github.com/kamenotes88/city-of-light/actions/runs/38583197860)
+passed at the same commit. Release assets are verified separately below.
+
 ## Checked local-runner preview 0.17.4 — October 14, 2026 UTC
 
 The candidate build and final explicit --check passed all 39 JavaScript suites
