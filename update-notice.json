@@ -3,8 +3,8 @@
   "product_id": "project-world",
   "channel": "preview",
   "latest": {
-    "version": "0.17.4",
-    "published_at": "2026-10-14T04:19:51Z",
-    "summary": "Open your world with an optional local launcher. Selected Codex/Claude history updates through one event connection without model calls; Refresh chat checks freshness. Review AI plans before approval, explicitly start supported game-owned Codex work, and accept evidence-backed stages. Save and restore the complete world separately. Accounts, payments, online teams and automatic software installation remain unconnected."
+    "version": "0.17.5",
+    "published_at": "2026-10-14T14:56:24Z",
+    "summary": "Reliable selected-chat history without model calls: larger streams stay connected. Prepare verifiable stages in old plans, save a draft and approve separately. Keyboard and touch controls keep their own inputs. Old history and rewards remain intact. Accounts, payments, online teams and automatic software installation remain unconnected."
   }
 }

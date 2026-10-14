@@ -46,6 +46,11 @@ separate restoration preserved all nine sections. No credentials or private
 projects were sent. [Installer CI](https://github.com/kamenotes88/city-of-light/actions/runs/38583197860)
 passed at the same commit. Release assets are verified separately below.
 
+All four v0.17.5 release assets were downloaded anonymously and matched the
+checked exact bytes. The previous v0.17.4 ZIP remains available and matches its
+original checksum. [Release commit CI](https://github.com/kamenotes88/city-of-light/actions/runs/38584611693)
+passed at `0ba54c7ab4be0c545fe4a272a6da737acdf06d8f`.
+
 ## Checked local-runner preview 0.17.4 — October 14, 2026 UTC
 
 The candidate build and final explicit --check passed all 39 JavaScript suites
