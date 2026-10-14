@@ -1,6 +1,6 @@
 {
   "format_version": 1,
-  "engine_version": "0.17.4",
+  "engine_version": "0.17.5",
   "profile_version": 1,
   "license_status": "EFFECTIVE",
   "provenance_status": "REVIEWED",
@@ -9,10 +9,10 @@
   "includes_user_data": false,
   "connectors": "manual-context only",
   "channel": "preview",
-  "source_sha256": "86d4b393c6a360efcab73e2cd1c2ddb247983f5aa5e48e0f2d0590ea42030cc0",
+  "source_sha256": "5c6f53d19ab4e3f738897b26cfcd69ba4a67a68b7c1ee99a6f0073d671b3f4ce",
   "sources": {
-    "PRODUCT_FILES.json": "6a1851bc18e0eabc3facca4b5d873cfb87b987d72136696dd9d4c3b2def03590",
-    "build_portable.py": "3a9fb53c24ee09d8bed3edcced504944601208f5da7bb0c33bbad693ade66353",
+    "PRODUCT_FILES.json": "a246f9c9a1509720c1f704ff91ed418a35f889f716d1c96c1884f53a63dcf56c",
+    "build_portable.py": "0ffbf8634ea97f0cf3639aaf509b0b8a65b6b9bec5d2fec0fd7b8e2bc72a36d9",
     "build_public_pro.py": "90128ace6bff838e3d34d4c926977549743ec702a124998bca37a2a25a25bf4c",
     "graphify-out/product-history/HISTORY_CONNECTORS.md": "36d4a10c61af31158920544ef582c961530b6742fb1190766adeafd34b908433",
     "graphify-out/product-history/HISTORY_IMPORT.md": "8ed8d4ca2a00790f62b098104b65edebdb076ce093ca11b6785ad31a1523cde7",
@@ -28,7 +28,7 @@
     "graphify-out/product-history/journey.js": "73a03ffa972a8e440194ad2356a25390a67eeb48f34d24aa7af4b5af05822c47",
     "graphify-out/product-history/knowledge.css": "19a40b9ea45fd31e29859c0890657a7ae48e2c95622e952b7603024118222c58",
     "graphify-out/product-history/knowledge.js": "d661e1456ff4492f741ee86c0ac0f33762a0052e8240b2d145107ec61cad0ba5",
-    "graphify-out/product-history/live-history-service.cjs": "cebd871fe7bfac9fc95efc5a71b204dd9c94f1985e922505f8488bb850f45a2d",
+    "graphify-out/product-history/live-history-service.cjs": "7d881ca4f467c326e9dd8f69dd108636f8f7047b52ac5db354b75c15d10ee603",
     "graphify-out/product-history/locale-catalogue.json": "aa019a02c501361913ab207d5731ad057d5d59979594eac25743a7ce48d8ce66",
     "graphify-out/product-history/mobile.css": "471fd1ec6803b16ae0884b1aa1c0a40f901bbbb263ab80c545a97ecd4c9e9579",
     "graphify-out/product-history/native-bridge-codex.cjs": "5736d5e6fcb0505ce2e06db493e17eb4f3077c8bd06fe5891d11cedeec0a091b",
@@ -51,15 +51,15 @@
     "graphify-out/product-history/playground.css": "b506c62f62dbe24cc4b4072bb5392c432e345b07834a9362ebc71bac644512f3",
     "graphify-out/product-history/playground.html": "9229ba1cc387f2437f229504175b8e1653b73512a5d36d0a48b9264381cee2bf",
     "graphify-out/product-history/playground.js": "3263b6a10a58acdb50ed43d2d5b7a4823188dd5b480356b63d165a8b054f14da",
-    "graphify-out/product-history/pro-locale-catalogue.json": "99524c0153e317694e9dfd71e86442ddf647e5ffd8fb1cb61e6afdc790b6e77f",
+    "graphify-out/product-history/pro-locale-catalogue.json": "12015bbf835cd44c0803e96b2c760d185099d88388298bea8a3c472f554258f8",
     "graphify-out/product-history/pro-locale.js": "516f8613dc20ac5e85917d285dc8be12fbc86a758ddbb8049491c4ce1996351c",
     "graphify-out/product-history/pro-package.js": "e5dd65c873c8f3d906d3ca29376f5fe61dc3dc2b9f2ff700345aeb1a193599e8",
     "graphify-out/product-history/pro-public-tools.js": "637256a94db7d0e58d8a99be1a6672c598c01e998e649579b648b9ea46957f58",
     "graphify-out/product-history/pro/adventure.css": "31822d0113fa2a8047813fe99a17f9c5396745de59e2592d02c15f0e745d441a",
-    "graphify-out/product-history/pro/adventure.js": "2231378f924cf9ef3164533817eca9b90940d035f00c3ee9ba073711e48663bb",
+    "graphify-out/product-history/pro/adventure.js": "a1813fc9ff109cce8fd74f4ab0f61526bf26c14aa239a061452c8a822d198b26",
     "graphify-out/product-history/pro/advice.js": "b5b89ae8fb83e4bb25111e3c32a3f874ffc68d973515a1ae3ced014e58aaf771",
     "graphify-out/product-history/pro/app.css": "b70ffaeed282422ef87e6e9463a391bd033c3a66df2422fb475282d37508013e",
-    "graphify-out/product-history/pro/app.js": "8d4ab447c3d203de80c21f0734a86664b60e62e0afd624206b5a9a72d73a1f3b",
+    "graphify-out/product-history/pro/app.js": "f91ded21cae9a3354318e39f7b64540335d6150e4919b2b99254618db69d598f",
     "graphify-out/product-history/pro/city.css": "168f41910d402a5fae34d0943e72aad03d77b1e3c61598afa5ea8a1917348b89",
     "graphify-out/product-history/pro/city.js": "ba24d71a3f36de1865e8a507de2ef13f83cedbd23c12f0329c658ae5a4eb292d",
     "graphify-out/product-history/pro/index.html": "e721b33336776e08bf31c4a8a1c0dd808b490db4f4260f8be5ad0aec390086be",
@@ -98,16 +98,16 @@
     "locale_html.py": "67091a87cad1d292f44e9d7f470153c63f86658516e0e966d3fb16dcde766d77",
     "prepare_pro_locale.py": "9dc9270a167ae3761d270e0c60d955f52a1da494085f247bd075a8db06ccba96"
   },
-  "changes": "One optional local launcher serves the world, selected-file event history and explicit Codex work. Generation-bound source chunks save atomically with durable fingerprints and catch up after reopening; observations never award accepted progress. AI plan proposals remain separately reviewed drafts before approval. Up to 128 explicit stable stages retain criteria and proof; one separately confirmed completed stage becomes one floor, repeated or renamed stages add no reward, and short tasks remain objects. Selected work stages bind pending native reports. Restart recovery preserves old game chats and requires explicit new-executor confirmation after a known terminal run; unknown outcomes block dispatch. Default English and paired Russian interfaces, verified existing runtime reuse and guarded full backup restoration preserve user data. Claude native execution, Desktop takeover, cloud accounts/payments/online teams and signed automatic installs remain unconnected. Native output schemas request only mandatory canonical fields so strict provider responses do not invent optional stages, paths or hashes; an explicitly selected work stage remains required and exact-bound. A real single-reader SSE connection delivers changes; manual reconciliation stays pending until a post-request reader pass completes, and fatal worker failures preserve their original reason and prior data. History storage uses compact lossless JSON with byte-bounded pages validated before writing; legacy message IDs, revisions and selected input cursors remain unchanged. Large valid source manifests fit the bounded live transport. Connector and import guides state current per-source, page and aggregate refusal limits accurately.",
+  "changes": "One optional local launcher serves the world, selected-file event history and explicit Codex work. Generation-bound source chunks save atomically with durable fingerprints and catch up after reopening; observations never award accepted progress. AI plan proposals remain separately reviewed drafts before approval. Up to 128 explicit stable stages retain criteria and proof; one separately confirmed completed stage becomes one floor, repeated or renamed stages add no reward, and short tasks remain objects. Selected work stages bind pending native reports. Restart recovery preserves old game chats and requires explicit new-executor confirmation after a known terminal run; unknown outcomes block dispatch. Default English and paired Russian interfaces, verified existing runtime reuse and guarded full backup restoration preserve user data. Claude native execution, Desktop takeover, cloud accounts/payments/online teams and signed automatic installs remain unconnected. Native output schemas request only mandatory canonical fields so strict provider responses do not invent optional stages, paths or hashes; an explicitly selected work stage remains required and exact-bound. A real single-reader SSE connection delivers changes; manual reconciliation stays pending until a post-request reader pass completes, and fatal worker failures preserve their original reason and prior data. History storage uses compact lossless JSON with byte-bounded pages validated before writing; legacy message IDs, revisions and selected input cursors remain unchanged. Large valid source manifests fit the bounded live transport. Connector and import guides state current per-source, page and aggregate refusal limits accurately. Large SSE generations now respect bounded drain and coalesce the latest manifest without disconnecting on ordinary backpressure. Keyboard and touch ownership remain independent until their own release, with complete pause/blur reset. Legacy plans can explicitly prepare stable stages and criteria as a separately saved draft; approval, stage completion and existing achievements remain independent.",
   "automatic_update_delivery": false,
   "files": {
     "Start.html": {
-      "bytes": 2041428,
-      "sha256": "4a42aef070de72f88a141303f12026bfd0debb02aaef2dc297f8c4cd5e4f49d8"
+      "bytes": 2044234,
+      "sha256": "32d0e4d8fb03e4c17f1e659e5d59faa98e4005135038f9218d4d593cbdcc76ef"
     },
     "README.txt": {
       "bytes": 1665,
-      "sha256": "0c0ce4643641880b40fff7d32dfd704421d8a2a122554af692cd875bd9d898f5"
+      "sha256": "82aef2dad156a12f15e23d545997e6385b8df13f492d1079f2b2f68b6cd747d5"
     },
     "INSTALL.md": {
       "bytes": 28778,
@@ -178,8 +178,8 @@
       "sha256": "ad463d40ed4136df1f590b87b5bdbfb6f530f94d38019b94595746a8938161f1"
     },
     "live-history-service.cjs": {
-      "bytes": 11435,
-      "sha256": "cebd871fe7bfac9fc95efc5a71b204dd9c94f1985e922505f8488bb850f45a2d"
+      "bytes": 12448,
+      "sha256": "7d881ca4f467c326e9dd8f69dd108636f8f7047b52ac5db354b75c15d10ee603"
     },
     "plan-proposal-core.js": {
       "bytes": 7798,

@@ -1,4 +1,4 @@
-﻿Project World — portable preview 0.17.4
+﻿Project World — portable preview 0.17.5
 
 English is the default interface. Your assistant can choose Russian or prepare a complete text-only pack for your language.
 Open Start.html in a modern browser, or give your assistant INSTALL.md.

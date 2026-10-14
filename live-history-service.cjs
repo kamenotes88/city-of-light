@@ -5,7 +5,7 @@ const fs=require('node:fs'),path=require('node:path');
 const {Worker,isMainThread,parentPort,workerData}=require('node:worker_threads');
 const reader=require('./history-source.cjs');
 // Aggregate limits are imported from the reader; per-feed responses stay 2 MiB.
-const FORMAT='city-light-live-manifest',MAX_CLIENTS=8,MAX_FEED_BYTES=2*1024*1024;
+const FORMAT='city-light-live-manifest',MAX_CLIENTS=8,MAX_FEED_BYTES=2*1024*1024,MAX_CLIENT_BUFFER=128*1024,CLIENT_DRAIN_MS=30000;
 const fingerprint=value=>reader.hash(JSON.stringify(reader.canonical(value)));
 const errorCode=error=>/^[A-Z][A-Z0-9_]{0,100}$/.test(error?.code||'')?error.code:/^[A-Z][A-Z0-9_]{0,100}(?::|$)/.test(error?.message||'')?error.message.split(':')[0]:'HISTORY_READ_FAILED';
 const fail=(code,status=400)=>{const error=Error(code);error.code=code;error.status=status;throw error;};
@@ -86,17 +86,26 @@ function createLiveHistory(options){
   if(!isMainThread)fail('MAIN_THREAD_REQUIRED');
   if(typeof options?.worldId!=='string'||!/^[A-Za-z0-9][A-Za-z0-9._:-]{0,109}$/.test(options.worldId))fail('INVALID_HISTORY_WORLD');
   const loaded=reader.loadConfig(options.configPath),release=reader.claimWriter(loaded.config,loaded.configPath);
-  const worldId=options.worldId,clients=new Set(),feeds=new Map();let closed=false,timeout,active=false,lastRefresh=0,requestedRefresh=0,refreshTimer,fatalError=null;
+  const worldId=options.worldId,clients=new Map(),feeds=new Map();let closed=false,timeout,active=false,lastRefresh=0,requestedRefresh=0,refreshTimer,fatalError=null;
   let current={format:FORMAT,version:1,worldId,generation:generation(worldId,[]),status:'warming',sources:[],checkedAt:null,error:null};
   let diagnostics=[];
   const worker=new Worker(__filename,{workerData:{kind:'city-light-history-worker',configPath:loaded.configPath,configDigest:loaded.configDigest}});
-  const notify=()=>{
-    const frame='event: snapshot\nid: '+current.generation+'\ndata: '+JSON.stringify(current)+'\n\n';
-    for(const client of [...clients]){
-      if(client.destroyed||client.writableLength>128*1024){clients.delete(client);client.destroy();continue;}
-      if(!client.write(frame)){clients.delete(client);client.destroy();}
-    }
-  };
+  function removeClient(client,destroy=false){
+    const state=clients.get(client);if(!state)return;clients.delete(client);clearTimeout(state.timer);if(state.drain)client.removeListener('drain',state.drain);state.pending=null;
+    if(destroy)client.destroy();
+  }
+  function writeClient(client,frame){
+    const state=clients.get(client);if(!state)return;
+    if(client.destroyed||client.writableLength>MAX_CLIENT_BUFFER||Buffer.byteLength(frame)>MAX_CLIENT_BUFFER){removeClient(client,true);return;}
+    // A false write is ordinary backpressure, not a failed connection. Keep at
+    // most one queued snapshot; newer generations replace that pending frame.
+    if(state.drain){state.pending=frame;return;}
+    if(client.write(frame))return;
+    state.drain=()=>{clearTimeout(state.timer);state.timer=null;state.drain=null;const pending=state.pending;state.pending=null;if(pending)writeClient(client,pending);};
+    client.once('drain',state.drain);state.timer=setTimeout(()=>removeClient(client,true),CLIENT_DRAIN_MS);
+  }
+  const snapshotFrame=()=> 'event: snapshot\nid: '+current.generation+'\ndata: '+JSON.stringify(current)+'\n\n';
+  const notify=()=>{const frame=snapshotFrame();for(const client of [...clients.keys()])writeClient(client,frame);};
   const stale=code=>{if(closed)return;clearTimeout(timeout);active=false;current={...current,status:'stale',checkedAt:utc(),error:{code}};notify();};
   const fatal=code=>{fatalError=fatalError||code;clearTimeout(refreshTimer);refreshTimer=null;stale(fatalError);};
   worker.on('message',message=>{
@@ -119,7 +128,7 @@ function createLiveHistory(options){
   });
   worker.on('error',()=>fatal('HISTORY_WORKER_FAILED'));
   worker.on('exit',()=>{if(!closed)fatal('HISTORY_WORKER_STOPPED');});
-  const heartbeat=setInterval(()=>{for(const client of [...clients]){if(client.destroyed||client.writableLength>128*1024||!client.write(': keepalive\n\n')){clients.delete(client);client.destroy();}}},15000);
+  const heartbeat=setInterval(()=>{for(const [client,state] of [...clients]){if(client.destroyed||client.writableLength>MAX_CLIENT_BUFFER){removeClient(client,true);continue;}if(!state.drain)writeClient(client,': keepalive\n\n');}},15000);
   const snapshot=()=>JSON.parse(JSON.stringify(current));
   const refresh=()=>{
     if(closed)fail('HISTORY_SERVICE_CLOSED',503);if(fatalError)return snapshot();
@@ -131,8 +140,8 @@ function createLiveHistory(options){
   function subscribe(req,res,headers){
     if(closed)fail('HISTORY_SERVICE_CLOSED',503);if(clients.size>=MAX_CLIENTS)fail('HISTORY_CLIENT_LIMIT',429);
     res.writeHead(200,{...headers,'Content-Type':'text/event-stream; charset=utf-8','Connection':'keep-alive','X-Accel-Buffering':'no'});
-    res.flushHeaders();clients.add(res);res.write('event: snapshot\nid: '+current.generation+'\ndata: '+JSON.stringify(current)+'\n\n');
-    req.on('close',()=>clients.delete(res));res.on('close',()=>clients.delete(res));
+    res.flushHeaders();clients.set(res,{pending:null,drain:null,timer:null});
+    req.on('close',()=>removeClient(res));res.on('close',()=>removeClient(res));res.on('error',()=>removeClient(res,true));writeClient(res,snapshotFrame());
   }
   function feed(query){
     const entries=[...query.entries()],names=['id','revision','fingerprint','generation'];
@@ -142,7 +151,7 @@ function createLiveHistory(options){
     if(query.get('generation')!==current.generation||query.get('revision')!==String(source.revision)||query.get('fingerprint')!==source.fingerprint)fail('HISTORY_GENERATION_MOVED',409);
     return feeds.get(source.id);
   }
-  const close=async()=>{if(closed)return;closed=true;clearInterval(heartbeat);clearTimeout(timeout);clearTimeout(refreshTimer);for(const client of clients)client.end();clients.clear();await worker.terminate();release();};
+  const close=async()=>{if(closed)return;closed=true;clearInterval(heartbeat);clearTimeout(timeout);clearTimeout(refreshTimer);for(const client of [...clients.keys()]){removeClient(client);client.end();}await worker.terminate();release();};
   return {snapshot,refresh,subscribe,feed,close,configPath:loaded.configPath,projectIds:[...new Set(loaded.config.sources.map(source=>source.projectId))],diagnostics:()=>JSON.parse(JSON.stringify(diagnostics)),get active(){return active;}};
 }
 module.exports={createLiveHistory,fingerprint,generation,sameCursor,FORMAT};
